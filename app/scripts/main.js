@@ -32,22 +32,16 @@ $(function(){
 
         //template: _.template('<h3><%=artist %>: <%=title %></h3>'),
 
-        el: '#record',
-
-        className: '',
-
-        events: {},
+        el: $('#record'),
 
         initialize: function () {
             this.collection = new RecordCollection();
-            this.collection.fetch({reset:true});
-            this.render();
-
-            this.listenTo(this.collection, 'change', this.render);
+            this.collection.on('sync', this.render, this);
+            this.collection.fetch();
         },
 
         render: function () {
-            var renderedContent = this.collection;
+            var renderedContent = this.collection.toJSON();
             console.log(renderedContent);
             this.$el.html(renderedContent);
         }
