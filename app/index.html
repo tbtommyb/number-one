@@ -19,18 +19,17 @@
         <![endif]-->
 
 
-        <div class="hero-unit">
-          <h1>'Allo, 'Allo!</h1>
-          <p>You now have</p>
-          <ul>
-            <li>HTML5 Boilerplate</li>
-            <li>jQuery</li>
-            <li>Backbone.js</li>
-            <li>Lodash.js</li>
-            <li>Modernizr</li>
-
-          </ul>
-        </div>
+        <section id="number-oneapp">
+            <header id="header">
+                <h1>What was No. 1 on your birthday?</h1>
+                <h2>Please enter your birthday:</h2>
+                <input id="user-date" type="date">
+            </header>
+            <section id="main">
+                <h2>The following record was No. 1 on your birthday:</h2>
+                <div id="record"></div>
+            </section>
+        </section>
 
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
@@ -48,7 +47,6 @@
         <script src="bower_components/lodash/dist/lodash.compat.js"></script>
         <script src="bower_components/backbone/backbone.js"></script>
         <!-- endbuild -->
-
         <!-- build:js({.tmp,app}) scripts/main.js -->
         <script src="scripts/main.js"></script>
         <script src="scripts/templates.js"></script>

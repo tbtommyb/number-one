@@ -9,17 +9,12 @@ var app = express();
 app.use(express.static( path.join(__dirname, 'site') ) );
 
 //Start server
-var port = 4711;
+var port = 9000;
 
 //Database stuff
 
 var file = __dirname + '/data/data.db';
 var db = new sqlite3.Database(file);
-
-
-app.listen( port, function() {
-    console.log( 'Express server listening on port %d in %s mode', port, app.settings.env );
-});
 
 //Routes
 
@@ -29,6 +24,8 @@ app.get('/api', function(req, res) {
 
 app.get('/api/records', function(req, res) {
 	db.all("SELECT * FROM Data", function(err, row) {
+		res.contentType('application/json');
+        res.setHeader("Access-Control-Allow-Origin", "*");
 		res.json(row);
 	});
 });
@@ -36,6 +33,12 @@ app.get('/api/records', function(req, res) {
 app.get('/api/records/:reqDate/', function (req, res) {
 	var reqDate = req.params.reqDate;
 	db.get("SELECT * FROM Data WHERE date <= '" + reqDate + "' ORDER BY id DESC LIMIT 1", function(err, row) {
+		res.contentType('application/json');
+        res.setHeader("Access-Control-Allow-Origin", "*");
 		res.json(row);
 	});
+});
+
+app.listen( port, function() {
+    console.log( 'Express server listening on port %d in %s mode', port, app.settings.env );
 });
