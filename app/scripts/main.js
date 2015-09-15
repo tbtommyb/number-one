@@ -4,15 +4,7 @@ $(function(){
 
     var Record = Backbone.Model.extend({
 
-        initialize: function() {
-        },
-
         defaults: {
-            title: 'Hi',
-            artist: 'There'
-        },
-
-        validate: function(attrs, options) {
         },
 
         parse: function(response, options)  {
@@ -30,27 +22,23 @@ $(function(){
 
     var RecordView = Backbone.View.extend({
 
-        //template: _.template('<h3><%=artist %>: <%=title %></h3>'),
+        template: _.template('<h3><%= artist %> : <%= title %></h3>'),
 
-        el: $('#record'),
+        el: '#record',
 
         initialize: function () {
-            this.collection = new RecordCollection();
-            this.collection.on('sync', this.render, this);
-            this.collection.fetch();
+            this.model.on('sync', this.render, this);
         },
 
         render: function () {
-            var renderedContent = this.collection.toJSON();
-            console.log(renderedContent);
-            this.$el.html(renderedContent);
+            var renderedContent = this.model.toJSON();
+            this.$el.html(this.template(renderedContent));
         }
 
     });
 
-    var testCollection = new RecordCollection();
-    testCollection.reset();
-    var testView = new RecordView({
-        collection: testCollection
-    });
+    var userRecord = new Record({id: '2006-09-02'});
+    var userView = new RecordView({model: userRecord});
+    var userCollection = new RecordCollection([userRecord]);
+    userRecord.fetch();
 });

@@ -10,3 +10,7 @@ List of steps to write up into blog post
 * Created express app and restful api to communicate with dbase (put server.js in root)
 
 Back-end stuff finished!
+
+* Tried to have separate backbone files according to Yeoman generator but it's easier to just put in one file (v small project)
+* Build backbone file to query database and hold results in model, render to page
+* Next is to take user input and pass to backbone
