@@ -39,19 +39,24 @@ $(function(){
         render: function () {
             var renderedContent = this.model.toJSON();
             this.$el.append(this.template(renderedContent));
-            console.log(userCollection);
         },
 
         submit: function(e) {
             e.preventDefault();
             var userBirthday = ($('#dateEntry').serializeArray())[0].value;
-            this.model = new Record({id: userBirthday}, {collection: userCollection});
-            this.model.fetch();
-            this.render();
+            var userModel = new Record({id: userBirthday}, {collection: userCollection});
+            userModel.fetch({success: function(model, response, options) {
+                userCollection.add(model);
+            }});
         }
 
     });
     var userRecord = new Record({id: '1976-04-02'});
     var userView = new RecordView({model: userRecord});
     var userCollection = new RecordCollection([userRecord]);
+    userRecord.fetch();
+    userCollection.on('add', function(record){
+        userView.model = record;
+        userView.render();
+    });
 });
