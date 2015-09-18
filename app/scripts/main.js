@@ -5,6 +5,8 @@ $(function(){
     var Record = Backbone.Model.extend({
 
         defaults: {
+            artist: '',
+            title: ''
         },
 
         parse: function(response, options)  {
@@ -24,7 +26,11 @@ $(function(){
 
         template: _.template('<h3><%= artist %> : <%= title %></h3>'),
 
-        el: '#record',
+        el: '#main',
+
+        events: {
+            'submit #dateEntry': 'submit'
+        },
 
         initialize: function () {
             this.model.on('sync', this.render, this);
@@ -32,13 +38,20 @@ $(function(){
 
         render: function () {
             var renderedContent = this.model.toJSON();
-            this.$el.html(this.template(renderedContent));
+            this.$el.append(this.template(renderedContent));
+            console.log(userCollection);
+        },
+
+        submit: function(e) {
+            e.preventDefault();
+            var userBirthday = ($('#dateEntry').serializeArray())[0].value;
+            this.model = new Record({id: userBirthday}, {collection: userCollection});
+            this.model.fetch();
+            this.render();
         }
 
     });
-
-    var userRecord = new Record({id: '2006-09-02'});
+    var userRecord = new Record({id: '1976-04-02'});
     var userView = new RecordView({model: userRecord});
     var userCollection = new RecordCollection([userRecord]);
-    userRecord.fetch();
 });
