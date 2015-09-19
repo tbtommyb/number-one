@@ -7,10 +7,6 @@ $(function(){
         defaults: {
             artist: '',
             title: ''
-        },
-
-        parse: function(response, options)  {
-            return response;
         }
     });
 
@@ -22,9 +18,9 @@ $(function(){
 
     });
 
-    var RecordView = Backbone.View.extend({
+    var userCollection = new RecordCollection();
 
-        template: _.template('<h3><%= artist %> : <%= title %></h3>'),
+    var AppView = Backbone.View.extend({
 
         el: '#main',
 
@@ -32,31 +28,48 @@ $(function(){
             'submit #dateEntry': 'submit'
         },
 
-        initialize: function () {
-            this.model.on('sync', this.render, this);
+        initialize: function() {
+            _.bindAll(this, 'render');
+            this.$record = this.$('#record');
         },
 
-        render: function () {
-            var renderedContent = this.model.toJSON();
-            this.$el.append(this.template(renderedContent));
+        render: function(record){
+            var view = new RecordView({model: record});
+            //this.$record.html(view.render().el);
         },
 
         submit: function(e) {
             e.preventDefault();
             var userBirthday = ($('#dateEntry').serializeArray())[0].value;
             var userModel = new Record({id: userBirthday}, {collection: userCollection});
+            var that = this;
             userModel.fetch({success: function(model, response, options) {
-                userCollection.add(model);
+                var view = new RecordView({model: model});
+                that.$record.html(view.render().el);
             }});
+        }
+    })
+
+    var RecordView = Backbone.View.extend({
+
+        tagName: 'h3',
+
+        template: _.template('<%= artist %> : <%= title %>'),
+
+        initialize: function () {
+            this.model.on('sync', this.render, this);
+        },
+
+        render: function () {
+            var renderedContent = this.model.toJSON();
+            this.$el.html(this.template(renderedContent));
+            return this;
         }
 
     });
-    var userRecord = new Record({id: '1976-04-02'});
-    var userView = new RecordView({model: userRecord});
-    var userCollection = new RecordCollection([userRecord]);
-    userRecord.fetch();
-    userCollection.on('add', function(record){
-        userView.model = record;
-        userView.render();
-    });
+    var userView = new AppView();
+    //userCollection.on('add', function(record){
+    //    userView.model = record;
+    //    userView.render();
+    //});
 });
