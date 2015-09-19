@@ -1,8 +1,17 @@
-body {
-    background: #fafafa;
+section {
+  margin: auto;
+  text-align: center;
 }
 
-.hero-unit {
-    margin: 50px auto 0 auto;
-    width: 300px;
+section {
+  background-color: #E6E3FF;
+  width: 600px;
+  border-radius: 15px;
 }
+
+body {
+  font: 100% Helvetica, sans-serif;
+  color: #333;
+}
+
+/*# sourceMappingURL=main.css.map */

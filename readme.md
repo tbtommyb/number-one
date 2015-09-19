@@ -14,3 +14,12 @@ Back-end stuff finished!
 * Tried to have separate backbone files according to Yeoman generator but it's easier to just put in one file (v small project)
 * Build backbone file to query database and hold results in model, render to page
 * Next is to take user input and pass to backbone
+
+Basic code completed
+--------------------
+
+install sass via npm, add task to grunt so that on serve etc it's done automatically
+Need to:
+* Add in error-checking for server, in case date out of range.
+* Add styling.
+* Increase functionality

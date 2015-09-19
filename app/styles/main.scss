@@ -1,0 +1,20 @@
+$font-stack:    Helvetica, sans-serif;
+$primary-color: #333;
+$background-color: #E6E3FF;
+
+%center {
+  margin: auto;
+  text-align: center;
+}
+
+section {
+  @extend %center;
+  background-color: $background-color;
+  width: 600px;
+  border-radius: 15px;
+}
+
+body {
+  font: 100% $font-stack;
+  color: $primary-color;
+}

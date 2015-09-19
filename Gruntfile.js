@@ -45,6 +45,13 @@ module.exports = function (grunt) {
                     'test/spec/**/*.js'
                 ]
             },
+            sass: {
+                files: '<%= yeoman.app %>/styles/main.scss',
+                tasks: ['sass'],
+                options: {
+                    livereload: true
+                }
+            },
             jst: {
                 files: [
                     '<%= yeoman.app %>/scripts/templates/*.ejs'
@@ -224,8 +231,25 @@ module.exports = function (grunt) {
                     ]
                 }
             }
+        },
+        sass: {
+            dist: {
+                options: {
+                    style: 'expanded'
+                },
+                files: [{
+                    expand: true,
+                    cwd: '<%= yeoman.app %>/styles',
+                    src: ['*.scss'],
+                    dest: '<%= yeoman.app %>/styles/',
+                    ext: '.css'
+                }]
+            }
         }
+
     });
+
+    grunt.loadNpmTasks('grunt-contrib-sass');
 
     grunt.registerTask('createDefaultTemplate', function () {
         grunt.file.write('.tmp/scripts/templates.js', 'this.JST = this.JST || {};');
@@ -255,6 +279,7 @@ module.exports = function (grunt) {
         grunt.task.run([
             'clean:server',
             'createDefaultTemplate',
+            'sass',
             'jst',
             'connect:livereload',
             'open:server',
@@ -285,6 +310,7 @@ module.exports = function (grunt) {
         'clean:dist',
         'createDefaultTemplate',
         'jst',
+        'sass',
         'useminPrepare',
         'imagemin',
         'htmlmin',
@@ -299,6 +325,7 @@ module.exports = function (grunt) {
     grunt.registerTask('default', [
         'jshint',
         'test',
-        'build'
+        'build',
+        'sass'
     ]);
 };
