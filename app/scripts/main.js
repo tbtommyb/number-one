@@ -35,7 +35,6 @@ $(function(){
 
         render: function(record){
             var view = new RecordView({model: record});
-            //this.$record.html(view.render().el);
         },
 
         submit: function(e) {
@@ -52,7 +51,7 @@ $(function(){
 
     var RecordView = Backbone.View.extend({
 
-        tagName: 'h3',
+        tagName: 'p',
 
         template: _.template('<%= artist %> : <%= title %>'),
 
@@ -68,8 +67,4 @@ $(function(){
 
     });
     var userView = new AppView();
-    //userCollection.on('add', function(record){
-    //    userView.model = record;
-    //    userView.render();
-    //});
 });
