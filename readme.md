@@ -23,3 +23,13 @@ Need to:
 * Add in error-checking for server, in case date out of range.
 * Add styling.
 * Increase functionality
+
+Styling
+-------
+
+* Curve heading along record top
+* Curve record along bottom of record
+* Style form inputs into middle of record
+* Choose suitable background colour
+* Make sure svg file is correctly cropped
+* think about compatibility
