@@ -29,12 +29,13 @@ $(function(){
         },
 
         initialize: function() {
-            _.bindAll(this, 'render');
             this.$record = this.$('#record');
         },
 
         render: function(record){
             var view = new RecordView({model: record});
+            this.$record.html(view.render().el);
+            return this;
         },
 
         submit: function(e) {
@@ -43,8 +44,7 @@ $(function(){
             var userModel = new Record({id: userBirthday}, {collection: userCollection});
             var that = this;
             userModel.fetch({success: function(model, response, options) {
-                var view = new RecordView({model: model});
-                that.$record.html(view.render().el);
+                that.render(model);
             }});
         }
     })
