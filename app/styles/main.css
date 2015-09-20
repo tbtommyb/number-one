@@ -1,17 +1,44 @@
-section {
+@import url(https://fonts.googleapis.com/css?family=Pacifico);
+h1, h2, #number-oneapp {
   margin: auto;
   text-align: center;
 }
 
-section {
-  background-color: #E6E3FF;
+h1, h2 {
+  font: 100% "Pacifico", cursive;
+  font-weight: 400;
+}
+
+h1 {
+  font-size: 40px;
+  font-size: 2.5rem;
+  padding-top: 50px;
+  width: 400px;
+  color: white;
+}
+
+h2 {
+  font-size: 20px;
+  font-size: 1.25rem;
+  padding-top: 220px;
+  width: 400px;
+  color: white;
+}
+
+#number-oneapp {
+  background-image: url("../images/vinyl.svg");
+  background-size: contain;
+  height: 600px;
   width: 600px;
-  border-radius: 15px;
 }
 
 body {
   font: 100% Helvetica, sans-serif;
   color: #333;
+}
+
+#record {
+  background-color: transparent;
 }
 
 /*# sourceMappingURL=main.css.map */

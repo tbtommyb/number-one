@@ -51,7 +51,7 @@ $(function(){
 
     var RecordView = Backbone.View.extend({
 
-        tagName: 'p',
+        tagName: 'h2',
 
         template: _.template('<%= artist %> : <%= title %>'),
 
