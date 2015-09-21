@@ -1,10 +1,37 @@
 @import url(https://fonts.googleapis.com/css?family=Pacifico);
 
-$pacifico: 'Pacifico', cursive;
-
-$font-stack:    Helvetica, sans-serif;
+$headline: Pacifico, cursive;
+$font-stack:    Futura, sans-serif;
 $primary-color: #333;
 $background-color: #E6E3FF;
+
+$small-width: 442px;
+$smed-width: 500px;
+$med-width: 600px;
+
+@mixin small {
+  @media (max-width: #{$small-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin smed {
+  @media (min-width: #{$small-width}) and (max-width: #{$smed-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin medium {
+  @media (min-width: #{$smed-width}) and (max-width: #{$med-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin normal {
+  @media (min-width: #{$med-width}) {
+    @content;
+  }
+}
 
 @function calculateRem($size) {
   $remSize: $size / 16px;
@@ -21,43 +48,132 @@ $background-color: #E6E3FF;
   text-align: center;
 }
 
-%title-fonts {
-	font: 100% $pacifico;
-	font-weight: 400;
+%inputs {
+  @extend %center;
+  @include font-size(14px);
+  background-color: white;
+  border: 2px solid red;
+  outline: 0;
+  padding: 1px; 
+  height: 30px; 
+  border-radius: 5px;
+  margin: 0em;
 }
-
 
 h1 {
-  @extend %center;
-  @extend %title-fonts;
-	@include font-size(40px);
-  padding-top: 50px;
-  width: 400px;
-  color: white;
-}
+  @include small {
+    @include font-size(24px);
+    width: 80%;
+    padding-top: 40px;
+  }
 
-h2 {
+  @include smed {
+    @include font-size(28px);
+    width: 80%;
+    padding-top: 40px;
+  }
+
+  @include medium {
+    @include font-size(40px);
+    width: 80%;
+  }
+
   @extend %center;
-  @extend %title-fonts;
-  @include font-size(20px);
-  padding-top: 220px;
+  font: 100% $headline;
+  @include font-size(40px);
+  padding-top: 50px;
   width: 400px;
   color: white;
 }
 
 #number-oneapp {
   @extend %center;
-	background-image: url('../images/vinyl.svg');
+	background-image: url('../images/vinyl-new.svg');
+  background-repeat: no-repeat;
   background-size: contain;
 	height: 600px;
 	width: 600px;
-}
 
-body {
-  font: 100% $font-stack;
-  color: $primary-color;
+  @include small {
+    width: 100%;
+  }
+
+  @include smed {
+    width: 100%;
+  }
+
+  @include medium {
+    width: 100%;
+  }
 }
 
 #record {
+  @extend %center;
   background-color: transparent;
+  padding-top: 60px;
+  width: 400px;
+
+  @include small {
+    padding-top: 20px;
+    width: 80%;
+    margin: auto
+  }
+
+  @include smed {
+    padding-top: 12px;
+  }
+
+  @include medium {
+    width: 80%;
+    margin: auto;
+    padding-top: 15px;
+  }
+}
+
+h2 { 
+  font: 100% $font-stack;
+  color: white;
+  @include font-size(34px);
+
+  @include small {
+    @include font-size(20px);
+  }
+
+  @include smed {
+    @include font-size(24px);
+  }
+
+  @include medium {
+    @include font-size(28px);
+  }
+}
+
+select {
+  @extend %inputs;
+  outline: 0;
+}
+
+#div-date {
+
+  @include small {
+    margin-top: 1px;
+  }
+  @include smed {
+    margin-top:10px;
+  }
+  @include medium {
+    margin-top: 20px;
+  }
+  margin-top: 40px;
+}
+
+button{
+  @extend %inputs;
+  @include font-size(14px);
+  width: 40px;
+}
+
+@-ms-viewport{
+    width: extend-to-zoom;
+    zoom: 1.0;
 }

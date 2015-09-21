@@ -53,7 +53,7 @@ $(function(){
 
         tagName: 'h2',
 
-        template: _.template('<%= artist %> : <%= title %>'),
+        template: _.template('<%= artist %>: <%= title %>'),
 
         initialize: function () {
             this.model.on('sync', this.render, this);
