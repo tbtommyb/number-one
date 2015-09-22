@@ -128,7 +128,7 @@ select {
 }
 
 #div-date {
-  margin-top: 40px;
+  margin-top: 45px;
 }
 @media (max-width: 441px) {
   #div-date {
@@ -142,7 +142,7 @@ select {
 }
 @media (min-width: 500px) and (max-width: 599px) {
   #div-date {
-    margin-top: 20px;
+    margin-top: 25px;
   }
 }
 

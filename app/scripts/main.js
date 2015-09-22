@@ -62,20 +62,6 @@ $(function(){
             return this;
         },
 
-        /*createVideoSearch: function(model) {
-            var artist = model.get('artist').split(' ').join('%2B');
-            var title = model.get('title').split(' ').join('%2B');
-            var query = artist + '%2B' + title;
-            var userVideo = new Video({q: query});
-            var that = this;
-            console.log(userVideo);
-            userVideo.fetch({success: function(videoModel, response, options){
-                console.log(response);
-
-                //console.log(videoModel.toJSON().items[0].id.videoId);
-            }});
-        },*/
-
         submit: function(e) {
             e.preventDefault();
             var userBirthday = ($('#dateEntry').serializeArray())[0].value;
@@ -86,15 +72,6 @@ $(function(){
             }});
         }
     });
-
-    /*var VideoView = Backbone.View.extend({
-
-        initialize: function() {
-            this.player = new window.YT.Player('player', {
-                videoId: this.model.videoId
-            })
-        }
-    });*/
 
     var RecordView = Backbone.View.extend({
 
@@ -116,13 +93,10 @@ $(function(){
 
     var userView = new AppView();
 });
-/*
-var tag = document.createElement('script'); 
-tag.src = "https://www.youtube.com/iframe_api";
-var firstScriptTag = document.getElementsByTagName('script')[0];
-firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-function onYouTubeIframeAPIReady() {
-    youtubePlayer = new VideoView({el: '#youtube', collection: userVideoCollection});
-}
-*/
+$(function(){
+    $('#date').combodate({
+        minYear: 1952,
+        format: 'YYYY-MM-DD'
+    });
+});
