@@ -6,8 +6,7 @@ var express = require('express'),
 var app = express();
 
 //Where to serve static content
-app.use(express.static('public'));
-
+app.use("/public", express.static(__dirname + '/public'));
 
 //Start server
 var port = process.env.PORT || 9000;
