@@ -6,7 +6,10 @@ var express = require('express'),
 var app = express();
 
 //Where to serve static content
-app.use(express.static( path.join(__dirname, 'site') ) );
+app.use(express.static( path.join(__dirname, 'images') ) );
+app.use(express.static( path.join(__dirname, 'styles') ) );
+app.use(express.static( path.join(__dirname, 'scripts') ) );
+
 
 //Start server
 var port = process.env.PORT || 9000;
