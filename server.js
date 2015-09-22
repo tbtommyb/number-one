@@ -9,7 +9,7 @@ var app = express();
 app.use(express.static( path.join(__dirname, 'site') ) );
 
 //Start server
-var port = 9000;
+var port = process.env.PORT || 9000;
 
 //Database stuff
 
