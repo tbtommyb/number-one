@@ -2,8 +2,8 @@
 
 $headline: Pacifico, cursive;
 $font-stack:    Futura, sans-serif;
-$primary-color: #333;
-$background-color: #E6E3FF;
+$font-color: #94a2f4;
+$background-color: #94f4e6;
 
 $small-width: 442px;
 $smed-width: 500px;
@@ -52,7 +52,7 @@ $med-width: 600px;
   @extend %center;
   @include font-size(14px);
   background-color: white;
-  border: 2px solid red;
+  border: 2px solid #94a2f4;
   outline: 0;
   padding: 1px; 
   height: 30px; 
@@ -62,9 +62,9 @@ $med-width: 600px;
 
 h1 {
   @include small {
-    @include font-size(24px);
-    width: 80%;
-    padding-top: 40px;
+    @include font-size(30px);
+    width: 65%;
+    padding-top: 50px;
   }
 
   @include smed {
@@ -88,14 +88,17 @@ h1 {
 
 #number-oneapp {
   @extend %center;
-	background-image: url('../images/vinyl-new.svg');
+	background-image: url('../images/vinyl.png');
+  background-image: url('../images/vinyl.svg'),
+    linear-gradient(transparent, transparent);
   background-repeat: no-repeat;
   background-size: contain;
 	height: 600px;
 	width: 600px;
 
   @include small {
-    width: 100%;
+    width: 150%;
+    margin-left: -25%;
   }
 
   @include smed {
@@ -114,8 +117,8 @@ h1 {
   width: 400px;
 
   @include small {
-    padding-top: 20px;
-    width: 80%;
+    padding-top: 60px;
+    width: 60%;
     margin: auto
   }
 
@@ -124,7 +127,7 @@ h1 {
   }
 
   @include medium {
-    width: 80%;
+    width: 85%;
     margin: auto;
     padding-top: 15px;
   }
@@ -136,7 +139,7 @@ h2 {
   @include font-size(34px);
 
   @include small {
-    @include font-size(20px);
+    @include font-size(28px);
   }
 
   @include smed {
@@ -156,7 +159,7 @@ select {
 #div-date {
 
   @include small {
-    margin-top: 1px;
+    margin-top: 66px;
   }
   @include smed {
     margin-top:10px;
@@ -176,4 +179,8 @@ button{
 @-ms-viewport{
     width: extend-to-zoom;
     zoom: 1.0;
+}
+
+body {
+  background-color: $background-color;
 }

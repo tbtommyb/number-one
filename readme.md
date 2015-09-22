@@ -27,9 +27,10 @@ Need to:
 Styling
 -------
 
-* Curve heading along record top
-* Curve record along bottom of record
-* Style form inputs into middle of record
-* Choose suitable background colour
-* Make sure svg file is correctly cropped
+* Choose suitable colours
 * think about compatibility
+
+API integration
+---------------
+
+* Add in auto loading of youtube

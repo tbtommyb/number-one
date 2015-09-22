@@ -10,12 +10,12 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="729.59985"
-   height="730.2149"
+   width="730.34796"
+   height="730.32965"
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="vinyl-cropped.svg">
+   sodipodi:docname="vinyl-new.svg">
   <defs
      id="defs4">
     <linearGradient
@@ -110,17 +110,6 @@
        fx="428.86029"
        fy="579.38312"
        r="357.83969" />
-    <clipPath
-       clipPathUnits="userSpaceOnUse"
-       id="clipPath3432">
-      <rect
-         style="fill:#0000ff;fill-rule:evenodd;stroke:#000000;stroke-width:0.98378605px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         id="rect3434"
-         width="729.59985"
-         height="730.2149"
-         x="6.5688181"
-         y="112.02718" />
-    </clipPath>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -129,9 +118,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.75218951"
-     inkscape:cx="225.87219"
-     inkscape:cy="735.35989"
+     inkscape:zoom="0.98050782"
+     inkscape:cx="169.98315"
+     inkscape:cy="607.82757"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -149,9 +138,9 @@
      inkscape:snap-center="true"
      inkscape:window-width="1280"
      inkscape:window-height="751"
-     inkscape:window-x="0"
+     inkscape:window-x="32"
      inkscape:window-y="0"
-     inkscape:window-maximized="1"
+     inkscape:window-maximized="0"
      inkscape:snap-global="false"
      fit-margin-top="0"
      fit-margin-left="0"
@@ -173,10 +162,9 @@
      inkscape:label="Camada 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-6.5688181,-112.02718)">
+     transform="translate(-5.221137,-112.97347)">
     <g
-       id="g3804"
-       clip-path="url(#clipPath3432)">
+       id="g3804">
       <circle
          transform="matrix(1.0332717,0,0,1.0332717,-72.661389,-120.49071)"
          id="path2985"
@@ -223,5 +211,12 @@
            id="tspan3779"
            sodipodi:role="line" /></text>
     </g>
+    <rect
+       style="fill:none;fill-rule:evenodd;stroke:none;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect3356"
+       width="730.34796"
+       height="730.32965"
+       x="5.221137"
+       y="112.97347" />
   </g>
 </svg>
