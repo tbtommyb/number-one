@@ -97,7 +97,7 @@ h1 {
 	width: 600px;
 
   @include small {
-    width: 150%;
+    //width: 150%;
     margin-left: -25%;
   }
 
