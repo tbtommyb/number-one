@@ -194,6 +194,9 @@ button{
   body {
     margin:0px;
   }
+  button {
+    margin-top: 6px;
+  }
 }
 
 @media (min-width:340px) and (max-width:441px){
@@ -204,7 +207,11 @@ button{
   body {
     margin:0px;
   }
+  button {
+    margin-top: 18px;
+  }
 }
+
 body {
   background-color: $background-color;
   @include small {
