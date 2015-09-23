@@ -7,7 +7,6 @@ var app = express();
 
 //Where to serve static content
 app.use("/public", express.static(__dirname + '/public'));
-app.use(express.favicon());
 
 //Start server
 var port = process.env.PORT || 9000;
