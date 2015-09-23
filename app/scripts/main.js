@@ -33,7 +33,7 @@ $(function(){
     var RecordCollection = Backbone.Collection.extend({
 
         model: Record,
-        url: 'http://localhost:9000/api/records'
+        url: 'https://number-oneapp.herokuapp.com/api/records'
     });
 
     var VideoCollection = Backbone.Collection.extend({
