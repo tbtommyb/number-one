@@ -19,11 +19,11 @@ var db = new sqlite3.Database(file);
 //Routes
 
 app.get('/', function(req, res) {
-	res.sendfile(__dirname + '/index.html');
+	res.sendFile(__dirname + '/index.html');
 });
 
 app.get('/favicon.ico', function(req, res) {
-	res.sendfile(__dirname + '/favicon.ico');
+	res.sendFile(__dirname + '/favicon.ico');
 });
 
 app.get('/api', function(req, res) {
