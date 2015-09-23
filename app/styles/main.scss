@@ -177,10 +177,34 @@ button{
 }
 
 @-ms-viewport{
-    width: extend-to-zoom;
-    zoom: 1.0;
+    width: device-width;
 }
 
+@media (max-width:320px) {
+  #record{
+    width:48%;
+  }
+  #number-oneapp {
+    margin-left:-45%;
+  }
+  #wrapper {
+    max-width:320px;
+    overflow-x:hidden;
+  }
+  body {
+    margin:0px;
+  }
+}
+
+@media (min-width:340px) and (max-width:441px){
+  #wrapper {
+    max-width:441px;
+    overflow-x:hidden;
+  }
+  body {
+    margin:0px;
+  }
+}
 body {
   background-color: $background-color;
   @include small {
