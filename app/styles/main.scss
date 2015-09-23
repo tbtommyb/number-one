@@ -183,4 +183,8 @@ button{
 
 body {
   background-color: $background-color;
+  overflow: hidden;
+  @include small {
+    width: 441px;
+  }
 }

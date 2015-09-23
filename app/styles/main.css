@@ -158,6 +158,12 @@ button {
 }
 body {
   background-color: #94f4e6;
+  overflow: hidden;
+}
+@media (max-width: 441px) {
+  body {
+    width: 441px;
+  }
 }
 
 /*# sourceMappingURL=main.css.map */
