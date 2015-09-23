@@ -6,7 +6,7 @@ var express = require('express'),
 var app = express();
 
 //Where to serve static content
-app.use("/public", express.static(__dirname + '/public'));
+app.use(express.static( path.join(__dirname, 'site') ) );
 
 //Start server
 var port = process.env.PORT || 9000;
@@ -19,11 +19,7 @@ var db = new sqlite3.Database(file);
 //Routes
 
 app.get('/', function(req, res) {
-	res.sendFile(__dirname + '/index.html');
-});
-
-app.get('/favicon.ico', function(req, res) {
-	res.sendFile(__dirname + '/favicon.ico');
+	res.sendfile(__dirname + '/index.html');
 });
 
 app.get('/api', function(req, res) {
