@@ -50,7 +50,7 @@ h1 {
 
 #number-oneapp {
   background-image: url("../images/vinyl.png");
-  background-image: url("../images/vinyl.svg"), linear-gradient(transparent, transparent);
+  background-image: none, url("../images/vinyl.svg");
   background-repeat: no-repeat;
   background-size: contain;
   height: 600px;
@@ -152,16 +152,58 @@ button {
 }
 
 @-ms-viewport {
-  width: extend-to-zoom;
-  zoom: 1.0;
+  width: device-width;
+}
+@media (max-width: 320px) {
+  #record {
+    width: 48%;
+  }
+
+  #number-oneapp {
+    margin-left: -45%;
+  }
+
+  #wrapper {
+    max-width: 320px;
+    overflow-x: hidden;
+  }
+
+  body {
+    margin: 0px;
+  }
+
+  button {
+    margin-top: 6px;
+  }
+}
+@media (min-width: 340px) and (max-width: 441px) {
+  #wrapper {
+    max-width: 441px;
+    overflow-x: hidden;
+  }
+
+  body {
+    margin: 0px;
+  }
+
+  button {
+    margin-top: 18px;
+  }
 }
 body {
   background-color: #94f4e6;
-  overflow: hidden;
 }
 @media (max-width: 441px) {
   body {
     width: 441px;
+    margin: 0px;
+  }
+}
+
+@media (max-width: 441px) {
+  #wrapper {
+    max-width: 441px;
+    overflow-x: hidden;
   }
 }
 

@@ -203,13 +203,24 @@ module.exports = function (grunt) {
                     cwd: '<%= yeoman.app %>',
                     dest: '<%= yeoman.dist %>',
                     src: [
-                        '*.{ico,txt}',
-                        'images/{,*/}*.{webp,gif}',
+                        '*.{ico,txt,json}',
+                        'images/{,*/}*.{svg,webp,gif}',
                         'styles/fonts/{,*/}*.*',
+                    ]
+                }, {
+                    expand: true,
+                    dot: true,
+                    cwd: '<%= yeoman.app %>',
+                    dest: '<%= yeoman.dist %>',
+                    src: [
+                        'data/*.{js,db,html,json}'
                     ]
                 }, {
                     src: 'node_modules/apache-server-configs/dist/.htaccess',
                     dest: '<%= yeoman.dist %>/.htaccess'
+                }, {
+                    src:'<%= yeoman.app %>/server.js',
+                    dest: '<%= yeoman.dist %>/server.js'
                 }]
             }
         },

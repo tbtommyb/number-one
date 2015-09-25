@@ -43,6 +43,11 @@ $med-width: 600px;
   font-size: calculateRem($size);
 }
 
+@mixin svg-fallback($name) {
+  background-image: url('../images/#{$name}.png');
+  background-image: none, url('../images/#{$name}.svg');
+}
+
 %center {
   margin: auto;
   text-align: center;
@@ -88,16 +93,13 @@ h1 {
 
 #number-oneapp {
   @extend %center;
-	background-image: url('../images/vinyl.png');
-  background-image: url('../images/vinyl.svg'),
-    linear-gradient(transparent, transparent);
+  @include svg-fallback('vinyl');
   background-repeat: no-repeat;
   background-size: contain;
 	height: 600px;
 	width: 600px;
 
   @include small {
-    //width: 150%;
     margin-left: -25%;
   }
 
