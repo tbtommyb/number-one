@@ -7,8 +7,12 @@
         <meta name="description" content="Find what was No. 1 on your birthday!">
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-        <link rel="stylesheet" href="styles/bf675203.main.css">
-        <script src="scripts/vendor/a8bcb0b6.modernizr.js"></script>
+        <!-- build:css(.tmp) styles/main.css -->
+        <link rel="stylesheet" href="/public/styles/main.css">
+        <!-- endbuild -->
+        <!-- build:js scripts/vendor/modernizr.js -->
+        <script src="bower_components/modernizr/modernizr.js"></script>
+        <!-- endbuild -->
     </head>
     <body>
         <!--[if lt IE 10]>
@@ -32,11 +36,20 @@
                     </form>
                 </div>
                 <div id="record"></div>
+                <div id="player"></div>
             </section>
         </section>
     </div>
-        <script src="scripts/35fdc1e5.vendor.js"></script>
-        <script src="scripts/01107538.main.js"></script>
+        <!-- build:js scripts/vendor.js -->
+        <script src="bower_components/jquery/dist/jquery.js"></script>
+        <script src="bower_components/lodash/dist/lodash.compat.js"></script>
+        <script src="bower_components/backbone/backbone.js"></script>
+        <script src="bower_components/moment.js"></script>
+        <script src="bower_components/combodate.js"></script>
+        <!-- endbuild -->
+        <!-- build:js({.tmp,app}) scripts/main.js -->
+        <script src="scripts/main.js"></script>
+        <!-- endbuild -->
 
 </body>
 </html>

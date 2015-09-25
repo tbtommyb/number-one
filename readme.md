@@ -34,3 +34,8 @@ API integration
 ---------------
 
 * Add in auto loading of youtube
+
+* Make youtube video update on model change
+* Fix grunt file
+* Fix paths to public files
+* index.html isn't built properly
