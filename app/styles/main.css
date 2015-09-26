@@ -1,5 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Pacifico);
-select, button, h1, #number-oneapp, #record {
+select, button, h1, #number-oneapp, #record, #player {
   margin: auto;
   text-align: center;
 }
