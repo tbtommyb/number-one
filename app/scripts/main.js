@@ -98,8 +98,8 @@ $(function(){
             
             window.onYouTubeIframeAPIReady = function() {
                 that.player = new YT.Player('player', {
-                    height: '390',
-                    width: '640',
+                    height: '366',
+                    width: '600',
                     videoId: videoId
                 });
             }   

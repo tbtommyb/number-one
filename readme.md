@@ -39,3 +39,12 @@ API integration
 * Fix grunt file
 * Fix paths to public files
 * index.html isn't built properly
+
+Left to do
+----------
+
+* Check that video is responsive to viewport width
+* Blog write up
+* Fix up blog - credits, new pics
+
+* Songkick??
