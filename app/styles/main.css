@@ -74,7 +74,7 @@ h1 {
 
 #record {
   background-color: transparent;
-  padding-top: 60px;
+  padding-top: 40px;
   width: 400px;
 }
 @media (max-width: 441px) {
@@ -95,6 +95,10 @@ h1 {
     margin: auto;
     padding-top: 15px;
   }
+}
+
+#player {
+  margin-top: 80px;
 }
 
 h2 {

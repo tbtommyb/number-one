@@ -115,7 +115,7 @@ h1 {
 #record {
   @extend %center;
   background-color: transparent;
-  padding-top: 60px;
+  padding-top: 40px;
   width: 400px;
 
   @include small {
@@ -133,6 +133,10 @@ h1 {
     margin: auto;
     padding-top: 15px;
   }
+}
+
+#player {
+  margin-top: 80px;
 }
 
 h2 { 
