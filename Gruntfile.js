@@ -148,7 +148,7 @@ module.exports = function (grunt) {
             }
         },
         usemin: {
-            html: ['<%= yeoman.dist %>/public/{,*/}*.html'],
+            html: ['<%= yeoman.dist %>/{,*/}*.html'],
             css: ['<%= yeoman.dist %>/public/styles/{,*/}*.css'],
             options: {
                 dirs: ['<%= yeoman.dist %>']
@@ -222,8 +222,8 @@ module.exports = function (grunt) {
                     src:'<%= yeoman.app %>/server.js',
                     dest: '<%= yeoman.dist %>/server.js'
                 }, {
-                    src:'<%= yeoman.app %>/images/*.svg',
-                    dest: '<%= yeoman.dist %>/public/images/*.svg'
+                    src:'<%= yeoman.app %>/images/vinyl.svg',
+                    dest: '<%= yeoman.dist %>/public/images/vinyl.svg'
                 }]
             }
         },
@@ -238,9 +238,9 @@ module.exports = function (grunt) {
             dist: {
                 files: {
                     src: [
-                        '<%= yeoman.dist %>scripts/{,*/}*.js',
-                        '<%= yeoman.dist %>/styles/{,*/}*.css',
-                        '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,svg,webp}',
+                        '<%= yeoman.dist %>/public/scripts/{,*/}*.js',
+                        '<%= yeoman.dist %>/public/styles/{,*/}*.css',
+                        '<%= yeoman.dist %>/public/images/{,*/}*.{png,jpg,jpeg,gif,svg,webp}',
                         '/styles/fonts/{,*/}*.*',
                     ]
                 }
