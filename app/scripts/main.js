@@ -84,6 +84,7 @@ $(function(){
             } else {
                 this.setupPlayer(videoId);
             }
+            $('body').animate({scrollTop: $('body').height()}, 1000);
         },
 
         setupPlayer: function(videoId) {
@@ -99,10 +100,7 @@ $(function(){
                 that.player = new YT.Player('player', {
                     height: '390',
                     width: '640',
-                    videoId: videoId,
-                    events: {
-                        //'close': player.destroy()
-                    }
+                    videoId: videoId
                 });
             }   
         }
