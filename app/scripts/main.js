@@ -97,7 +97,7 @@ $(function(){
             firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);            
             
             window.onYouTubeIframeAPIReady = function() {
-                that.player = new YT.Player('player', {
+                that.player = new YT.Player('playerYT', {
                     height: '366',
                     width: '600',
                     videoId: videoId
@@ -109,6 +109,8 @@ $(function(){
     var RecordView = Backbone.View.extend({
 
         tagName: 'h2',
+
+        className: 'recordResult',
 
         template: _.template('<%= artist %>: <%= title %>'),
 

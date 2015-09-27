@@ -1,10 +1,10 @@
 @import url(https://fonts.googleapis.com/css?family=Pacifico);
-select, button, h1, #number-oneapp, #record, #player {
+.dateEntry select, .dateEntry button, .titleText, .container, .recordHolder {
   margin: auto;
   text-align: center;
 }
 
-select, button {
+.dateEntry select, .dateEntry button {
   font-size: 14px;
   font-size: 0.875rem;
   background-color: white;
@@ -13,10 +13,25 @@ select, button {
   padding: 1px;
   height: 30px;
   border-radius: 5px;
-  margin: 0em;
+  margin: 0;
 }
 
-h1 {
+.dateEntry button {
+  width: 40px;
+  margin-left: -4px;
+}
+@media (max-width: 321px -1px) {
+  .dateEntry button {
+    margin-top: 6px;
+  }
+}
+@media (min-width: 321px) and (max-width: 441px) {
+  .dateEntry button {
+    margin-top: 18px;
+  }
+}
+
+.titleText {
   font: 100% Pacifico, cursive;
   font-size: 40px;
   font-size: 2.5rem;
@@ -24,8 +39,8 @@ h1 {
   width: 400px;
   color: white;
 }
-@media (max-width: 441px) {
-  h1 {
+@media (min-width: 321px) and (max-width: 441px) {
+  .titleText {
     font-size: 30px;
     font-size: 1.875rem;
     width: 65%;
@@ -33,7 +48,7 @@ h1 {
   }
 }
 @media (min-width: 442px) and (max-width: 499px) {
-  h1 {
+  .titleText {
     font-size: 28px;
     font-size: 1.75rem;
     width: 80%;
@@ -41,14 +56,14 @@ h1 {
   }
 }
 @media (min-width: 500px) and (max-width: 599px) {
-  h1 {
+  .titleText {
     font-size: 40px;
     font-size: 2.5rem;
     width: 80%;
   }
 }
 
-#number-oneapp {
+.container {
   background-image: url("../images/vinyl.png");
   background-image: none, url("../images/vinyl.svg");
   background-repeat: no-repeat;
@@ -56,159 +71,176 @@ h1 {
   height: 600px;
   width: 600px;
 }
-@media (max-width: 441px) {
-  #number-oneapp {
+@media (max-width: 321px -1px) {
+  .container {
+    margin-left: -45%;
+  }
+}
+@media (min-width: 321px) and (max-width: 441px) {
+  .container {
     margin-left: -25%;
   }
 }
 @media (min-width: 442px) and (max-width: 499px) {
-  #number-oneapp {
+  .container {
     width: 100%;
   }
 }
 @media (min-width: 500px) and (max-width: 599px) {
-  #number-oneapp {
+  .container {
     width: 100%;
   }
 }
 
-#record {
+.recordHolder {
   background-color: transparent;
   padding-top: 40px;
   width: 400px;
 }
-@media (max-width: 441px) {
-  #record {
+@media (max-width: 321px -1px) {
+  .recordHolder {
+    width: 48%;
+  }
+}
+@media (min-width: 321px) and (max-width: 441px) {
+  .recordHolder {
     padding-top: 60px;
     width: 60%;
     margin: auto;
   }
 }
 @media (min-width: 442px) and (max-width: 499px) {
-  #record {
+  .recordHolder {
     padding-top: 12px;
   }
 }
 @media (min-width: 500px) and (max-width: 599px) {
-  #record {
+  .recordHolder {
     width: 85%;
     margin: auto;
     padding-top: 15px;
   }
 }
 
-#player {
-  margin-top: 80px;
-  margin-bottom: 20px;
+.videowrapper {
+  position: relative;
+  padding-bottom: 56.45%;
+  height: 0;
+  margin-top: 100px;
+  margin-bottom: 10px;
 }
 
-h2 {
+.videowrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+@media (min-width: 321px) and (max-width: 441px) {
+  .videowrapper iframe {
+    width: 65%;
+    height: 65%;
+    margin-left: 19%;
+  }
+}
+
+.recordResult {
   font: 100% Futura, sans-serif;
   color: white;
   font-size: 34px;
   font-size: 2.125rem;
 }
-@media (max-width: 441px) {
-  h2 {
+@media (min-width: 321px) and (max-width: 441px) {
+  .recordResult {
     font-size: 28px;
     font-size: 1.75rem;
   }
 }
 @media (min-width: 442px) and (max-width: 499px) {
-  h2 {
+  .recordResult {
     font-size: 24px;
     font-size: 1.5rem;
   }
 }
 @media (min-width: 500px) and (max-width: 599px) {
-  h2 {
+  .recordResult {
     font-size: 28px;
     font-size: 1.75rem;
   }
 }
 
-select {
-  outline: 0;
-}
-
-#div-date {
+.div-date {
   margin-top: 45px;
+  margin-left: 4px;
 }
-@media (max-width: 441px) {
-  #div-date {
+@media (min-width: 321px) and (max-width: 441px) {
+  .div-date {
     margin-top: 66px;
   }
 }
 @media (min-width: 442px) and (max-width: 499px) {
-  #div-date {
+  .div-date {
     margin-top: 10px;
   }
 }
 @media (min-width: 500px) and (max-width: 599px) {
-  #div-date {
+  .div-date {
     margin-top: 25px;
   }
-}
-
-button {
-  font-size: 14px;
-  font-size: 0.875rem;
-  width: 40px;
 }
 
 @-ms-viewport {
   width: device-width;
 }
-@media (max-width: 320px) {
-  #record {
-    width: 48%;
+body {
+  background-color: #94f4e6;
+  margin: 0;
+}
+@media (max-width: 321px -1px) {
+  body {
+    margin: 0;
   }
-
-  #number-oneapp {
-    margin-left: -45%;
+}
+@media (min-width: 321px) and (max-width: 441px) {
+  body {
+    width: 441px;
+    margin: 0;
   }
+}
 
-  #wrapper {
+@media (max-width: 321px -1px) {
+  .wrapper {
     max-width: 320px;
     overflow-x: hidden;
   }
-
-  body {
-    margin: 0px;
-  }
-
-  button {
-    margin-top: 6px;
-  }
 }
-@media (min-width: 340px) and (max-width: 441px) {
-  #wrapper {
+@media (min-width: 321px) and (max-width: 441px) {
+  .wrapper {
     max-width: 441px;
     overflow-x: hidden;
   }
-
-  body {
-    margin: 0px;
-  }
-
-  button {
-    margin-top: 18px;
-  }
-}
-body {
-  background-color: #94f4e6;
-}
-@media (max-width: 441px) {
-  body {
-    width: 441px;
-    margin: 0px;
-  }
 }
 
-@media (max-width: 441px) {
-  #wrapper {
-    max-width: 441px;
-    overflow-x: hidden;
+.githubImage {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: 0;
+}
+@media (max-width: 321px -1px) {
+  .githubImage {
+    visibility: hidden;
+  }
+}
+@media (min-width: 321px) and (max-width: 441px) {
+  .githubImage {
+    visibility: hidden;
+  }
+}
+@media (min-width: 442px) and (max-width: 499px) {
+  .githubImage {
+    visibility: hidden;
   }
 }
 

@@ -1,16 +1,23 @@
 @import url(https://fonts.googleapis.com/css?family=Pacifico);
 
 $headline: Pacifico, cursive;
-$font-stack:    Futura, sans-serif;
+$font-stack: Futura, sans-serif;
 $font-color: #94a2f4;
 $background-color: #94f4e6;
 
+$iphone-width: 321px;
 $small-width: 442px;
 $smed-width: 500px;
 $med-width: 600px;
 
+@mixin iphone {
+  @media (max-width: #{$iphone-width -1px}) {
+    @content;
+  }
+}
+
 @mixin small {
-  @media (max-width: #{$small-width - 1px}) {
+  @media (min-width: #{$iphone-width}) and (max-width: #{$small-width - 1px}) {
     @content;
   }
 }
@@ -23,12 +30,6 @@ $med-width: 600px;
 
 @mixin medium {
   @media (min-width: #{$smed-width}) and (max-width: #{$med-width - 1px}) {
-    @content;
-  }
-}
-
-@mixin normal {
-  @media (min-width: #{$med-width}) {
     @content;
   }
 }
@@ -62,10 +63,36 @@ $med-width: 600px;
   padding: 1px; 
   height: 30px; 
   border-radius: 5px;
-  margin: 0em;
+  margin: 0;
 }
 
-h1 {
+.dateEntry {
+  select {
+    @extend %inputs;
+  }
+
+  button {
+    @extend %inputs;
+    width: 40px;
+    margin-left: -4px;
+
+    @include iphone {
+      margin-top: 6px;
+    }
+    @include small {
+      margin-top: 18px;
+    }
+  }
+}
+
+.titleText {
+  @extend %center;
+  font: 100% $headline;
+  @include font-size(40px);
+  padding-top: 50px;
+  width: 400px;
+  color: white;
+
   @include small {
     @include font-size(30px);
     width: 65%;
@@ -82,22 +109,18 @@ h1 {
     @include font-size(40px);
     width: 80%;
   }
-
-  @extend %center;
-  font: 100% $headline;
-  @include font-size(40px);
-  padding-top: 50px;
-  width: 400px;
-  color: white;
 }
 
-#number-oneapp {
+.container {
   @extend %center;
   @include svg-fallback('vinyl');
   background-repeat: no-repeat;
   background-size: contain;
-	height: 600px;
-	width: 600px;
+  height: 600px;
+  width: 600px;
+  @include iphone {
+    margin-left:-45%;
+  }
 
   @include small {
     margin-left: -25%;
@@ -112,11 +135,15 @@ h1 {
   }
 }
 
-#record {
+.recordHolder {
   @extend %center;
   background-color: transparent;
   padding-top: 40px;
   width: 400px;
+
+  @include iphone {
+    width:48%;
+  }
 
   @include small {
     padding-top: 60px;
@@ -135,15 +162,32 @@ h1 {
   }
 }
 
-#player {
-  @extend %center;
-  margin-top: 80px;
-  margin-bottom: 20px;
+.videowrapper {
+  position: relative;
+  padding-bottom: 56.45%;
+  height:  0;
+  margin-top: 100px;
+  margin-bottom: 10px;
 }
 
-h2 { 
+.videowrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  @include small {
+    width: 65%;
+    height: 65%;
+    margin-left: 19%;
+  }
+}
+
+.recordResult { 
   font: 100% $font-stack;
   color: white;
+
   @include font-size(34px);
 
   @include small {
@@ -159,12 +203,9 @@ h2 {
   }
 }
 
-select {
-  @extend %inputs;
-  outline: 0;
-}
-
-#div-date {
+.div-date {
+  margin-top: 45px;
+  margin-left: 4px;
 
   @include small {
     margin-top: 66px;
@@ -175,62 +216,50 @@ select {
   @include medium {
     margin-top: 25px;
   }
-  margin-top: 45px;
-}
-
-button{
-  @extend %inputs;
-  @include font-size(14px);
-  width: 40px;
 }
 
 @-ms-viewport{
     width: device-width;
 }
 
-@media (max-width:320px) {
-  #record{
-    width:48%;
-  }
-  #number-oneapp {
-    margin-left:-45%;
-  }
-  #wrapper {
-    max-width:320px;
-    overflow-x:hidden;
-  }
-  body {
-    margin:0px;
-  }
-  button {
-    margin-top: 6px;
-  }
-}
-
-@media (min-width:340px) and (max-width:441px){
-  #wrapper {
-    max-width:441px;
-    overflow-x:hidden;
-  }
-  body {
-    margin:0px;
-  }
-  button {
-    margin-top: 18px;
-  }
-}
-
 body {
   background-color: $background-color;
+  margin: 0;
+  
+  @include iphone {
+    margin: 0;
+  }
+
   @include small {
     width: 441px;
-    margin: 0px;
+    margin: 0;
   }
 }
 
-#wrapper {
+.wrapper {
+  @include iphone {
+    max-width: 320px;
+    overflow-x: hidden;
+  }
   @include small {
-    max-width:441px;
-    overflow-x:hidden;
+    max-width: 441px;
+    overflow-x: hidden;
+  }
+}
+
+.githubImage {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: 0;
+
+  @include iphone {
+    visibility: hidden;
+  }
+  @include small {
+    visibility: hidden;
+  }
+  @include smed {
+    visibility: hidden;
   }
 }

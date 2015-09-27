@@ -43,8 +43,9 @@ API integration
 Left to do
 ----------
 
-* Check that video is responsive to viewport width
 * Blog write up
 * Fix up blog - credits, new pics
+* Tidy up formatting a little bit more (create new media mixin for iphone screen, change ids to classes, alignments on the page etc). Make go button change colour on hover
+* security - ssl, cookies, sql
 
 * Songkick??
