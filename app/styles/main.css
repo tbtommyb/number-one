@@ -222,26 +222,21 @@ body {
   }
 }
 
-.githubImage {
+/*.githubImage {
   position: absolute;
   top: 0;
   right: 0;
   border: 0;
-}
-@media (max-width: 321px -1px) {
-  .githubImage {
+
+  @include iphone {
     visibility: hidden;
   }
-}
-@media (min-width: 321px) and (max-width: 441px) {
-  .githubImage {
+  @include small {
     visibility: hidden;
   }
-}
-@media (min-width: 442px) and (max-width: 499px) {
-  .githubImage {
+  @include smed {
     visibility: hidden;
   }
-}
+}*/
 
 /*# sourceMappingURL=main.css.map */
