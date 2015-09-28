@@ -1,5 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Pacifico);
-.dateEntry select, .dateEntry button, .titleText, .container, .recordHolder {
+.dateEntry select, .dateEntry button, .container, .titleText, .recordHolder {
   margin: auto;
   text-align: center;
 }
@@ -16,6 +16,30 @@
   margin: 0;
 }
 
+@media (max-width: 320px) {
+  .wrapper {
+    max-width: 320px;
+    overflow-x: hidden;
+    position: relative;
+  }
+  @viewport {
+    .wrapper {
+      width: 340px;
+    }
+  }
+}
+@media (min-width: 321px) and (max-width: 441px) {
+  .wrapper {
+    max-width: 441px;
+    overflow-x: hidden;
+  }
+  @viewport {
+    .wrapper {
+      width: 480px;
+    }
+  }
+}
+
 .dateEntry button {
   width: 40px;
   margin-left: -4px;
@@ -24,10 +48,94 @@
   .dateEntry button {
     margin-top: 6px;
   }
+  @viewport {
+    .dateEntry button {
+      width: 340px;
+    }
+  }
 }
 @media (min-width: 321px) and (max-width: 441px) {
   .dateEntry button {
     margin-top: 18px;
+  }
+  @viewport {
+    .dateEntry button {
+      width: 480px;
+    }
+  }
+}
+
+.div-date {
+  margin-top: 45px;
+  margin-left: 4px;
+}
+@media (max-width: 320px) {
+  .div-date {
+    margin-top: 70px;
+  }
+  @viewport {
+    .div-date {
+      width: 340px;
+    }
+  }
+}
+@media (min-width: 321px) and (max-width: 441px) {
+  .div-date {
+    margin-top: 66px;
+  }
+  @viewport {
+    .div-date {
+      width: 480px;
+    }
+  }
+}
+@media (min-width: 442px) and (max-width: 499px) {
+  .div-date {
+    margin-top: 10px;
+  }
+}
+@media (min-width: 500px) and (max-width: 599px) {
+  .div-date {
+    margin-top: 25px;
+  }
+}
+
+.container {
+  background-image: url("../images/vinyl.png");
+  background-image: none, url("../images/vinyl.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 600px;
+  width: 600px;
+}
+@media (max-width: 320px) {
+  .container {
+    margin-left: -45%;
+  }
+  @viewport {
+    .container {
+      width: 340px;
+    }
+  }
+}
+@media (min-width: 321px) and (max-width: 441px) {
+  .container {
+    margin-left: -25%;
+  }
+  @viewport {
+    .container {
+      width: 480px;
+    }
+  }
+}
+@media (min-width: 442px) and (max-width: 499px) {
+  .container {
+    width: 100%;
+  }
+}
+@media (min-width: 500px) and (max-width: 599px) {
+  .container {
+    width: 100%;
   }
 }
 
@@ -39,12 +147,29 @@
   width: 400px;
   color: white;
 }
+@media (max-width: 320px) {
+  .titleText {
+    font-size: 30px;
+    font-size: 1.875rem;
+    width: 55%;
+  }
+  @viewport {
+    .titleText {
+      width: 340px;
+    }
+  }
+}
 @media (min-width: 321px) and (max-width: 441px) {
   .titleText {
     font-size: 30px;
     font-size: 1.875rem;
     width: 65%;
     padding-top: 50px;
+  }
+  @viewport {
+    .titleText {
+      width: 480px;
+    }
   }
 }
 @media (min-width: 442px) and (max-width: 499px) {
@@ -63,35 +188,6 @@
   }
 }
 
-.container {
-  background-image: url("../images/vinyl.png");
-  background-image: none, url("../images/vinyl.svg");
-  background-repeat: no-repeat;
-  background-size: contain;
-  height: 600px;
-  width: 600px;
-}
-@media (max-width: 320px) {
-  .container {
-    margin-left: -45%;
-  }
-}
-@media (min-width: 321px) and (max-width: 441px) {
-  .container {
-    margin-left: -25%;
-  }
-}
-@media (min-width: 442px) and (max-width: 499px) {
-  .container {
-    width: 100%;
-  }
-}
-@media (min-width: 500px) and (max-width: 599px) {
-  .container {
-    width: 100%;
-  }
-}
-
 .recordHolder {
   background-color: transparent;
   padding-top: 40px;
@@ -101,12 +197,22 @@
   .recordHolder {
     width: 48%;
   }
+  @viewport {
+    .recordHolder {
+      width: 340px;
+    }
+  }
 }
 @media (min-width: 321px) and (max-width: 441px) {
   .recordHolder {
     padding-top: 60px;
     width: 60%;
     margin: auto;
+  }
+  @viewport {
+    .recordHolder {
+      width: 480px;
+    }
   }
 }
 @media (min-width: 442px) and (max-width: 499px) {
@@ -119,6 +225,36 @@
     width: 85%;
     margin: auto;
     padding-top: 15px;
+  }
+}
+
+.recordResult {
+  font: 100% Futura, sans-serif;
+  color: white;
+  font-size: 34px;
+  font-size: 2.125rem;
+}
+@media (min-width: 321px) and (max-width: 441px) {
+  .recordResult {
+    font-size: 28px;
+    font-size: 1.75rem;
+  }
+  @viewport {
+    .recordResult {
+      width: 480px;
+    }
+  }
+}
+@media (min-width: 442px) and (max-width: 499px) {
+  .recordResult {
+    font-size: 24px;
+    font-size: 1.5rem;
+  }
+}
+@media (min-width: 500px) and (max-width: 599px) {
+  .recordResult {
+    font-size: 28px;
+    font-size: 1.75rem;
   }
 }
 
@@ -143,50 +279,10 @@
     height: 65%;
     margin-left: 19%;
   }
-}
-
-.recordResult {
-  font: 100% Futura, sans-serif;
-  color: white;
-  font-size: 34px;
-  font-size: 2.125rem;
-}
-@media (min-width: 321px) and (max-width: 441px) {
-  .recordResult {
-    font-size: 28px;
-    font-size: 1.75rem;
-  }
-}
-@media (min-width: 442px) and (max-width: 499px) {
-  .recordResult {
-    font-size: 24px;
-    font-size: 1.5rem;
-  }
-}
-@media (min-width: 500px) and (max-width: 599px) {
-  .recordResult {
-    font-size: 28px;
-    font-size: 1.75rem;
-  }
-}
-
-.div-date {
-  margin-top: 45px;
-  margin-left: 4px;
-}
-@media (min-width: 321px) and (max-width: 441px) {
-  .div-date {
-    margin-top: 66px;
-  }
-}
-@media (min-width: 442px) and (max-width: 499px) {
-  .div-date {
-    margin-top: 10px;
-  }
-}
-@media (min-width: 500px) and (max-width: 599px) {
-  .div-date {
-    margin-top: 25px;
+  @viewport {
+    .videowrapper iframe {
+      width: 480px;
+    }
   }
 }
 
@@ -199,6 +295,12 @@ body {
 @media (max-width: 320px) {
   body {
     margin: 0;
+    width: 320px;
+  }
+  @viewport {
+    body {
+      width: 340px;
+    }
   }
 }
 @media (min-width: 321px) and (max-width: 441px) {
@@ -206,18 +308,10 @@ body {
     width: 441px;
     margin: 0;
   }
-}
-
-@media (max-width: 320px) {
-  .wrapper {
-    max-width: 320px;
-    overflow-x: hidden;
-  }
-}
-@media (min-width: 321px) and (max-width: 441px) {
-  .wrapper {
-    max-width: 441px;
-    overflow-x: hidden;
+  @viewport {
+    body {
+      width: 480px;
+    }
   }
 }
 

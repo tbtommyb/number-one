@@ -12,12 +12,18 @@ $med-width: 600px;
 
 @mixin iphone {
   @media (max-width: #{$iphone-width - 1px}) {
+    @viewport {
+      width: 340px;
+    }
     @content;
   }
 }
 
 @mixin small {
   @media (min-width: #{$iphone-width}) and (max-width: #{$small-width - 1px}) {
+    @viewport {
+      width: 480px;
+    }
     @content;
   }
 }
@@ -66,6 +72,20 @@ $med-width: 600px;
   margin: 0;
 }
 
+
+.wrapper {
+  @include iphone {
+    max-width: 320px;
+    overflow-x: hidden;
+    //new
+    position: relative;
+  }
+  @include small {
+    max-width: 441px;
+    overflow-x: hidden;
+  }
+}
+
 .dateEntry {
   select {
     @extend %inputs;
@@ -85,29 +105,21 @@ $med-width: 600px;
   }
 }
 
-.titleText {
-  @extend %center;
-  font: 100% $headline;
-  @include font-size(40px);
-  padding-top: 50px;
-  width: 400px;
-  color: white;
+.div-date {
+  margin-top: 45px;
+  margin-left: 4px;
 
+  @include iphone {
+    margin-top: 70px;
+  }
   @include small {
-    @include font-size(30px);
-    width: 65%;
-    padding-top: 50px;
+    margin-top: 66px;
   }
-
   @include smed {
-    @include font-size(28px);
-    width: 80%;
-    padding-top: 40px;
+    margin-top:10px;
   }
-
   @include medium {
-    @include font-size(40px);
-    width: 80%;
+    margin-top: 25px;
   }
 }
 
@@ -124,6 +136,7 @@ $med-width: 600px;
 
   @include small {
     margin-left: -25%;
+
   }
 
   @include smed {
@@ -132,6 +145,36 @@ $med-width: 600px;
 
   @include medium {
     width: 100%;
+  }
+}
+
+.titleText {
+  @extend %center;
+  font: 100% $headline;
+  @include font-size(40px);
+  padding-top: 50px;
+  width: 400px;
+  color: white;
+
+  @include iphone {
+    @include font-size(30px);
+    width: 55%;
+  }
+  @include small {
+    @include font-size(30px);
+    width: 65%;
+    padding-top: 50px;
+  }
+
+  @include smed {
+    @include font-size(28px);
+    width: 80%;
+    padding-top: 40px;
+  }
+
+  @include medium {
+    @include font-size(40px);
+    width: 80%;
   }
 }
 
@@ -162,6 +205,26 @@ $med-width: 600px;
   }
 }
 
+.recordResult { 
+  font: 100% $font-stack;
+  color: white;
+
+  @include font-size(34px);
+
+  @include small {
+    @include font-size(28px);
+  }
+
+  @include smed {
+    @include font-size(24px);
+  }
+
+  @include medium {
+    @include font-size(28px);
+  }
+}
+
+
 .videowrapper {
   position: relative;
   padding-bottom: 56.45%;
@@ -184,40 +247,6 @@ $med-width: 600px;
   }
 }
 
-.recordResult { 
-  font: 100% $font-stack;
-  color: white;
-
-  @include font-size(34px);
-
-  @include small {
-    @include font-size(28px);
-  }
-
-  @include smed {
-    @include font-size(24px);
-  }
-
-  @include medium {
-    @include font-size(28px);
-  }
-}
-
-.div-date {
-  margin-top: 45px;
-  margin-left: 4px;
-
-  @include small {
-    margin-top: 66px;
-  }
-  @include smed {
-    margin-top:10px;
-  }
-  @include medium {
-    margin-top: 25px;
-  }
-}
-
 @-ms-viewport{
     width: device-width;
 }
@@ -227,22 +256,12 @@ body {
   
   @include iphone {
     margin: 0;
+    width: 320px;
   }
 
   @include small {
     width: 441px;
     margin: 0;
-  }
-}
-
-.wrapper {
-  @include iphone {
-    max-width: 320px;
-    overflow-x: hidden;
-  }
-  @include small {
-    max-width: 441px;
-    overflow-x: hidden;
   }
 }
 
