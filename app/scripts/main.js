@@ -141,7 +141,7 @@ $(function(){
 // creates the drop down selection boxes
 $(function(){
     $('#date').combodate({
-        minYear: 1952,
+        minYear: 1953,
         format: 'YYYY-MM-DD'
     });
 });

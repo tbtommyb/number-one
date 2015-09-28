@@ -239,21 +239,26 @@ body {
   }
 }
 
-/*.githubImage {
+.githubImage {
   position: absolute;
   top: 0;
   right: 0;
   border: 0;
-
-  @include iphone {
+}
+@media (max-width: 320px) {
+  .githubImage {
     visibility: hidden;
   }
-  @include small {
+}
+@media (min-width: 321px) and (max-width: 441px) {
+  .githubImage {
     visibility: hidden;
   }
-  @include smed {
+}
+@media (min-width: 442px) and (max-width: 514px) {
+  .githubImage {
     visibility: hidden;
   }
-}*/
+}
 
 /*# sourceMappingURL=main.css.map */
