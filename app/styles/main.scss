@@ -224,7 +224,6 @@ $med-width: 600px;
 
 body {
   background-color: $background-color;
-  margin: 0;
   
   @include iphone {
     margin: 0;
