@@ -137,15 +137,15 @@
   .recordHolder {
     width: 85%;
     margin: auto;
-    padding-top: 15px;
+    padding-top: 35px;
   }
 }
 
 .recordResult {
   font: 100% Futura, "Trebuchet MS", Arial, sans-serif;
   color: white;
-  font-size: 34px;
-  font-size: 2.125rem;
+  font-size: 36px;
+  font-size: 2.25rem;
 }
 @media (min-width: 321px) and (max-width: 441px) {
   .recordResult {
@@ -155,15 +155,15 @@
 }
 @media (min-width: 442px) and (max-width: 514px) {
   .recordResult {
-    font-size: 24px;
-    font-size: 1.5rem;
+    font-size: 28px;
+    font-size: 1.75rem;
     margin-top: 60px;
   }
 }
 @media (min-width: 515px) and (max-width: 599px) {
   .recordResult {
-    font-size: 28px;
-    font-size: 1.75rem;
+    font-size: 32px;
+    font-size: 2rem;
   }
 }
 

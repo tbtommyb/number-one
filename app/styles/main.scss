@@ -170,7 +170,7 @@ $med-width: 600px;
   @include medium {
     width: 85%;
     margin: auto;
-    padding-top: 15px;
+    padding-top: 35px;
   }
 }
 
@@ -178,19 +178,19 @@ $med-width: 600px;
   font: 100% $font-stack;
   color: white;
 
-  @include font-size(34px);
+  @include font-size(36px);
 
   @include small {
     @include font-size(28px);
   }
 
   @include smed {
-    @include font-size(24px);
+    @include font-size(28px);
     margin-top: 60px;
   }
 
   @include medium {
-    @include font-size(28px);
+    @include font-size(32px);
   }
 }
 

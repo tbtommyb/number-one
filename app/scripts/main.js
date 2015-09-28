@@ -9,7 +9,9 @@ $(function(){
             title: '',
             videoId: ''
         },
-
+        // query youtube api for ID of first result for artist-title search
+        // called when model successfully fetched
+        // calls to RecordView which passes to AppView to render.
         getVideoId: function() {
             var that = this;
             var queryString = this.get('artist') + "+" + 
@@ -35,6 +37,7 @@ $(function(){
     var RecordCollection = Backbone.Collection.extend({
 
         model: Record,
+        // link to REST database, queried with birthday date
         url: 'https://number-oneapp.herokuapp.com/api/records'
     });
 
@@ -61,6 +64,7 @@ $(function(){
         },
 
         submit: function(e) {
+            // get birthday and query DB with value, get videoId on success
             e.preventDefault();
             var that = this;
             var userBirthday = ($('#dateEntry').serializeArray())[0].value;
@@ -78,6 +82,7 @@ $(function(){
 
 
         renderVideo: function(videoId) {
+            // create player or cue new video, scroll down on load
             var videoId = videoId;
             if (this.player) {
                 this.player.cueVideoById(videoId);
@@ -88,6 +93,7 @@ $(function(){
         },
 
         setupPlayer: function(videoId) {
+            // Youtube iframe code
             var tag = document.createElement('script');
             var that = this;
             var videoId = videoId;
@@ -119,6 +125,7 @@ $(function(){
         },
 
         callVideo: function() {
+            // pass unique videoID to overall player renderer
             userView.renderVideo(this.model.get('videoId'));
         },
 
@@ -131,7 +138,7 @@ $(function(){
 
     var userView = new AppView({collection: userCollection});
 });
-
+// creates the drop down selection boxes
 $(function(){
     $('#date').combodate({
         minYear: 1952,
