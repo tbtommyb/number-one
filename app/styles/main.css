@@ -1,5 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Pacifico);
-.dateEntry select, .dateEntry button, .container, .titleText, .recordHolder {
+.dateEntry select, .dateEntry button, .titleText, .recordHolder, .container {
   margin: auto;
   text-align: center;
 }
@@ -20,23 +20,12 @@
   .wrapper {
     max-width: 320px;
     overflow-x: hidden;
-    position: relative;
-  }
-  @viewport {
-    .wrapper {
-      width: 340px;
-    }
   }
 }
 @media (min-width: 321px) and (max-width: 441px) {
   .wrapper {
     max-width: 441px;
     overflow-x: hidden;
-  }
-  @viewport {
-    .wrapper {
-      width: 480px;
-    }
   }
 }
 
@@ -48,20 +37,10 @@
   .dateEntry button {
     margin-top: 6px;
   }
-  @viewport {
-    .dateEntry button {
-      width: 340px;
-    }
-  }
 }
 @media (min-width: 321px) and (max-width: 441px) {
   .dateEntry button {
     margin-top: 18px;
-  }
-  @viewport {
-    .dateEntry button {
-      width: 480px;
-    }
   }
 }
 
@@ -73,20 +52,10 @@
   .div-date {
     margin-top: 70px;
   }
-  @viewport {
-    .div-date {
-      width: 340px;
-    }
-  }
 }
 @media (min-width: 321px) and (max-width: 441px) {
   .div-date {
     margin-top: 66px;
-  }
-  @viewport {
-    .div-date {
-      width: 480px;
-    }
   }
 }
 @media (min-width: 442px) and (max-width: 499px) {
@@ -97,45 +66,6 @@
 @media (min-width: 500px) and (max-width: 599px) {
   .div-date {
     margin-top: 25px;
-  }
-}
-
-.container {
-  background-image: url("../images/vinyl.png");
-  background-image: none, url("../images/vinyl.svg");
-  background-repeat: no-repeat;
-  background-size: contain;
-  height: 600px;
-  width: 600px;
-}
-@media (max-width: 320px) {
-  .container {
-    margin-left: -45%;
-  }
-  @viewport {
-    .container {
-      width: 340px;
-    }
-  }
-}
-@media (min-width: 321px) and (max-width: 441px) {
-  .container {
-    margin-left: -25%;
-  }
-  @viewport {
-    .container {
-      width: 480px;
-    }
-  }
-}
-@media (min-width: 442px) and (max-width: 499px) {
-  .container {
-    width: 100%;
-  }
-}
-@media (min-width: 500px) and (max-width: 599px) {
-  .container {
-    width: 100%;
   }
 }
 
@@ -153,11 +83,6 @@
     font-size: 1.875rem;
     width: 55%;
   }
-  @viewport {
-    .titleText {
-      width: 340px;
-    }
-  }
 }
 @media (min-width: 321px) and (max-width: 441px) {
   .titleText {
@@ -165,11 +90,6 @@
     font-size: 1.875rem;
     width: 65%;
     padding-top: 50px;
-  }
-  @viewport {
-    .titleText {
-      width: 480px;
-    }
   }
 }
 @media (min-width: 442px) and (max-width: 499px) {
@@ -197,22 +117,12 @@
   .recordHolder {
     width: 48%;
   }
-  @viewport {
-    .recordHolder {
-      width: 340px;
-    }
-  }
 }
 @media (min-width: 321px) and (max-width: 441px) {
   .recordHolder {
     padding-top: 60px;
     width: 60%;
     margin: auto;
-  }
-  @viewport {
-    .recordHolder {
-      width: 480px;
-    }
   }
 }
 @media (min-width: 442px) and (max-width: 499px) {
@@ -238,11 +148,6 @@
   .recordResult {
     font-size: 28px;
     font-size: 1.75rem;
-  }
-  @viewport {
-    .recordResult {
-      width: 480px;
-    }
   }
 }
 @media (min-width: 442px) and (max-width: 499px) {
@@ -279,11 +184,6 @@
     height: 65%;
     margin-left: 19%;
   }
-  @viewport {
-    .videowrapper iframe {
-      width: 480px;
-    }
-  }
 }
 
 @-ms-viewport {
@@ -297,21 +197,40 @@ body {
     margin: 0;
     width: 320px;
   }
-  @viewport {
-    body {
-      width: 340px;
-    }
-  }
 }
 @media (min-width: 321px) and (max-width: 441px) {
   body {
     width: 441px;
     margin: 0;
   }
-  @viewport {
-    body {
-      width: 480px;
-    }
+}
+
+.container {
+  background-image: url("../images/vinyl.png");
+  background-image: none, url("../images/vinyl.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 600px;
+  width: 600px;
+}
+@media (max-width: 320px) {
+  .container {
+    margin-left: -45%;
+  }
+}
+@media (min-width: 321px) and (max-width: 441px) {
+  .container {
+    margin-left: -25%;
+  }
+}
+@media (min-width: 442px) and (max-width: 499px) {
+  .container {
+    width: 100%;
+  }
+}
+@media (min-width: 500px) and (max-width: 599px) {
+  .container {
+    width: 100%;
   }
 }
 

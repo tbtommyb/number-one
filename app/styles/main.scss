@@ -12,18 +12,12 @@ $med-width: 600px;
 
 @mixin iphone {
   @media (max-width: #{$iphone-width - 1px}) {
-    @viewport {
-      width: 340px;
-    }
     @content;
   }
 }
 
 @mixin small {
   @media (min-width: #{$iphone-width}) and (max-width: #{$small-width - 1px}) {
-    @viewport {
-      width: 480px;
-    }
     @content;
   }
 }
@@ -72,13 +66,10 @@ $med-width: 600px;
   margin: 0;
 }
 
-
 .wrapper {
   @include iphone {
     max-width: 320px;
     overflow-x: hidden;
-    //new
-    position: relative;
   }
   @include small {
     max-width: 441px;
@@ -120,31 +111,6 @@ $med-width: 600px;
   }
   @include medium {
     margin-top: 25px;
-  }
-}
-
-.container {
-  @extend %center;
-  @include svg-fallback('vinyl');
-  background-repeat: no-repeat;
-  background-size: contain;
-  height: 600px;
-  width: 600px;
-  @include iphone {
-    margin-left:-45%;
-  }
-
-  @include small {
-    margin-left: -25%;
-
-  }
-
-  @include smed {
-    width: 100%;
-  }
-
-  @include medium {
-    width: 100%;
   }
 }
 
@@ -224,7 +190,6 @@ $med-width: 600px;
   }
 }
 
-
 .videowrapper {
   position: relative;
   padding-bottom: 56.45%;
@@ -262,6 +227,31 @@ body {
   @include small {
     width: 441px;
     margin: 0;
+  }
+}
+
+
+.container {
+  @extend %center;
+  @include svg-fallback('vinyl');
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 600px;
+  width: 600px;
+  @include iphone {
+    margin-left:-45%;
+  }
+
+  @include small {
+    margin-left: -25%;
+  }
+
+  @include smed {
+    width: 100%;
+  }
+
+  @include medium {
+    width: 100%;
   }
 }
 
