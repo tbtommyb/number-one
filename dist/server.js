@@ -1,6 +1,5 @@
 var express = require('express'),
     path = require('path'),
-    sql = require('sqlite3'),
     sqlite3 = require('sqlite3');
 
 var app = express();
@@ -40,7 +39,7 @@ app.get('/api/records', function(req, res) {
 
 app.get('/api/records/:reqDate/', function (req, res) {
 	var reqDate = req.params.reqDate;
-	db.get("SELECT * FROM Data WHERE date <= '" + reqDate + "' ORDER BY id DESC LIMIT 1", function(err, row) {
+	db.get("SELECT * FROM Data WHERE date <= ? ORDER BY id DESC LIMIT 1", reqDate, function(err, row) {
 		res.contentType('application/json');
         res.setHeader("Access-Control-Allow-Origin", "*");
 		res.json(row);
