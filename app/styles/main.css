@@ -20,7 +20,7 @@
   width: 40px;
   margin-left: -4px;
 }
-@media (max-width: 321px -1px) {
+@media (max-width: 320px) {
   .dateEntry button {
     margin-top: 6px;
   }
@@ -71,7 +71,7 @@
   height: 600px;
   width: 600px;
 }
-@media (max-width: 321px -1px) {
+@media (max-width: 320px) {
   .container {
     margin-left: -45%;
   }
@@ -97,7 +97,7 @@
   padding-top: 40px;
   width: 400px;
 }
-@media (max-width: 321px -1px) {
+@media (max-width: 320px) {
   .recordHolder {
     width: 48%;
   }
@@ -197,7 +197,7 @@ body {
   background-color: #94f4e6;
   margin: 0;
 }
-@media (max-width: 321px -1px) {
+@media (max-width: 320px) {
   body {
     margin: 0;
   }
@@ -209,7 +209,7 @@ body {
   }
 }
 
-@media (max-width: 321px -1px) {
+@media (max-width: 320px) {
   .wrapper {
     max-width: 320px;
     overflow-x: hidden;

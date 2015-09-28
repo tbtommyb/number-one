@@ -11,7 +11,7 @@ $smed-width: 500px;
 $med-width: 600px;
 
 @mixin iphone {
-  @media (max-width: #{$iphone-width -1px}) {
+  @media (max-width: #{$iphone-width - 1px}) {
     @content;
   }
 }
