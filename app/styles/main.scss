@@ -196,13 +196,14 @@ $med-width: 600px;
 
 .videowrapper {
   position: relative;
-  padding-bottom: 56.45%;
+  padding-bottom: 56.25%;
+  padding-top: 30px;
   height:  0;
   margin-top: 100px;
-  margin-bottom: 10px;
+  /*margin-bottom: 10px;*/
 }
 
-.videowrapper iframe {
+.videowrapper iframe, .videowrapper object, .videowrapper embed {
   position: absolute;
   top: 0;
   left: 0;
@@ -210,9 +211,9 @@ $med-width: 600px;
   height: 100%;
 
   @include small {
-    width: 65%;
-    height: 65%;
-    margin-left: 19%;
+    width: 60%;
+    height: 60%;
+    margin-left: 20%;
   }
 }
 
