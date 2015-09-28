@@ -45,7 +45,7 @@
 }
 
 .div-date {
-  margin-top: 45px;
+  margin-top: 60px;
   margin-left: 4px;
 }
 @media (max-width: 320px) {
@@ -58,14 +58,14 @@
     margin-top: 66px;
   }
 }
-@media (min-width: 442px) and (max-width: 499px) {
+@media (min-width: 442px) and (max-width: 514px) {
   .div-date {
     margin-top: 10px;
   }
 }
-@media (min-width: 500px) and (max-width: 599px) {
+@media (min-width: 515px) and (max-width: 599px) {
   .div-date {
-    margin-top: 25px;
+    margin-top: 40px;
   }
 }
 
@@ -82,6 +82,7 @@
     font-size: 30px;
     font-size: 1.875rem;
     width: 55%;
+    margin-bottom: 80px;
   }
 }
 @media (min-width: 321px) and (max-width: 441px) {
@@ -90,17 +91,19 @@
     font-size: 1.875rem;
     width: 65%;
     padding-top: 50px;
+    margin-bottom: 80px;
   }
 }
-@media (min-width: 442px) and (max-width: 499px) {
+@media (min-width: 442px) and (max-width: 514px) {
   .titleText {
     font-size: 28px;
     font-size: 1.75rem;
     width: 80%;
     padding-top: 40px;
+    margin-bottom: 60px;
   }
 }
-@media (min-width: 500px) and (max-width: 599px) {
+@media (min-width: 515px) and (max-width: 599px) {
   .titleText {
     font-size: 40px;
     font-size: 2.5rem;
@@ -125,12 +128,12 @@
     margin: auto;
   }
 }
-@media (min-width: 442px) and (max-width: 499px) {
+@media (min-width: 442px) and (max-width: 514px) {
   .recordHolder {
     padding-top: 12px;
   }
 }
-@media (min-width: 500px) and (max-width: 599px) {
+@media (min-width: 515px) and (max-width: 599px) {
   .recordHolder {
     width: 85%;
     margin: auto;
@@ -150,13 +153,14 @@
     font-size: 1.75rem;
   }
 }
-@media (min-width: 442px) and (max-width: 499px) {
+@media (min-width: 442px) and (max-width: 514px) {
   .recordResult {
     font-size: 24px;
     font-size: 1.5rem;
+    margin-top: 60px;
   }
 }
-@media (min-width: 500px) and (max-width: 599px) {
+@media (min-width: 515px) and (max-width: 599px) {
   .recordResult {
     font-size: 28px;
     font-size: 1.75rem;
@@ -223,12 +227,12 @@ body {
     margin-left: -25%;
   }
 }
-@media (min-width: 442px) and (max-width: 499px) {
+@media (min-width: 442px) and (max-width: 514px) {
   .container {
     width: 100%;
   }
 }
-@media (min-width: 500px) and (max-width: 599px) {
+@media (min-width: 515px) and (max-width: 599px) {
   .container {
     width: 100%;
   }

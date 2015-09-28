@@ -7,7 +7,7 @@ $background-color: #94f4e6;
 
 $iphone-width: 321px;
 $small-width: 442px;
-$smed-width: 500px;
+$smed-width: 515px;
 $med-width: 600px;
 
 @mixin iphone {
@@ -97,7 +97,7 @@ $med-width: 600px;
 }
 
 .div-date {
-  margin-top: 45px;
+  margin-top: 60px;
   margin-left: 4px;
 
   @include iphone {
@@ -110,7 +110,7 @@ $med-width: 600px;
     margin-top:10px;
   }
   @include medium {
-    margin-top: 25px;
+    margin-top: 40px;
   }
 }
 
@@ -125,17 +125,20 @@ $med-width: 600px;
   @include iphone {
     @include font-size(30px);
     width: 55%;
+    margin-bottom: 80px;
   }
   @include small {
     @include font-size(30px);
     width: 65%;
     padding-top: 50px;
+    margin-bottom: 80px;
   }
 
   @include smed {
     @include font-size(28px);
     width: 80%;
     padding-top: 40px;
+    margin-bottom: 60px;
   }
 
   @include medium {
@@ -183,6 +186,7 @@ $med-width: 600px;
 
   @include smed {
     @include font-size(24px);
+    margin-top: 60px;
   }
 
   @include medium {
@@ -229,7 +233,6 @@ body {
     margin: 0;
   }
 }
-
 
 .container {
   @extend %center;
