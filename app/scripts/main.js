@@ -9,6 +9,13 @@ $(function(){
             title: '',
             videoId: ''
         },
+        initialize: function () {
+            userCollection.add(this);
+            var that = this;
+            this.fetch({success: function(model, response, options) {
+                that.getVideoId();
+            }});
+        },
         // query youtube api for ID of first result for artist-title search
         // called when model successfully fetched
         // calls to RecordView which passes to AppView to render.
@@ -28,7 +35,6 @@ $(function(){
                 type: 'GET',
                 success: function(data) {
                     that.set('videoId',data.items[0].id.videoId);
-                    that.trigger('change:[videoId]');
                 }
             });
         }
@@ -53,14 +59,16 @@ $(function(){
 
         initialize: function() {
             this.$record = this.$('#record');
-            this.$player = this.$('#player');
-            this.listenTo(userCollection, 'sync', this.addModel);
+            this.listenTo(userCollection, 'sync', this.renderNewestModel);
+        },
+
+        renderNewestModel: function() {
+            this.render(this.collection.last());
         },
 
         render: function(record){
             var view = new RecordView({model: record});
-            this.$record.html(view.render().el);
-            return this;
+            this.$record.html($(view.render().el).hide().fadeIn());
         },
 
         submit: function(e) {
@@ -69,17 +77,7 @@ $(function(){
             var that = this;
             var userBirthday = ($('#dateEntry').serializeArray())[0].value;
             var userModel = new Record({id: userBirthday});
-            userCollection.add(userModel);
-            userModel.fetch({success: function(model, response, options) {
-                model.getVideoId();
-            }});
-
         },
-
-        addModel: function(newModel) {
-            this.render(this.collection.last());
-        },
-
 
         renderVideo: function(videoId) {
             // create player or cue new video, scroll down on load
@@ -121,11 +119,11 @@ $(function(){
         template: _.template('<%= artist %>: <%= title %>'),
 
         initialize: function () {
-            this.model.on('change:[videoId]', this.callVideo, this);
+            this.model.on('change:videoId', this.callVideo, this);
         },
 
         callVideo: function() {
-            // pass unique videoID to overall player renderer
+            // pass unique videoID to app-level player renderer
             userView.renderVideo(this.model.get('videoId'));
         },
 
