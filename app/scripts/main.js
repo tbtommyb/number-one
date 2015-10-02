@@ -128,7 +128,7 @@ $(function(){
 
         callVideo: function() {
             // pass unique videoID to app-level player renderer
-            comsole.log('callVideo called');
+            console.log('callVideo called');
             userView.renderVideo(this.model.get('videoId'));
         },
 
