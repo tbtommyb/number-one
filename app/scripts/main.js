@@ -81,19 +81,19 @@ $(function(){
 
         renderVideo: function(videoId) {
             // create player or cue new video, scroll down on load
-            console.log('renderVideo called');
+            window.console.log('renderVideo called');
             var videoId = videoId;
             if (this.player) {
                 this.player.cueVideoById(videoId);
             } else {
-                console.log('in else branch');
+                window.console.log('in else branch');
                 this.setupPlayer(videoId);
             }
             $('body').animate({scrollTop: $('body').height()}, 1000);
         },
 
         setupPlayer: function(videoId) {
-            console.log('call setupPlayer');
+            window.console.log('call setupPlayer');
             // Youtube iframe code
             var tag = document.createElement('script');
             var that = this;
@@ -104,7 +104,7 @@ $(function(){
             firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);            
             
             window.onYouTubeIframeAPIReady = function() {
-                console.log('on ready');
+                window.console.log('on ready');
                 that.player = new YT.Player('playerYT', {
                     height: '366',
                     width: '600',
@@ -128,7 +128,7 @@ $(function(){
 
         callVideo: function() {
             // pass unique videoID to app-level player renderer
-            console.log('callVideo called');
+            window.console.log('callVideo called');
             userView.renderVideo(this.model.get('videoId'));
         },
 
