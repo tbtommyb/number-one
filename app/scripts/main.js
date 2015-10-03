@@ -10,6 +10,7 @@ $(function(){
             videoId: ''
         },
         initialize: function () {
+            // add model to collection and fetch artist-title data from server. Will trigger 'collection[sync' event
             userCollection.add(this);
             var that = this;
             this.fetch({success: function(model, response, options) {
@@ -63,6 +64,7 @@ $(function(){
         },
 
         renderNewestModel: function() {
+            // pass the recently submitted model to render()
             this.render(this.collection.last());
         },
 
