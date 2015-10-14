@@ -23,7 +23,7 @@ var port = process.env.PORT || 9000;
 mongoose.connect(config.database);
 app.set('superSecret', config.secret);
 
-app.use(bodyParser.urlencoded({ extended: false} ));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 app.use(morgan('dev'));
@@ -78,7 +78,6 @@ apiRouter.get('/setup', function(req, res) {
 				password: req.query.pword,
 				admin: true
 			});
-			console.log(admin.password);
 			admin.save(function(err) {
 				if (err) {
 					throw err;
@@ -134,7 +133,7 @@ apiRouter.post('/authenticate', function(req, res) {
 
 apiRouter.use(function(req, res, next) {
 
-	var token = req.body.token || req.query.token || req.header['x-access-token'];
+	var token = req.body.token || req.query.token || req.header['X-Access-Token'];
 
 	if (token) {
 		req.decoded = jwt.decode(token, app.get('superSecret'));
@@ -154,6 +153,40 @@ apiRouter.get('/users', function(req, res) {
 	User.find({}, function(err, users) {
 		res.json(users);
 	});
+});
+
+// POST route to add new records. Return '201 (created)'
+// Need to make the ID value come automatically into the table
+
+apiRouter.post('/records/', function (req, res) {
+	if (!req.body) {
+		res.json({success: false, status: 400});
+	}
+	var recordData = [,
+		req.body.date,
+		req.body.artist,
+		req.body.title,
+		req.body.weeks
+	];
+	db.run("INSERT INTO Data VALUES (?, ?, ?, ?, ?)", recordData, function(err, row){
+		if (err) {
+			throw err;
+		}
+		res.send({success: true, status: '201: record created'});
+	});
+});
+
+
+// To do - PUT route to update existing records. Return '200 OK or 204 Not found'
+
+apiRouter.put('/records/:reqDate/', function (req, res) {
+	var reqDate = req.params.reqDate;
+});
+
+// To do - DELETE route. Return 200 OK or 404 not found
+
+apiRouter.delete('/records/:reqDate/', function (req, res) {
+	var reqDate = req.params.reqDate;
 });
 
 app.listen( port, function() {
