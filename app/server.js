@@ -1,35 +1,54 @@
 var express = require('express'),
     path = require('path'),
+    favicon = require('serve-favicon'),
+    jwt = require('jwt-simple'),
+    bodyParser = require('body-parser'),
+    morgan = require('morgan'),
+    mongoose = require('mongoose'),
     sqlite3 = require('sqlite3');
+
+var config = require('./config');
+var User = require('./data/users');
 
 var app = express();
 
-//Where to serve static content
+var apiRouter = express.Router();
+
+//Static content and favicon
 app.use("/public", express.static(__dirname + '/public'));
+app.use(favicon(__dirname + '/favicon.ico'));
 
-//Start server
+//Config
 var port = process.env.PORT || 9000;
+mongoose.connect(config.database);
+app.set('superSecret', config.secret);
 
-//Database stuff
+app.use(bodyParser.urlencoded({ extended: false} ));
+app.use(bodyParser.json());
 
+app.use(morgan('dev'));
+
+// Record database stuff
 var file = __dirname + '/data/data.db';
 var db = new sqlite3.Database(file);
 
-//Routes
+// Serve the client route ------------
 
 app.get('/', function(req, res) {
 	res.sendFile(__dirname + '/index.html');
 });
 
-app.get('/favicon.ico', function(req, res) {
-	res.sendFile(__dirname + '/favicon.ico');
-});
+// API route ====================
 
-app.get('/api', function(req, res) {
+app.use('/api', apiRouter);
+
+// Public-facing routes -----------
+
+apiRouter.get('/', function(req, res) {
 	res.send('You connected to the API!');
 });
 
-app.get('/api/records', function(req, res) {
+apiRouter.get('/records', function(req, res) {
 	db.all("SELECT * FROM Data", function(err, row) {
 		res.contentType('application/json');
         res.setHeader("Access-Control-Allow-Origin", "*");
@@ -37,12 +56,103 @@ app.get('/api/records', function(req, res) {
 	});
 });
 
-app.get('/api/records/:reqDate/', function (req, res) {
+apiRouter.get('/records/:reqDate/', function (req, res) {
 	var reqDate = req.params.reqDate;
 	db.get("SELECT * FROM Data WHERE date <= ? ORDER BY id DESC LIMIT 1", reqDate, function(err, row) {
 		res.contentType('application/json');
         res.setHeader("Access-Control-Allow-Origin", "*");
 		res.json(row);
+	});
+});
+
+// Create initial admin user if doesn't already exist
+
+apiRouter.get('/setup', function(req, res) {
+	User.count({name: 'admin'}, function(err, count){
+		if (count > 0) {
+			res.send('Admin user already exists');
+		}
+		else {
+			var admin = new User({
+				name: 'admin',
+				password: req.query.pword,
+				admin: true
+			});
+			console.log(admin.password);
+			admin.save(function(err) {
+				if (err) {
+					throw err;
+				}
+				console.log('User saved');
+				res.json({ success: true });
+			});
+		}
+	});
+});
+
+// POST route to authenticate the user
+
+apiRouter.post('/authenticate', function(req, res) {
+	var name = req.query.name;
+	var password = req.query.pword;
+	// find user
+	User.findOne({
+		name: name
+	}, function (err, user) {
+		if (err) {
+			throw err;
+		}
+		if (!user) {
+			res.json({success: false, message: 'Authentication failed. User not found'});
+		}
+		else if (user) {
+			// check password
+			user.comparePassword(password, function(err, isMatch){
+				if (err) {
+					throw err;
+				}
+				if (!isMatch) {
+					res.json({success: false, message: 'Authentication failed. Incorrect password'});
+				}
+				else if (isMatch) {
+				// create the token
+					var token = jwt.encode(user, app.get('superSecret'));
+
+					res.json({
+						success: true,
+						message: 'Token delivered',
+						token: token
+					});
+				}
+			});
+		}
+	});
+});
+
+// Restricted routes ---------------------
+// Middleware to verify the user's token before doing restricted routes
+
+apiRouter.use(function(req, res, next) {
+
+	var token = req.body.token || req.query.token || req.header['x-access-token'];
+
+	if (token) {
+		req.decoded = jwt.decode(token, app.get('superSecret'));
+		next();
+	}
+	else {
+		return res.status(403).send({
+			succes: false,
+			message: 'No token provided.'
+		});
+	}
+});
+
+// Return all users
+
+apiRouter.get('/users', function(req, res) {
+	User.find({}, function(err, users) {
+		res.json(users);
 	});
 });
 

@@ -2,7 +2,13 @@
   "name": "numberone",
   "version": "0.0.1",
   "dependencies": {
+    "bcrypt": "^0.8.5",
+    "body-parser": "^1.14.1",
     "express": "^4.13.3",
+    "jwt-simple": "^0.3.1",
+    "mongoose": "^4.1.11",
+    "morgan": "^1.6.1",
+    "serve-favicon": "^2.3.0",
     "sqlite3": "^3.1.0"
   },
   "devDependencies": {
@@ -27,6 +33,7 @@
     "grunt-usemin": "^2.4.0",
     "jshint-stylish": "^1.0.0",
     "load-grunt-tasks": "^0.6.0",
+    "mongoose": "^4.1.11",
     "time-grunt": "^1.0.0"
   },
   "engines": {
