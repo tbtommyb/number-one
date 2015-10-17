@@ -5,8 +5,6 @@ var express = require('express'),
     jwt = require('jwt-simple'),
     bodyParser = require('body-parser'),
     morgan = require('morgan'),
-    mongoose = require('mongoose'),
-    hooks = require('hooks'),
     sqlite3 = require('sqlite3');
 
 var config = require('./config');
@@ -23,7 +21,6 @@ app.use(favicon(__dirname + '/favicon.ico'));
 
 //Config
 var port = process.env.PORT || 9000;
-mongoose.connect(config.database);
 app.set('superSecret', config.secret);
 
 app.use(bodyParser.urlencoded({extended: false}));
@@ -92,7 +89,7 @@ apiRouter.get('/records/:reqDate/', function (req, res) {
 	});
 });
 
-// Create initial admin user if doesn't already exist
+// Create user if doesn't already exist
 // TO DO - incorporate basic auth for this route
 
 apiRouter.get('/adduser', function(req, res) {
@@ -102,14 +99,15 @@ apiRouter.get('/adduser', function(req, res) {
 			password: req.query.password,
 			admin: req.query.admin
 		});
-		user.exists(function (err,userExists) {
+		// check that user doesn't exist first
+		user.get(req, function (err,userExists) {
 			if (err) {
 				throw err;
 			}
 			if (userExists) {
 				res.send('The user already exists!');
 			} else {
-				user.add(function(err, isAdded) {
+				user.add(req, function(err, isAdded) {
 					if (err) {
 						throw err;
 					}
@@ -127,7 +125,6 @@ apiRouter.get('/adduser', function(req, res) {
 
 // POST route to authenticate the user
 
-//apiRouter.get('/authenticate', User.get);
 //apiRouter.get('/authenticate', function(req, res) {
 	
 	// find user

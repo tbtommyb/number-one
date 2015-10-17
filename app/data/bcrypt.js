@@ -1,6 +1,6 @@
 var bcrypt = require('bcrypt');
 
-var encrypt = function(req, callback) {
+exports.encrypt = function encrypt (req, callback) {
 	bcrypt.genSalt(10, function(err, salt) {
 		if (err) {
 			return callback(err);
@@ -15,4 +15,12 @@ var encrypt = function(req, callback) {
 	});
 };
 
-module.exports = encrypt;
+exports.comparePassword = function(user, candidatePassword, cb) {
+	bcrypt.compare(candidatePassword, user.password, function(err, isMatch) {
+		if (err) {
+			return cb(err);
+		}
+		cb(null, isMatch);
+	});
+};
+

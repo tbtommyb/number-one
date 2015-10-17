@@ -4,5 +4,4 @@
 
 module.exports = {
 	'secret': 'randomaccess',
-	'database': 'mongodb://localhost'
 };
