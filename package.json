@@ -2,9 +2,11 @@
   "name": "numberone",
   "version": "0.0.1",
   "dependencies": {
+    "basic-auth": "^1.0.3",
     "bcrypt": "^0.8.5",
     "body-parser": "^1.14.1",
     "express": "^4.13.3",
+    "hooks": "^0.3.2",
     "jwt-simple": "^0.3.1",
     "mongoose": "^4.1.11",
     "morgan": "^1.6.1",

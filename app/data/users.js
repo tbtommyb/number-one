@@ -1,8 +1,52 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var bcrypt = require('bcrypt');
+// this bit is broken   ----vvvvvv
+function User (attr) {
+	this.name = attr.name || '';
+	this.password = attr.password || '';
+	this.admin = attr.admin || false;
+};
 
-var UserSchema = new Schema({
+User.prototype.get = function (callback) {
+	var user = this;
+	req.db.get("SELECT rowid, * FROM Users WHERE name= ?", user.name, function(err, row) {
+		if (err) {
+			return callback(err);
+		}
+		if (!row) {
+			callback(null, false);
+		}
+		else if (row) {
+			callback(null, row);
+		}
+	});
+};
+
+User.prototype.add = function(callback) {
+	var user = this;
+	var values = [user.name, user.password, user.admin];
+	req.db.run("INSERT INTO Users VALUES (?, ?, ?)", values, function(err, row) {
+		if (err) {
+			return callback(err);
+		}
+		callback(null, true);
+	});
+};
+
+User.prototype.update = function(req, res) {
+	var values = [req.query.name, req.query.password, req.query.admin, req.query.rowid];
+	req.db.run("UPDATE Users SET name = ?, password = ?, admin = ? WHERE rowid = ?",
+		values, function(err) {
+			if (err) {
+				throw err;
+			} else {
+				res.status(200).send('Record updated successfully');
+			}
+		}
+	);
+};
+
+module.exports = User;
+
+/*var UserSchema = new Schema({
 	name: String,
 	password: String,
 	admin: Boolean
@@ -39,6 +83,6 @@ UserSchema.methods.comparePassword = function(candidatePassword, cb) {
 		console.log(isMatch);
 		cb(null, isMatch);
 	});
-};
+};*/
 
-module.exports = mongoose.model('User', UserSchema);
+//module.exports = mongoose.model('User', UserSchema);

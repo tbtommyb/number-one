@@ -1,13 +1,16 @@
 var express = require('express'),
     path = require('path'),
+    auth = require('basic-auth'),
     favicon = require('serve-favicon'),
     jwt = require('jwt-simple'),
     bodyParser = require('body-parser'),
     morgan = require('morgan'),
     mongoose = require('mongoose'),
+    hooks = require('hooks'),
     sqlite3 = require('sqlite3');
 
 var config = require('./config');
+var Bcrypt = require('./data/bcrypt');
 var User = require('./data/users');
 
 var app = express();
@@ -41,7 +44,25 @@ app.get('/', function(req, res) {
 // API route ====================
 
 app.use('/api', apiRouter);
+apiRouter.all('*', function(req, res, next) {
+	req.db = db;
+	next();
+});
 
+// To do - move bcrypt to here from user
+
+apiRouter.all('*', function(req, res, next) {
+	if (req.query.password) {
+		Bcrypt.encrypt(req, function(err, req){
+			if (err) {
+				next(err);
+			}
+			else {
+				next();
+			}
+		});
+	}
+});
 // Public-facing routes -----------
 
 apiRouter.get('/', function(req, res) {
@@ -49,7 +70,10 @@ apiRouter.get('/', function(req, res) {
 });
 
 apiRouter.get('/records', function(req, res) {
-	db.all("SELECT * FROM Data", function(err, row) {
+	db.all("SELECT rowid, * FROM Data", function(err, row) {
+		if (err) {
+			throw err;
+		}
 		res.contentType('application/json');
         res.setHeader("Access-Control-Allow-Origin", "*");
 		res.json(row);
@@ -59,6 +83,9 @@ apiRouter.get('/records', function(req, res) {
 apiRouter.get('/records/:reqDate/', function (req, res) {
 	var reqDate = req.params.reqDate;
 	db.get("SELECT * FROM Data WHERE date <= ? ORDER BY id DESC LIMIT 1", reqDate, function(err, row) {
+		if (err) {
+			throw err;
+		}
 		res.contentType('application/json');
         res.setHeader("Access-Control-Allow-Origin", "*");
 		res.json(row);
@@ -66,36 +93,45 @@ apiRouter.get('/records/:reqDate/', function (req, res) {
 });
 
 // Create initial admin user if doesn't already exist
+// TO DO - incorporate basic auth for this route
 
-apiRouter.get('/setup', function(req, res) {
-	User.count({name: 'admin'}, function(err, count){
-		if (count > 0) {
-			res.send('Admin user already exists');
-		}
-		else {
-			var admin = new User({
-				name: 'admin',
-				password: req.query.pword,
-				admin: true
-			});
-			admin.save(function(err) {
-				if (err) {
-					throw err;
-				}
-				console.log('User saved');
-				res.json({ success: true });
-			});
-		}
-	});
+apiRouter.get('/adduser', function(req, res) {
+	if (req.query.name && req.query.password) {
+		var user = new User({
+			name: req.query.name,
+			password: req.query.password,
+			admin: req.query.admin
+		});
+		user.exists(function (err,userExists) {
+			if (err) {
+				throw err;
+			}
+			if (userExists) {
+				res.send('The user already exists!');
+			} else {
+				user.add(function(err, isAdded) {
+					if (err) {
+						throw err;
+					}
+					res.status(201).send({success: true, message: 'Record created'});
+				});
+			}
+		});
+	} else {
+		res.status(400).send({
+			success: false,
+			message: 'Please provide name and password.'
+		});
+	}
 });
 
 // POST route to authenticate the user
 
-apiRouter.post('/authenticate', function(req, res) {
-	var name = req.query.name;
-	var password = req.query.pword;
+//apiRouter.get('/authenticate', User.get);
+//apiRouter.get('/authenticate', function(req, res) {
+	
 	// find user
-	User.findOne({
+	/*User.findOne({
 		name: name
 	}, function (err, user) {
 		if (err) {
@@ -115,7 +151,7 @@ apiRouter.post('/authenticate', function(req, res) {
 				}
 				else if (isMatch) {
 				// create the token
-					var token = jwt.encode(user, app.get('superSecret'));
+					var token = jwt.encode(user.name, app.get('superSecret'));
 
 					res.json({
 						success: true,
@@ -125,8 +161,8 @@ apiRouter.post('/authenticate', function(req, res) {
 				}
 			});
 		}
-	});
-});
+	});*/
+//});
 
 // Restricted routes ---------------------
 // Middleware to verify the user's token before doing restricted routes
@@ -140,9 +176,9 @@ apiRouter.use(function(req, res, next) {
 		next();
 	}
 	else {
-		return res.status(403).send({
+		return res.status(401).send({
 			succes: false,
-			message: 'No token provided.'
+			message: 'Please provide a valid token'
 		});
 	}
 });
@@ -155,38 +191,116 @@ apiRouter.get('/users', function(req, res) {
 	});
 });
 
-// POST route to add new records. Return '201 (created)'
-// Need to make the ID value come automatically into the table
+// POST route to add new records.
 
-apiRouter.post('/records/', function (req, res) {
+apiRouter.post('/records', function (req, res) {
 	if (!req.body) {
-		res.json({success: false, status: 400});
+		res.status(400).send({
+			success: false,
+			message: 'Date, artist, title and week data not in correct format'
+		});
 	}
-	var recordData = [,
+	var recordData = [
 		req.body.date,
-		req.body.artist,
-		req.body.title,
+		req.body.artist.toUpperCase(),
+		req.body.title.toUpperCase(),
 		req.body.weeks
 	];
-	db.run("INSERT INTO Data VALUES (?, ?, ?, ?, ?)", recordData, function(err, row){
+	// Check that it doesn't already exist
+	db.get("SELECT rowid, * FROM Data WHERE date = ?", recordData[0], function(err, row) {
 		if (err) {
 			throw err;
 		}
-		res.send({success: true, status: '201: record created'});
+		if (row) {
+			res.status(409).send({
+				success: false,
+				message: 'A record with that date already exists.'
+			});
+		} else if (!row) {
+			db.run("INSERT INTO Data VALUES (?, ?, ?, ?)", recordData, function(err, row){
+				if (err) {
+					throw err;
+				}
+				res.status(201).send({success: true, message: 'Record created'});
+			});
+		}
 	});
 });
 
 
-// To do - PUT route to update existing records. Return '200 OK or 204 Not found'
+// PUT route to update existing records
 
-apiRouter.put('/records/:reqDate/', function (req, res) {
-	var reqDate = req.params.reqDate;
+apiRouter.put('/records', function (req, res) {
+	if (!req.body.rowid) {
+		res.status(400).send({
+			success: false,
+			message: 'Record updates need the row ID'
+		});
+	}
+	var recordData = [
+		req.body.date,
+		req.body.artist.toUpperCase(),
+		req.body.title.toUpperCase(),
+		req.body.weeks,
+		req.body.rowid
+	];
+	// Check that it exists first
+	db.get("SELECT rowid, * FROM Data WHERE date = ?", recordData[0], function(err, row) {
+		if (err) {
+			throw err;
+		}
+		if (!row) {
+			res.status(204).send({
+				success: false,
+				message: 'Record not found'
+			});
+		} else if (row) {
+			db.run("UPDATE Data SET artist = ?, title = ?, weeks = ? WHERE rowid = ?",
+				recordData.slice(1), function(err) {
+					if (err) {
+						throw err;
+					} else {
+						res.status(200).send('Record updated successfully');
+					}
+				}
+			);
+		}
+	})
 });
 
-// To do - DELETE route. Return 200 OK or 404 not found
+// DELETE route 
 
-apiRouter.delete('/records/:reqDate/', function (req, res) {
-	var reqDate = req.params.reqDate;
+apiRouter.delete('/records', function (req, res) {
+	// Date needed in request to query database
+	if (!req.body.date) {
+		res.status(400).send({
+			success: false,
+			message: 'Please provide a date'
+		});
+	}
+	var dateQuery = req.body.date;
+	// To do - Regex here to make sure it's a valid datestring
+	db.get("SELECT rowid, * FROM Data WHERE date = ?", dateQuery, function(err, row) {
+		if (err) {
+			throw err;
+		}
+		if (!row) {
+			res.status(204).send({
+				success: false,
+				message: 'Record not found'
+			});
+		} else if (row) {
+			db.run("DELETE FROM Data WHERE date = ?", dateQuery, function(err){
+				if (err) {
+					throw err;
+				}
+				res.status(200).send({
+					success: true,
+					message: 'Record successfully deleted'
+				});
+			});
+		}
+	});
 });
 
 app.listen( port, function() {
