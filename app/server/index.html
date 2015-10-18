@@ -1,0 +1,49 @@
+<!doctype html>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie-edge">
+        <title>Number One</title>
+        <meta name="description" content="Find what was No. 1 on your birthday!">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- build:css(.tmp) public/styles/main.css -->
+        <link rel="stylesheet" href="styles/main.css">
+        <!-- endbuild -->
+    </head>
+    <body>
+        <a href="https://github.com/tbtommyb"><img src="public/images/76a1de3f.find_me.png" alt="Find me on GitHub" class="githubImage"></a>
+        <div class="wrapper">
+            <section id="number-oneapp" class="container">
+                <hgroup>
+                    <h1 class="titleText">What was No. 1 on your birthday?</h1>
+                </hgroup>
+                <section id="main">
+                    <div class="div-date">
+                        <form id='dateEntry' class='dateEntry'>
+                            <input type="text" id="date" name="birthday" data-template="D MMM YYYY"/>
+                            <br />
+                            <br />
+                            <br />
+                            <button type="submit" name="submit">Go</button>
+                        </form>
+                    </div>
+                    <div id="record" class="recordHolder"></div>
+                    <div class="videowrapper">
+                        <div id="playerYT"></div>
+                    </div>
+                </section>
+            </section>
+        </div>
+        <!-- build:js public/scripts/vendor.js -->
+        <script src="bower_components/jquery/dist/jquery.js"></script>
+        <script src="bower_components/lodash/dist/lodash.compat.js"></script>
+        <script src="bower_components/backbone/backbone.js"></script>
+        <script src="bower_components/moment.js"></script>
+        <Script src="bower_components/combodate.js"></script>
+        <!-- endbuild -->
+        <!-- build:js({.tmp,app}) public/scripts/main.js -->
+        <script src="scripts/main.js"></script>
+        <!-- endbuild -->
+
+</body>
+</html>
