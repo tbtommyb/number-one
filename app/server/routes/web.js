@@ -3,17 +3,17 @@
 var express = require('express');
 var path = require('path');
 
-module.exports = (function() {
+module.exports = (function () {
 
-	'use strict';
+    'use strict';
 
-	var router = express.Router();
+    var router = express.Router();
 
-	// Serve the client route ------------
+    // Serve the client route ------------
 
-	router.get('/', function (req, res) {
-		res.sendFile(path.join(__dirname, '..', 'index.html'));
-	});
+    router.get('/', function (req, res) {
+        res.sendFile(path.join(__dirname, '..', 'index.html'));
+    });
 
-	return router;
-})();
+    return router;
+}());
