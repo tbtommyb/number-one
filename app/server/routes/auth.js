@@ -2,30 +2,23 @@
 
 var jwt = require('jwt-simple');
 var Bcrypt = require('../../data/bcrypt');
-var userDB = require('../../data/userDB.js');
+var users = require('./users.js');
 var secret = require('../config.js')();
 var basicAuth = require('basic-auth');
 
+// add in user.get method
+
 var auth = {
 
-    login: function (req, res) {
-        var candidateUser = basicAuth(req);
-
-        if (candidateUser.name === '' || candidateUser.pass === '') {
-            res.status(400).send({
-                success: false,
-                message: 'Please provide name and password.'
-            });
-        }
-
-        userDB.get(candidateUser.name, req, function (err, foundUser) {
+    login: function (req, res, next) {
+        users.get(req, res, function (err, storedUser) {
             if (err) {
-                throw err;
+                return next(err);
             }
-            if (foundUser) {
-                auth.checkPassword(candidateUser, foundUser, function (err, token) {
+            if (storedUser) {
+                auth.checkPassword(req.userObj, storedUser.password, function (err, token) {
                     if (err) {
-                        throw err;
+                        return next(err);
                     }
                     if (!token) {
                         res.status(401).send({
@@ -49,8 +42,8 @@ var auth = {
         });
     },
 
-    checkPassword: function (candidateUser, foundUser, callback) {
-        Bcrypt.comparePassword(candidateUser.pass, foundUser.password, function (err, isMatch) {
+    checkPassword: function (candidateUser, storedPassword, callback) {
+        Bcrypt.comparePassword(candidateUser, storedPassword, function (err, isMatch) {
             if (err) {
                 return callback(err);
             }
@@ -58,6 +51,7 @@ var auth = {
                 return callback(null, isMatch);
             }
             if (isMatch) {
+                console.log(candidateUser.name);
                 return callback(null, jwt.encode(candidateUser.name, secret));
             }
         });

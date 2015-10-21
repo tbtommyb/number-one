@@ -1,17 +1,15 @@
 'use strict';
 
-var user = require('../../data/users');
+var users = require('../routes/users.js');
 
-module.exports = function(req, res, next) {
+module.exports = function (req, res, next) {
 
-    var name = req.body.name || req.query.name;
-
-    user.get(name, req, function (err, foundUser) {
+    users.get(req.username, function (err, storedUser) {
         if (err) {
-            throw err;
+            return next(err);
         }
-        if (foundUser) {
-            if (foundUser.admin != 'true') {
+        if (storedUser) {
+            if (storedUser.admin !== 'true') {
                 res.status(401).send({
                     success: false,
                     message: 'You are not authorised to access this endpoint'
@@ -21,4 +19,4 @@ module.exports = function(req, res, next) {
             }
         }
     });
-}
+};

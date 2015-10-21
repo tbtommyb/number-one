@@ -1,47 +1,43 @@
 'use strict';
 
 var jwt = require('jwt-simple');
-var user = require('../../data/users');
+var userDB = require('../../data/userDB.js');
 var secret = require('../config.js')();
 
-module.exports = function(req, res, next) {
+module.exports = function (req, res, next) {
 
-    var token = req.body.token || req.query.token || req.header['X-Access-Token'];
-    var name = req.body.name || req.query.name;
+    var token = req.query.token || req.headers['x-access-token'];
 
     if (token) {
+        console.log(token);
         try {
-        	req.decoded = jwt.decode(token, secret);
-        } catch (e) {
-        	res.status(401).send({
-        		success: false,
-        		message: 'You entered an invalid token'
-        	});
+            req.decoded = jwt.decode(token, secret);
         }
-
-        user.get(name, req, function (err, foundUser) {
-        	if (err) {
-        		throw err;
-        	}
-        	if (foundUser) {
-	        	if (foundUser.name === req.decoded) {
-	        		// user exists and correct token
-	        		next();
-	        	}
-	        	else {
-	        		console.log('Im here');
-	        		res.status(401).send({
-	        			success: false,
-	        			message: 'Token does not match user'
-	        		});
-	        	}
-        	} else {
-        		res.status(401).send({
-        			success: false,
-        			message: 'User does not exist'
-        		});
-        	}
+        catch (err) {
+            return next(err);
+        }         
+        users.get(req.userObj.name, function (err, storedUser) {
+            if (err) {
+                return next(err);
+            }
+            if (storedUser) {
+                if (storedUser.name === req.decoded) {
+                    // user exists and correct token
+                    next();
+                } else {
+                    res.status(401).send({
+                        success: false,
+                        message: 'Token does not match user'
+                    });
+                }
+            } else {
+                res.status(401).send({
+                    success: false,
+                    message: 'User does not exist'
+                });
+            }
         });
+
     } else {
         res.status(401).send({
             succes: false,

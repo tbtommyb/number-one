@@ -1,11 +1,14 @@
 'use strict';
 
+// create interface for these functions, remove req and res
+var db = require('../db.js')();
+
 var records = {
 
-    getAll: function (req, res) {
+    getAll: function (req, res, next) {
         req.db.all("SELECT rowid, * FROM Data", function (err, row) {
             if (err) {
-                throw err;
+                return next(err);
             }
             res.contentType('application/json');
             res.setHeader("Access-Control-Allow-Origin", "*");
@@ -13,11 +16,11 @@ var records = {
         });
     },
 
-    getOne: function (req, res) {
+    getOne: function (req, res, next) {
         var reqDate = req.params.reqDate;
         req.db.get("SELECT * FROM Data WHERE date <= ? ORDER BY rowid DESC LIMIT 1", reqDate, function (err, row) {
             if (err) {
-                throw err;
+                return next(err);
             }
             res.contentType('application/json');
             res.setHeader("Access-Control-Allow-Origin", "*");
@@ -25,7 +28,7 @@ var records = {
         });
     },
 
-    create: function (req, res) {
+    create: function (req, res, next) {
         if (!req.body) {
             res.status(400).send({
                 success: false,
@@ -41,7 +44,7 @@ var records = {
         // Check that it doesn't already exist
         req.db.get("SELECT rowid, * FROM Data WHERE date = ?", recordData[0], function (err, row) {
             if (err) {
-                throw err;
+                return next(err);
             }
             if (row) {
                 res.status(409).send({
@@ -51,7 +54,7 @@ var records = {
             } else if (!row) {
                 db.run("INSERT INTO Data VALUES (?, ?, ?, ?)", recordData, function (err, row) {
                     if (err) {
-                        throw err;
+                        return next(err);
                     }
                     res.status(201).send({success: true, message: 'Record created'});
                 });
@@ -59,7 +62,7 @@ var records = {
         });
     },
 
-    update: function (req, res) {
+    update: function (req, res, next) {
         if (!req.body.rowid) {
             res.status(400).send({
                 success: false,
@@ -76,7 +79,7 @@ var records = {
         // Check that it exists first
         req.db.get("SELECT rowid, * FROM Data WHERE rowid = ?", recordData[4], function (err, row) {
             if (err) {
-                throw err;
+                return next(err);
             }
             if (!row) {
                 res.status(204).send({
@@ -87,7 +90,7 @@ var records = {
                 db.run("UPDATE Data SET artist = ?, title = ?, weeks = ? WHERE rowid = ?",
                     recordData.slice(1), function (err) {
                         if (err) {
-                            throw err;
+                            return next(err);
                         }
                         res.status(200).send('Record updated successfully');
                     });
@@ -95,7 +98,7 @@ var records = {
         });
     },
 
-    delete: function (req, res) {
+    delete: function (req, res, next) {
         // Date needed in request to query database
         if (!req.body.date) {
             res.status(400).send({
@@ -107,7 +110,7 @@ var records = {
         // To do - Regex here to make sure it's a valid datestring
         req.db.get("SELECT rowid, * FROM Data WHERE date = ?", dateQuery, function (err, row) {
             if (err) {
-                throw err;
+                return next(err);
             }
             if (!row) {
                 res.status(204).send({
@@ -117,7 +120,7 @@ var records = {
             } else if (row) {
                 db.run("DELETE FROM Data WHERE date = ?", dateQuery, function (err) {
                     if (err) {
-                        throw err;
+                        return next(err);
                     }
                     res.status(200).send({
                         success: true,

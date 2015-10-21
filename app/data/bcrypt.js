@@ -1,26 +1,28 @@
+'use strict';
+
 var bcrypt = require('bcrypt');
 
-exports.encrypt = function encrypt (req, callback) {
-	bcrypt.genSalt(10, function(err, salt) {
-		if (err) {
-			return callback(err);
-		}
-		bcrypt.hash(req.query.password, salt, function(err, hash) {
-			if (err) {
-				return callback(err);
-			}
-			req.query.password = hash;
-			callback(null, req);
-		});
-	});
+exports.encrypt = function encrypt(user, callback) {
+    bcrypt.genSalt(10, function (err, salt) {
+        if (err) {
+            return callback(err);
+        }
+        bcrypt.hash(user.password, salt, function (err, hash) {
+            if (err) {
+                return callback(err);
+            }
+            user.password = hash;
+            callback(null, user);
+        });
+    });
 };
 
-exports.comparePassword = function(user, candidatePassword, cb) {
-	bcrypt.compare(candidatePassword, user.password, function(err, isMatch) {
-		if (err) {
-			return cb(err);
-		}
-		cb(null, isMatch);
-	});
+exports.comparePassword = function comparePassword(candidateUser, storedPassword, cb) {
+    bcrypt.compare(candidateUser.password, storedPassword, function (err, isMatch) {
+        if (err) {
+            return cb(err);
+        }
+        cb(null, isMatch);
+    });
 };
 

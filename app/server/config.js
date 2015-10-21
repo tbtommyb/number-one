@@ -1,5 +1,5 @@
-// HTTP basic auth to get in user's login details
+'use strict';
 
-module.exports = function() {
-	return 'randomaccess';
+module.exports = function () {
+    return 'randomaccess';
 };
