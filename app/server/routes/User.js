@@ -7,38 +7,40 @@ function User (attr) {
 	this.name = attr.name;
 	this.password = attr.password;
 	this.admin = attr.admin;
-	this.rowid = attr.rowid;
 
-	this.encryptPassword();
-	this.checkExists();
-};
-
-User.prototype.encryptPassword = function () {
-	console.log(this);
-	Bcrypt.encrypt(this, function (err, encrypted) {
-        if (err) {
-            return next(err);
-        }
-        if (encrypted) {
-        	this.password = encrypted.password;
-        	return true;
-        }
-    });
-};
-
-User.prototype.checkExists = function () {
-	userDB.checkExists(this, function(err, exists) {
+	var callback = function (err, response) {
 		if (err) {
-			return next(err);
+			console.log('there is an error');
+			return 'error';
 		}
-		if (exists) {
-			this.exists = true;
+		if (response) {
+			that.existsInDB = 'true';
 			return true;
 		} else {
-			this.exists = false;
+			that.existsInDB = 'false';
 			return false;
 		}
-	});	
+	};
+	var that = this;
+	this.checkInDB(function (err, result) {
+		that.exists = result;
+		console.log(result);
+	});
+	console.log(this.exists);
+};
+
+User.prototype.checkInDB = function (callback) {
+	var that = this;
+	userDB.checkExists(that.name, function(err, exists) {
+		if (err) {
+			console.error(err);
+		}
+		if (exists) {
+			callback(null, true);
+		} else {
+			callback(null, false);
+		}
+	});
 };
 
 module.exports = User;

@@ -1,32 +1,28 @@
 'use strict';
 
 var basicAuth = require('basic-auth'),
-	userDB = require('../../data/userDB');
+	userDB = require('../../data/userDB.js'),
+	User = require('../routes/User.js');
 
 module.exports = function(req, res, next) {
-	var user = basicAuth(req);
+	var authHeaders = basicAuth(req);
 
-    if (user.name === '') {
+    if (authHeaders.name === '') {
 	    res.status(400).send({
 	        success: false,
 	        message: 'Please provide a username in the header.'
 	    });
     } else {
-		req.userObj = {
-			name: user.name,
-			password: user.pass,
-			admin: user.name === 'admin' ? true : false // this logic needs to go in 'user.get'
-		};
-		userDB.checkExists(req.userObj, function(err, exists) {
+		req.user = new User({
+			name: authHeaders.name,
+			password: authHeaders.pass,
+			admin: authHeaders.name === 'admin' ? true : false // this logic needs to go in 'user.get'
+		});
+		userDB.checkExists(req.user.name, function (err, exists) {
 			if (err) {
 				return next(err);
 			}
-			req.userObj.exists = exists ? true : false;
-			/*if (response) {
-				req.userObj.exists = true;
-			} else {
-				req.userObj.exists = false;
-			}*/
+			req.user.existsInDB = exists ? true : false;
 			next();
 		});
     }

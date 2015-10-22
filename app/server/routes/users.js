@@ -11,6 +11,24 @@ var users = {
                 return next(err);
             }
             if (storedUser) {
+                console.log('in users.get');
+                res.status(200).json(storedUser);
+            } else {
+                res.status(404).send({
+                    success: false,
+                    message: 'User not found'
+                });
+            }
+        });
+    },
+
+    getOne: function (req, res, next) {
+        userDB.get(req.params.name, function (err, storedUser) {
+            if (err) {
+                return next(err);
+            }
+            if (storedUser) {
+                console.log('in users.get');
                 res.status(200).json(storedUser);
             } else {
                 res.status(404).send({
@@ -23,12 +41,11 @@ var users = {
 
     add: function (req, res, next) {
         // check that user doesn't exist first
-        console.log(req.userObj);
-        if (req.userObj.exists) {
+        if (req.user.exists) {
             res.send('The user already exists!');
         }
         else {
-            userDB.add(req.userObj, function (err, isAdded) {
+            userDB.add(req.user, function (err, isAdded) {
                 if (err) {
                     return next(err);
                 }
@@ -52,19 +69,19 @@ var users = {
     },
 
     update: function (req, res, next) {
-        var userToUpdate = new User({
-            name: req.body.name,
+        // find a way to make these optional
+        var update = new User({
+            name: req.params.name,
             password: req.body.password,
             admin: req.body.admin,
-            rowid: req.params.rowid
         });
-        if (!userToUpdate.exists) {
+        if (!update.existsInDB) {
             res.status(404).send({
                 success: false,
                 message: 'The user does not exist'
             });            
         } else {
-            userDB.update(userToUpdate, function (err, done) {
+            userDB.update([update.password, update.admin, update.name], function (err, done) {
                 if (err) {
                     return next(err);
                 }
@@ -79,8 +96,8 @@ var users = {
     },
 
     delete: function (req, res, next) {
-        var rowID = req.params.rowid;
-        userDB.delete(rowID, function (err, done) {
+        var username = req.params.username;
+        userDB.delete(username, function (err, done) {
             if (err) {
                 return next(err);
             }

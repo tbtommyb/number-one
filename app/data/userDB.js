@@ -6,8 +6,8 @@ var db = require('../server/db.js')();
 
 module.exports = {
 
-    checkExists: function(userObj, callback) {
-        db.get("SELECT rowid, * FROM Users WHERE name = ?", userObj.name, function (err, exists) {
+    checkExists: function(name, callback) {
+        db.get("SELECT rowid, * FROM Users WHERE name = ?", name, function (err, exists) {
             if (err) {
                 return callback(err);
             }
@@ -57,8 +57,8 @@ module.exports = {
     },
 
     update: function (input, callback) {
-        var values = [input.name, input.password, input.admin, input.rowid];
-        db.run("UPDATE Users SET name = ?, password = ?, admin = ? WHERE rowid = ?",
+        var values = [input.password, input.admin, input.name];
+        db.run("UPDATE Users SET password = ?, admin = ? WHERE name = ?",
             values, function (err) {
                 if (err) {
                     return callback(err);

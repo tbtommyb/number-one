@@ -1,5 +1,7 @@
 /* jslint node: true, nomen: true */
 
+// what is someone uses incorrect verb? need an error for that
+
 var express = require('express');
 
 module.exports = (function () {
@@ -7,19 +9,19 @@ module.exports = (function () {
 
     var users = require('./users.js'),
         record = require('./records.js'),
-        auth = require('./auth.js'),
+        authorise = require('./auth.js'),
         tokenChecker = require('../middleware/token.js'),
         adminChecker = require('../middleware/admin.js'),
         basicAuth = require('../middleware/basicauth.js'),
-        checkPassword = require('../middleware/checkPassword.js'),
+        requirePassword = require('../middleware/checkPassword.js'),
         encryptPassword = require('../middleware/encryptPassword.js');
 
     var apiRouter = express.Router();
 
     apiRouter.use('*', basicAuth); // require username and password
 
-    apiRouter.post('/register', checkPassword, encryptPassword, users.add);
-    apiRouter.post('/login', checkPassword, encryptPassword, auth.login);
+    apiRouter.post('/register', requirePassword, encryptPassword, users.add);
+    apiRouter.post('/login', requirePassword, authorise.user);
 
     // Authenticated users only
 
@@ -33,9 +35,10 @@ module.exports = (function () {
     apiRouter.use('*', adminChecker); // require admin status
 
     apiRouter.get('/admin/users', users.getAll);
+    apiRouter.get('/admin/users/:name', users.getOne);
 
-    apiRouter.put('/admin/user/:rowid', encryptPassword, users.update);
-    apiRouter.delete('/admin/user/:rowid', users.delete);
+    apiRouter.put('/admin/users/:name', encryptPassword, users.update);
+    apiRouter.delete('/admin/users/:name', users.delete);
 
     apiRouter.post('/admin/records', record.create);
     apiRouter.put('/admin/records/:rowid', record.update);

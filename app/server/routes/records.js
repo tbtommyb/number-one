@@ -6,7 +6,7 @@ var db = require('../db.js')();
 var records = {
 
     getAll: function (req, res, next) {
-        req.db.all("SELECT rowid, * FROM Data", function (err, row) {
+        db.all("SELECT rowid, * FROM Data", function (err, row) {
             if (err) {
                 return next(err);
             }
@@ -18,7 +18,7 @@ var records = {
 
     getOne: function (req, res, next) {
         var reqDate = req.params.reqDate;
-        req.db.get("SELECT * FROM Data WHERE date <= ? ORDER BY rowid DESC LIMIT 1", reqDate, function (err, row) {
+        db.get("SELECT * FROM Data WHERE date <= ? ORDER BY rowid DESC LIMIT 1", reqDate, function (err, row) {
             if (err) {
                 return next(err);
             }
@@ -42,7 +42,7 @@ var records = {
             req.body.weeks
         ];
         // Check that it doesn't already exist
-        req.db.get("SELECT rowid, * FROM Data WHERE date = ?", recordData[0], function (err, row) {
+        db.get("SELECT rowid, * FROM Data WHERE date = ?", recordData[0], function (err, row) {
             if (err) {
                 return next(err);
             }
@@ -77,7 +77,7 @@ var records = {
             req.body.rowid
         ];
         // Check that it exists first
-        req.db.get("SELECT rowid, * FROM Data WHERE rowid = ?", recordData[4], function (err, row) {
+        db.get("SELECT rowid, * FROM Data WHERE rowid = ?", recordData[4], function (err, row) {
             if (err) {
                 return next(err);
             }
@@ -108,7 +108,7 @@ var records = {
         }
         var dateQuery = req.body.date;
         // To do - Regex here to make sure it's a valid datestring
-        req.db.get("SELECT rowid, * FROM Data WHERE date = ?", dateQuery, function (err, row) {
+        db.get("SELECT rowid, * FROM Data WHERE date = ?", dateQuery, function (err, row) {
             if (err) {
                 return next(err);
             }
