@@ -6,12 +6,11 @@ var User = require('./User.js');
 var users = {
 
     get: function (req, res, next) {
-        userDB.get(req.userObj.name, function (err, storedUser) {
+        userDB.get(req.user.name, function (err, storedUser) {
             if (err) {
                 return next(err);
             }
             if (storedUser) {
-                console.log('in users.get');
                 res.status(200).json(storedUser);
             } else {
                 res.status(404).send({
@@ -70,18 +69,24 @@ var users = {
 
     update: function (req, res, next) {
         // find a way to make these optional
-        var update = new User({
+        var updated = new User({
             name: req.params.name,
             password: req.body.password,
             admin: req.body.admin,
         });
-        if (!update.existsInDB) {
+        userDB.checkExists(updated.name, function (err, exists) {
+            if (err) {
+                return next(err);
+            }
+            updated.existsInDB = exists ? true : false;
+        });
+        if (!updated.exists) {
             res.status(404).send({
                 success: false,
                 message: 'The user does not exist'
-            });            
-        } else {
-            userDB.update([update.password, update.admin, update.name], function (err, done) {
+            });                 
+        } else { 
+            userDB.update(updated, function (err, done) {
                 if (err) {
                     return next(err);
                 }
@@ -91,21 +96,33 @@ var users = {
                         message: 'User details successfully updated'
                     });
                 }
-            });            
+            }); 
         }
     },
 
     delete: function (req, res, next) {
-        var username = req.params.username;
-        userDB.delete(username, function (err, done) {
+        // add checks to this route
+        userDB.get(req.params.name, function (err, exists) {
             if (err) {
                 return next(err);
             }
-            if (done) {
-                res.status(200).send({
-                    success: true,
-                    message: 'User successfully deleted'
+            if (!exists) {
+                res.status(404).send({
+                    success: false,
+                    message: 'The specified user does not exist'
                 });
+            } else {
+                userDB.delete(req.params.name, function (err, done) {
+                    if (err) {
+                        return next(err);
+                    }
+                    if (done) {
+                        res.status(200).send({
+                            success: true,
+                            message: 'User successfully deleted'
+                        });
+                    }
+                });               
             }
         });
     }

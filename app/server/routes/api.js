@@ -28,7 +28,7 @@ module.exports = (function () {
     apiRouter.use('*', tokenChecker); // require auth token
 
     apiRouter.get('/records', record.getAll);
-    apiRouter.get('/records/:reqDate/', record.getOne);
+    apiRouter.get('/records/:date/', record.get);
 
     // Authenticated and authorised users only
 
@@ -40,9 +40,9 @@ module.exports = (function () {
     apiRouter.put('/admin/users/:name', encryptPassword, users.update);
     apiRouter.delete('/admin/users/:name', users.delete);
 
-    apiRouter.post('/admin/records', record.create);
+    apiRouter.post('/admin/records/:date', record.create);
     apiRouter.put('/admin/records/:rowid', record.update);
-    apiRouter.delete('/admin/records/:rowid', record.delete);
+    apiRouter.delete('/admin/records/:date', record.delete);
 
     return apiRouter;
 }());

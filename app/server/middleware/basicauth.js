@@ -16,7 +16,7 @@ module.exports = function(req, res, next) {
 		req.user = new User({
 			name: authHeaders.name,
 			password: authHeaders.pass,
-			admin: authHeaders.name === 'admin' ? true : false // this logic needs to go in 'user.get'
+			admin: authHeaders.name === 'admin' ? 'true' : 'false'
 		});
 		userDB.checkExists(req.user.name, function (err, exists) {
 			if (err) {

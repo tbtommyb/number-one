@@ -67,8 +67,8 @@ module.exports = {
             });
     },
 
-    delete: function (rowID, callback) {
-        db.run("DELETE FROM Users WHERE rowID = ?", rowID, function (err) {
+    delete: function (name, callback) {
+        db.run("DELETE FROM Users WHERE name = ?", name, function (err) {
             if (err) {
                 return callback(err);
             }
