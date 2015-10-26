@@ -66,34 +66,39 @@ var users = {
     },
 
     update: function (req, res, next) {
-        // find a way to make these optional
-        var updated = new User({
-            name: req.params.name,
-            password: req.body.password,
-            admin: req.body.admin,
-        });
-        userDB.checkExists(updated.name, function (err, exists) {
-            if (err) {
-                return next(err);
-            }
-            updated.existsInDB = exists ? true : false;
-        });
-        if (!updated.exists) {
-            res.status(404).send({
-                success: false,
-                message: 'The user does not exist'
+        if (req.body.name && req.body.password && req.body.admin) {
+            var updated = new User({
+                name: req.body.name,
+                password: req.body.password,
+                admin: req.body.admin,
             });
-        } else {
-            userDB.update(updated, function (err, done) {
+            userDB.checkExists(req.params.name, function (err, exists) {
                 if (err) {
                     return next(err);
                 }
-                if (done) {
-                    res.status(200).send({
-                        success: true,
-                        message: 'User details successfully updated'
+                if (!exists) {
+                    res.status(404).send({
+                        success: false,
+                        message: 'The user does not exist'
+                    });
+                } else {
+                    userDB.update(updated, function (err, done) {
+                        if (err) {
+                            return next(err);
+                        }
+                        if (done) {
+                            res.status(200).send({
+                                success: true,
+                                message: 'User details successfully updated'
+                            });
+                        }
                     });
                 }
+            });
+        } else {
+            res.status(400).send({
+                success: false,
+                message: 'Name, password and admin data not in correct format'
             });
         }
     },

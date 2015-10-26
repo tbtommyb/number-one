@@ -44,7 +44,7 @@ module.exports = (function () {
     apiRouter.delete('/admin/users/:name', users.delete);
 
     apiRouter.post('/admin/records/:date', valiDate, record.create);
-    apiRouter.put('/admin/records/:rowid', record.update);
+    apiRouter.put('/admin/records/:rowid', valiDate, record.update);
     apiRouter.delete('/admin/records/:date', valiDate, record.delete);
 
     return apiRouter;

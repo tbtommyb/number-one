@@ -57,6 +57,7 @@ module.exports = {
 
     update: function (input, callback) {
         var values = [input.password, input.admin, input.name];
+        console.log(values);
         db.run("UPDATE Users SET password = ?, admin = ? WHERE name = ?",
             values, function (err) {
                 if (err) {

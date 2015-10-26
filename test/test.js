@@ -229,11 +229,50 @@ describe('GET /users', function () {
 });
 
 describe('PUT /users', function () {
-    it('should require a name url param');
-    it('should require at least one param in the req body');
-    it('should encrypt any passwords provided');
-    it('should return an error if the user does not exist');
-    it('should return which code if the update is successful');
+    before(function () {
+        db.run("INSERT INTO Users VALUES ('tester', 'tester', 'false')");
+    });
+    var invalidUser = {
+        name: 'tester2',
+        password: 'tester2',
+    };
+    var validUser = {
+        name: 'tester2',
+        password: 'tester2',
+        admin: 'true'
+    };
+    it('should return 200 code if the update is successful', function (done) {
+        request
+            .put('/admin/users/tester')
+            .auth('admin', config.password)
+            .set('x-access-token', config.admin_token)
+            .send(validUser)
+            .expect(200, done); 
+    });
+    it('should require a name url param', function (done) {
+        request
+            .put('/admin/users')
+            .auth('admin', config.password)
+            .set('x-access-token', config.admin_token)
+            .send(validUser)
+            .expect(404, done);           
+    });
+    it('should require all params in the req body', function (done) {
+        request
+            .put('/admin/users/tester')
+            .auth('admin', config.password)
+            .set('x-access-token', config.admin_token)
+            .send(invalidUser)
+            .expect(400, done);
+    });
+    it('should return an error if the user does not exist', function (done) {
+        request
+            .put('/admin/users/tester5')
+            .auth('admin', config.password)
+            .set('x-access-token', config.admin_token)
+            .send(validUser)
+            .expect(404, done);       
+    });
     it('should return an error if details provided are invalid');
 });
 
@@ -288,7 +327,7 @@ describe('POST /records', function () {
             .set('x-access-token', config.admin_token)
             .expect(404, done);
     });
-    it('should return an error 404 if invalid date provided', function (done) {
+    it('should return an error 400 if invalid date provided', function (done) {
         request
             .post('/admin/records/201-12-11')
             .auth('admin', config.password)
@@ -312,9 +351,12 @@ describe('POST /records', function () {
             .send(valid)
             .expect(201, done);
     });
+    before(function(){
+        db.run("INSERT INTO Data VALUES ('2015-12-24', tester', 'tester', '5'");
+    });
     it('should return an error 409 if the date is already taken', function (done) {
         request
-            .post('/admin/records/2015-12-13')
+            .post('/admin/records/2015-12-24')
             .auth('admin', config.password)
             .set('x-access-token', config.admin_token)
             .send(valid)
@@ -338,7 +380,7 @@ describe('DEL /records', function () {
     });
     it('should return an error 404 if the date does not exist in db', function (done) {
         request
-            .del('/admin/records/2015-12-01')
+            .del('/admin/records/2055-12-01')
             .auth('admin', config.password)
             .set('x-access-token', config.admin_token)
             .expect(404, done);
@@ -363,9 +405,48 @@ describe('DEL /records', function () {
 });
 
 describe('PUT /records', function () {
-    it('should require a rowid url param');
-    it('should require at least one param in the req body');
-    it('should return an error if the rowid does not exist');
-    it('should return which code if the update is successful');
+    var invalid = {
+        date: '2020-02-02',
+        title: 'new title',
+        weeks: 10
+    };
+    var valid = {
+        date: '2020-02-02',
+        artist: 'new artist',
+        title: 'new title',
+        weeks: 10
+    };
+    it('should require a rowid url param', function (done) {
+        request
+            .put('/admin/records/')
+            .auth('admin', config.password)
+            .set('x-access-token', config.admin_token)
+            .send(valid)
+            .expect(404, done);
+    });
+    it('should require all params in the req body', function (done) {
+        request
+            .put('/admin/records/1354')
+            .auth('admin', config.password)
+            .set('x-access-token', config.admin_token)
+            .send(invalid)
+            .expect(400, done);
+    });
+    it('should return an error if the rowid does not exist', function (done) {
+        request
+            .put('/admin/records/1700')
+            .auth('admin', config.password)
+            .set('x-access-token', config.admin_token)
+            .send(valid)
+            .expect(404, done);
+    });
+    it('should return which code if the update is successful', function (done) {
+        request
+            .put('/admin/records/1351')
+            .auth('admin', config.password)
+            .set('x-access-token', config.admin_token)
+            .send(valid)
+            .expect(201, done);
+    });
     it('should return an error if details provided are invalid');   
 });
