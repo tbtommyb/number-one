@@ -12,7 +12,8 @@ module.exports = (function () {
         adminChecker = require('../middleware/admin.js'),
         basicAuth = require('../middleware/basicauth.js'),
         requirePassword = require('../middleware/checkPassword.js'),
-        encryptPassword = require('../middleware/encryptPassword.js');
+        encryptPassword = require('../middleware/encryptPassword.js'),
+        valiDate = require('../middleware/validateDate.js');
 
     var apiRouter = express.Router();
 
@@ -30,7 +31,7 @@ module.exports = (function () {
     apiRouter.use('*', tokenChecker); // require auth token
 
     apiRouter.get('/records', record.getAll);
-    apiRouter.get('/records/:date/', record.get);
+    apiRouter.get('/records/:date/', valiDate, record.get);
 
     // Authenticated and authorised users only
 
@@ -42,9 +43,9 @@ module.exports = (function () {
     apiRouter.put('/admin/users/:name', encryptPassword, users.update);
     apiRouter.delete('/admin/users/:name', users.delete);
 
-    apiRouter.post('/admin/records/:date', record.create);
+    apiRouter.post('/admin/records/:date', valiDate, record.create);
     apiRouter.put('/admin/records/:rowid', record.update);
-    apiRouter.delete('/admin/records/:date', record.delete);
+    apiRouter.delete('/admin/records/:date', valiDate, record.delete);
 
     return apiRouter;
 }());

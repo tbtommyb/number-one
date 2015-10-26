@@ -28,34 +28,42 @@ module.exports = {
 
     create: function (req, res, next) {
         if (req.body.artist && req.body.title && req.body.weeks) {
-            var recordData = [
-                req.params.date,
-                req.body.artist.toUpperCase(),
-                req.body.title.toUpperCase(),
-                req.body.weeks
-            ];
-            // Check that it doesn't already exist
-            recordDB.checkExists(req.body.date, function (err, exists) {
-                if (err) {
-                    return next(err);
-                }
-                if (exists) {
-                    res.status(409).send({
-                        success: false,
-                        message: 'A record with that date already exists.'
-                    });
-                } else {
-                    recordDB.create(recordData, function (err) {
-                        if (err) {
-                            return next(err);
-                        }
-                        res.status(201).send({
-                            success: true,
-                            message: 'Record created'
+            var regex = /^\d\d\d\d-(0[1-9]|1[0-2])-(0[1-9]|[1-2]\d|3[0-1])$/
+            if (req.params.date.search(regex)) {
+                res.status(400).send({
+                    success: false,
+                    message: 'Invalid date string provided'
+                });
+            } else {
+                var recordData = [
+                    req.params.date,
+                    req.body.artist.toUpperCase(),
+                    req.body.title.toUpperCase(),
+                    req.body.weeks
+                ];
+                // Check that it doesn't already exist
+                recordDB.checkExists(req.params.date, function (err, exists) {
+                    if (err) {
+                        return next(err);
+                    }
+                    if (exists) {
+                        res.status(409).send({
+                            success: false,
+                            message: 'A record with that date already exists.'
                         });
-                    });
-                }
-            });
+                    } else {
+                        recordDB.create(recordData, function (err) {
+                            if (err) {
+                                return next(err);
+                            }
+                            res.status(201).send({
+                                success: true,
+                                message: 'Record created'
+                            });
+                        });
+                    }
+                });
+            }
         } else {
             res.status(400).send({
                 success: false,

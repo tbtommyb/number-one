@@ -10,7 +10,6 @@ var should = require('should'),
     db = require('../app/server/db.js')();
 
 // TO DO: adding tests for using wrong HTTP verb
-// pull in real token and real variable from config file on .gitignore
 
 describe('GET /api', function () { 
 
@@ -103,6 +102,8 @@ describe('POST details to login', function () {
                 done();              
             });
     });
+    it('should not return an error if there is a different token on the request');
+    // this is due to wrong verb again
     after(function() {
         db.run("DELETE FROM Users WHERE name LIKE 'tester%'");
     });
@@ -134,7 +135,7 @@ describe('Token checker', function () {
         request
             .get('/records')
             .auth('admin', config.password)
-            .set('x-access-token', config.token)
+            .set('x-access-token', config.admin_token)
             .expect(200, done);
     });
 });
@@ -145,7 +146,7 @@ describe('Getting records', function () {
         request
             .get('/records')
             .auth('admin', config.password)
-            .set('x-access-token', config.token)
+            .set('x-access-token', config.admin_token)
             .end(function (err, res) {
                 res.status.should.equal(200);
                 res.body.length.should.be.above(500);
@@ -156,7 +157,7 @@ describe('Getting records', function () {
         request
             .get('/records/1988-12-27')
             .auth('admin', config.password)
-            .set('x-access-token', config.token)
+            .set('x-access-token', config.admin_token)
             .end(function (err, res) {
                 res.status.should.equal(200);
                 res.body.artist.should.equal('CLIFF RICHARD');
@@ -168,15 +169,62 @@ describe('Getting records', function () {
 });
 
 describe('Admin', function () {
-    it('authorised users should be allowed through');
-    it('non-authorised users should not be allow through');
-    it('status must be in the token');
+    it('authorised users should be allowed through to GET /users', function (done) {
+        request
+            .get('/admin/users')
+            .auth('admin', config.password)
+            .set('x-access-token', config.admin_token)
+            .expect(200, done);
+    });
+    it('non-authorised users should not be allow through', function (done) {
+        request
+            .get('/admin/users')
+            .auth('number-one', config.password)
+            .set('x-access-token', config.number_token)
+            .expect(403, done);
+    });
+    it('status must be in the token', function (done) {
+        request
+            .get('/admin/users')
+            .auth('number-one', config.password)
+            .set('x-access-token', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJudW1iZXItb25lLWFwcCIsImlhdCI6MTQ0NTg4NzI0OCwiZXhwIjoxNDc3NDIzMjQ4LCJhdWQiOiJ3d3cuZXhhbXBsZS5jb20iLCJzdWIiOiJqcm9ja2V0QGV4YW1wbGUuY29tIiwibmFtZSI6Im51bWJlci1vbmUifQ.oK5OGXLXW5BP0_-VqljlbkmsCPMyDdD_uHsVKvJeJZo')
+            .expect(403, done);
+    });
 });
 
 describe('GET /users', function () {
-    it('should return 200 and a list of users');
-    it('should get the right user by name');
-    it('should return an error if an incorrect name is provided');
+
+    it('should return 200 and a list of users', function (done) {
+        request
+            .get('/admin/users')
+            .auth('admin', config.password)
+            .set('x-access-token', config.admin_token)
+            .end(function (err, res) {
+                res.status.should.equal(200);
+                res.headers['content-type'].should.equal('application/json; charset=utf-8');
+                res.body.length.should.equal(2);
+                done();
+            });
+    });
+    it('should get the right user by name', function (done) {
+        request
+            .get('/admin/users/number-one')
+            .auth('admin', config.password)
+            .set('x-access-token', config.admin_token)
+            .end(function (err, res) {
+                res.status.should.equal(200);
+                res.headers['content-type'].should.equal('application/json; charset=utf-8');
+                res.body.name.should.equal('number-one');
+                done();
+            });        
+    });
+    it('should return an error if an incorrect name is provided', function (done) {
+        request
+            .get('/admin/users/coco')
+            .auth('admin', config.password)
+            .set('x-access-token', config.admin_token)
+            .expect(404, done);       
+    });
     it('non-admin users should be able to access their own details');
 });
 
@@ -190,26 +238,131 @@ describe('PUT /users', function () {
 });
 
 describe('DEL /users', function () {
-    it('should return an error code if no username param provided');
-    it('should return an error if user does not exist');
-    it('should return 200 ok if user deleted');
+    before(function () {
+        db.run("INSERT INTO Users VALUES ('tester', 'tester', 'false')");
+    });
+    it('should return an error code if no username param provided', function (done) {
+        request
+            .del('/admin/users')
+            .auth('admin', config.password)
+            .set('x-access-token', config.admin_token)
+            .expect(404, done);           
+    });
+    it('should return an error if user does not exist', function (done) {
+        request
+            .del('/admin/users/coco')
+            .auth('admin', config.password)
+            .set('x-access-token', config.admin_token)
+            .expect(404, done); 
+    });
+    it('should return 200 ok if user deleted', function (done) {
+        request
+            .del('/admin/users/tester')
+            .auth('admin', config.password)
+            .set('x-access-token', config.admin_token)
+            .end(function (err, res) {
+                res.status.should.equal(200);
+                done();
+            }); 
+    });
+    it('should return an error if an invalid string is provided');
+    after(function() {
+        db.run("DELETE FROM Users WHERE name LIKE 'tester%'");
+    });
 });
 
 describe('POST /records', function () {
-    it('should return an error if no date provided');
-    it('should return an error if invalid date provided');
-    it('should return an error if params are invalid');
-    it('should return 200 if record created ok');
-    it('should return an error if the date is already taken');
+    var missingParams = {
+        title: 'tester',
+        weeks: 1
+    };
+    var valid = {
+        artist: 'tester',
+        title: 'tester',
+        weeks: 1
+    };
+    it('should return an error if no date provided', function (done) {
+        request
+            .post('/admin/records')
+            .auth('admin', config.password)
+            .set('x-access-token', config.admin_token)
+            .expect(404, done);
+    });
+    it('should return an error 404 if invalid date provided', function (done) {
+        request
+            .post('/admin/records/201-12-11')
+            .auth('admin', config.password)
+            .set('x-access-token', config.admin_token)
+            .send(valid)
+            .expect(400, done);
+    });
+    it('should return an error if some params are missing', function (done) {
+        request
+            .post('/admin/records/2015-12-12')
+            .auth('admin', config.password)
+            .set('x-access-token', config.admin_token)
+            .send(missingParams)
+            .expect(400, done);
+    });
+    it('should return 201 if record created ok', function (done) {
+        request
+            .post('/admin/records/2015-12-13')
+            .auth('admin', config.password)
+            .set('x-access-token', config.admin_token)
+            .send(valid)
+            .expect(201, done);
+    });
+    it('should return an error 409 if the date is already taken', function (done) {
+        request
+            .post('/admin/records/2015-12-13')
+            .auth('admin', config.password)
+            .set('x-access-token', config.admin_token)
+            .send(valid)
+            .expect(409, done);
+    });
+    after(function() {
+        db.run("DELETE FROM Data WHERE artist LIKE 'TESTER%'");
+    });
 });
 
 describe('DEL /records', function () {
-    it('should return an error code if no date is provided');
-    it('should return an error if the date does not exist in db');
-    it('should return 200 ok if the record is deleted');
+    before(function () {
+        db.run("INSERT INTO Data VALUES ('2015-12-12', 'tester', 'tester', '1')");
+    });
+    it('should return an error 404 if no date is provided', function (done) {
+        request
+            .del('/admin/records')
+            .auth('admin', config.password)
+            .set('x-access-token', config.admin_token)
+            .expect(404, done);
+    });
+    it('should return an error 404 if the date does not exist in db', function (done) {
+        request
+            .del('/admin/records/2015-12-01')
+            .auth('admin', config.password)
+            .set('x-access-token', config.admin_token)
+            .expect(404, done);
+    });
+    it('should return 200 ok if the record is deleted', function (done) {
+        request
+            .del('/admin/records/2015-12-12')
+            .auth('admin', config.password)
+            .set('x-access-token', config.admin_token)
+            .expect(200, done);           
+    });
+    it('should return an error 400 if an invalid date is provided', function (done) {
+        request
+            .del('/admin/records/20102-02-04')
+            .auth('admin', config.password)
+            .set('x-access-token', config.admin_token)
+            .expect(400, done);
+    });
+    after(function() {
+        db.run("DELETE FROM Data WHERE artist LIKE 'tester%'");
+    });
 });
 
-describe('POST /records', function () {
+describe('PUT /records', function () {
     it('should require a rowid url param');
     it('should require at least one param in the req body');
     it('should return an error if the rowid does not exist');

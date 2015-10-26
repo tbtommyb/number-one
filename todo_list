@@ -1,0 +1,17 @@
+JSLint and CSSHint everything
+comment properly
+Create token for client app and serve with requests
+Check that HTTPS etc plays ok with Heroku
+do I need to add http headers to all requests now?
+Go through node security checklist to see what i’ve missed
+Create a new SVG for mobile view
+make a better error page
+Create JS script to better handle layout and size of text
+Make regexs to filter user input
+Make sure error codes and messages are all correct and helpful
+make a new /api page giving instructions
+Check no unused code, check variable and function names are sensible
+Fix it so that if entered date is after most recent DB entry throw an error
+Add input page to submit data
+Create error for when you use wrong http verb
+Add in batch processing functionality
