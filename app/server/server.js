@@ -55,13 +55,13 @@ app.all('*', function (req, res, next) {
 
 app.use('/api', api);
 
-// Open index route
+// Web route
 app.use('/', router);
 
 // Make better error handling
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
     console.error(err.stack);
-    res.send('An error occurred, sorry!');
+    res.status(400).send('An error occurred, sorry!');
 });
 
 var secureServer = https.createServer(httpsOptions, app).listen(httpsPort);

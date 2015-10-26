@@ -5,13 +5,20 @@
     "basic-auth": "^1.0.3",
     "bcrypt": "^0.8.5",
     "body-parser": "^1.14.1",
+    "chai": "^3.4.0",
+    "csshint": "^0.2.0",
+    "expect": "^1.12.2",
     "express": "^4.13.3",
+    "helmet": "^0.12.0",
     "hooks": "^0.3.2",
     "jwt-simple": "^0.3.1",
+    "mocha": "^2.3.3",
     "mongoose": "^4.1.11",
     "morgan": "^1.6.1",
     "serve-favicon": "^2.3.0",
-    "sqlite3": "^3.1.0"
+    "should": "^7.1.1",
+    "sqlite3": "^3.1.0",
+    "supertest": "^1.1.0"
   },
   "devDependencies": {
     "apache-server-configs": "^2.8.0",

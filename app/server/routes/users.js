@@ -27,7 +27,6 @@ var users = {
                 return next(err);
             }
             if (storedUser) {
-                console.log('in users.get');
                 res.status(200).json(storedUser);
             } else {
                 res.status(404).send({
@@ -40,10 +39,9 @@ var users = {
 
     add: function (req, res, next) {
         // check that user doesn't exist first
-        if (req.user.exists) {
-            res.send('The user already exists!');
-        }
-        else {
+        if (req.user.existsInDB) {
+            res.status(409).send('The user already exists!');
+        } else {
             userDB.add(req.user, function (err, isAdded) {
                 if (err) {
                     return next(err);
@@ -84,8 +82,8 @@ var users = {
             res.status(404).send({
                 success: false,
                 message: 'The user does not exist'
-            });                 
-        } else { 
+            });
+        } else {
             userDB.update(updated, function (err, done) {
                 if (err) {
                     return next(err);
@@ -96,7 +94,7 @@ var users = {
                         message: 'User details successfully updated'
                     });
                 }
-            }); 
+            });
         }
     },
 
@@ -122,7 +120,7 @@ var users = {
                             message: 'User successfully deleted'
                         });
                     }
-                });               
+                });
             }
         });
     }

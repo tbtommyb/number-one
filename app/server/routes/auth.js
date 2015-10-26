@@ -21,21 +21,26 @@ var authorise = {
                         return next(err);
                     }
                     if (!isMatch) {
-                         res.status(401).send({
+                        res.status(401).send({
                             success: false,
                             message: 'Incorrect password'
-                        });                           
+                        });
                     } else if (isMatch) {
-                         res.status(200).send({
+                        var payload = {
+                            iss: 'number-one-app',
+                            name: req.user.name,
+                            admin: userReturned.admin
+                        };
+                        res.status(200).send({
                             success: true,
                             message: 'Login successful',
-                            token: jwt.encode(req.user.name, secret)
-                        });                           
+                            token: jwt.encode(payload, secret)
+                        });
                     }
                 });
             });
         } else {
-            res.status(400).send({
+            res.status(404).send({
                 success: false,
                 message: 'User not found in database'
             });

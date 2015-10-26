@@ -1,7 +1,5 @@
 /* jslint node: true, nomen: true */
 
-// what is someone uses incorrect verb? need an error for that
-
 var express = require('express');
 
 module.exports = (function () {
@@ -17,6 +15,10 @@ module.exports = (function () {
         encryptPassword = require('../middleware/encryptPassword.js');
 
     var apiRouter = express.Router();
+
+    apiRouter.get('/', function(req, res, next) {
+        res.status(200).send({message: 'hello!'});
+    });
 
     apiRouter.use('*', basicAuth); // require username and password
 

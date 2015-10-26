@@ -6,32 +6,30 @@ var db = require('../server/db.js')();
 
 module.exports = {
 
-    checkExists: function(date, callback) {
+    checkExists: function (date, callback) {
         db.get("SELECT rowid, * FROM Data WHERE date = ?", date, function (err, exists) {
             if (err) {
                 return callback(err);
             }
             if (exists) {
                 callback(null, true);
-            }
-            else {
+            } else {
                 callback(null, false);
             }
-        });   
+        });
     },
 
-    checkRow: function(rowid, callback) {
+    checkRow: function (rowid, callback) {
         db.get("SELECT rowid, * FROM Data WHERE rowid = ?", rowid, function (err, exists) {
             if (err) {
                 return callback(err);
             }
             if (exists) {
                 callback(null, true);
-            }
-            else {
+            } else {
                 callback(null, false);
             }
-        });   
+        });
     },
 
     getAll: function (callback) {
@@ -53,7 +51,7 @@ module.exports = {
     },
 
     create: function (data, callback) {
-        db.run("INSERT INTO Data VALUES (?, ?, ?, ?)", data, function (err, row) {
+        db.run("INSERT INTO Data VALUES (?, ?, ?, ?)", data, function (err) {
             if (err) {
                 return callback(err);
             }
@@ -67,13 +65,13 @@ module.exports = {
                 return callback(err);
             }
             callback(null, true);
-       });
+        });
     },
 
-    delete: function (date, callback) { 
+    delete: function (date, callback) {
         db.run("DELETE FROM Data WHERE date = ?", date, function (err) {
             if (err) {
-                return next(err);
+                return callback(err);
             }
             callback(null, true);
         });

@@ -1,23 +1,22 @@
 /* jslint node: true */
 
-var db = require('../server/db.js')();
-
 'use strict';
+
+var db = require('../server/db.js')();
 
 module.exports = {
 
-    checkExists: function(name, callback) {
+    checkExists: function (name, callback) {
         db.get("SELECT rowid, * FROM Users WHERE name = ?", name, function (err, exists) {
             if (err) {
                 return callback(err);
             }
             if (exists) {
                 callback(null, true);
-            }
-            else {
+            } else {
                 callback(null, false);
             }
-        });   
+        });
     },
 
     get: function (name, callback) {
@@ -48,7 +47,7 @@ module.exports = {
 
     add: function (input, callback) {
         var values = [input.name, input.password, input.admin];
-        db.run("INSERT INTO Users VALUES (?, ?, ?)", values, function (err, row) {
+        db.run("INSERT INTO Users VALUES (?, ?, ?)", values, function (err) {
             if (err) {
                 return callback(err);
             }

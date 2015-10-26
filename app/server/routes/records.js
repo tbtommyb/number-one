@@ -5,7 +5,7 @@ var recordDB = require('../../data/recordDB');
 module.exports = {
 
     getAll: function (req, res, next) {
-         recordDB.getAll(function (err, rows) {
+        recordDB.getAll(function (err, rows) {
             if (err) {
                 return next(err);
             }
@@ -14,7 +14,7 @@ module.exports = {
             res.json(rows);
         });
     },
-   
+
     get: function (req, res, next) {
         recordDB.get(req.params.date, function (err, rows) {
             if (err) {
@@ -43,9 +43,9 @@ module.exports = {
                     res.status(409).send({
                         success: false,
                         message: 'A record with that date already exists.'
-                    });              
+                    });
                 } else {
-                    recordDB.create(recordData, function (err, row) {
+                    recordDB.create(recordData, function (err) {
                         if (err) {
                             return next(err);
                         }
@@ -53,15 +53,15 @@ module.exports = {
                             success: true,
                             message: 'Record created'
                         });
-                    });              
-                } 
+                    });
+                }
             });
         } else {
-             res.status(400).send({
+            res.status(400).send({
                 success: false,
                 message: 'Date, artist, title and week data not in correct format'
-            });           
-         }
+            });
+        }
     },
 
     update: function (req, res, next) {
@@ -82,9 +82,9 @@ module.exports = {
                     res.status(409).send({
                         success: false,
                         message: 'The record was not found.'
-                    });            
+                    });
                 } else {
-                    recordDB.update(recordData, function (err, row) {
+                    recordDB.update(recordData, function (err) {
                         if (err) {
                             return next(err);
                         }
@@ -92,14 +92,14 @@ module.exports = {
                             success: true,
                             message: 'Record updated'
                         });
-                    });               
+                    });
                 }
-            });           
+            });
         } else {
             res.status(400).send({
                 success: false,
                 message: 'Date, artist, title and week data not in correct format'
-            });           
+            });
         }
     },
 
@@ -112,7 +112,7 @@ module.exports = {
                 res.status(404).send({
                     success: false,
                     message: 'Record not found'
-                });               
+                });
             } else {
                 recordDB.delete(req.params.date, function (err) {
                     if (err) {
@@ -122,7 +122,7 @@ module.exports = {
                         success: true,
                         message: 'Record successfully deleted'
                     });
-                });             
+                });
             }
         });
     }
