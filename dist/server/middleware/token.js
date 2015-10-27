@@ -1,9 +1,10 @@
 'use strict';
 
 var jwt = require('jwt-simple');
-var secret = require('../config.js')();
 
 module.exports = function (req, res, next) {
+
+    var secret = process.env['SECRET'];
 
     var token = req.query.token || req.headers['x-access-token'];
     if (!token) {

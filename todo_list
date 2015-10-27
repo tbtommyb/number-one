@@ -1,6 +1,5 @@
 play around with tests a bit more, make them properly asynchronous
 comment properly
-Check that HTTPS etc plays ok with Heroku
 Go through node security checklist to see what i’ve missed
 Make regexs to filter user input (dates are done)
 Create a new SVG for mobile view

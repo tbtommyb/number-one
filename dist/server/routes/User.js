@@ -1,11 +1,13 @@
 'use strict';
 
+var Bcrypt = require('../../data/bcrypt');
 var userDB = require('../../data/userDB.js');
 
 var User = function (attr) {
     this.name = attr.name;
     this.password = attr.password;
     this.admin = attr.admin;
+
 };
 
 User.prototype.isInDB = function (callback) {

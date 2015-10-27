@@ -38,6 +38,16 @@ $(function(){
                     that.set('videoId',data.items[0].id.videoId);
                 }
             });
+        },
+        sync: function (method, model, options) {
+            var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJudW1iZXItb25lLWFwcCIsIm5hbWUiOiJudW1iZXItb25lIiwiYWRtaW4iOiJmYWxzZSJ9.YvBZIdnmFLosFA7gHk33Q7cbCNabJaWHZZ8uuSQoVeQ';
+
+            if (token) {
+                options.headers = {
+                    'x-access-token': token
+                };
+            }
+            Backbone.Model.prototype.sync.apply(this, arguments);
         }
     });
 
@@ -45,7 +55,7 @@ $(function(){
 
         model: Record,
         // link to REST database, queried with birthday date
-        url: 'https://number-oneapp.herokuapp.com/api/records'
+        url: 'http://localhost:9000/api/records'
     });
 
     var userCollection = new RecordCollection();
@@ -137,21 +147,6 @@ $(function(){
     });
 
     var userView = new AppView({collection: userCollection});
-
-    var backboneSync = Backbone.sync;
-
-    Backbone.sync = function (method, model, options) {
-        // move this to process_env in Heroku!
-        // Check it works for all methods
-        var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJudW1iZXItb25lLWFwcCIsIm5hbWUiOiJudW1iZXItb25lIiwiYWRtaW4iOiJmYWxzZSJ9.YvBZIdnmFLosFA7gHk33Q7cbCNabJaWHZZ8uuSQoVeQ';
-
-        if (token) {
-            options.headers: {
-                'x-access-token': token
-            }
-        }
-        backboneSync(method, model, options);
-    };
 });
 // creates the drop down selection boxes
 $(function(){

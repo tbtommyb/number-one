@@ -42,7 +42,8 @@ module.exports = function (grunt) {
                     '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
                     '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}',
                     '<%= yeoman.app %>/scripts/templates/*.{ejs,mustache,hbs}',
-                    'test/spec/**/*.js'
+                    'test/**/*.js',
+                    '<%= yeoman.app %>/server/{,*/}*.{ico,pem,js,html,key}'
                 ]
             },
             sass: {
@@ -59,7 +60,7 @@ module.exports = function (grunt) {
                 tasks: ['jst']
             },
             test: {
-                files: ['<%= yeoman.app %>/scripts/{,*/}*.js', 'test/spec/**/*.js'],
+                files: ['<%= yeoman.app %>/scripts/{,*/}*.js', 'test/**/*.js'],
                 tasks: ['test:true']
             }
         },
@@ -122,9 +123,11 @@ module.exports = function (grunt) {
             },
             all: [
                 'Gruntfile.js',
+                '<%= yeoman.app %>/data/**/*.js',
+                '<%= yeoman.app %>/server/**/*.js',
                 '<%= yeoman.app %>/scripts/{,*/}*.js',
                 '!<%= yeoman.app %>/scripts/vendor/*',
-                'test/spec/{,*/}*.js'
+                'test/{,*/}*.js'
             ]
         },
         mocha: {
@@ -219,8 +222,13 @@ module.exports = function (grunt) {
                     src: 'node_modules/apache-server-configs/dist/.htaccess',
                     dest: '<%= yeoman.dist %>/.htaccess'
                 }, {
-                    src:'<%= yeoman.app %>/server.js',
-                    dest: '<%= yeoman.dist %>/server.js'
+                    expand: true,
+                    dot: true,
+                    cwd: '<%= yeoman.app %>',
+                    dest: '<%= yeoman.dist %>',
+                    src: [
+                        'server/**/*.{ico,pem,js,html,key}'
+                    ]
                 }, {
                     src:'<%= yeoman.app %>/images/vinyl.svg',
                     dest: '<%= yeoman.dist %>/public/images/vinyl.svg'

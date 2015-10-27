@@ -8,10 +8,10 @@ module.exports = (function () {
     var users = require('./users.js'),
         record = require('./records.js'),
         authorise = require('./auth.js'),
+        allowMethods = require('allow-methods'),
         tokenChecker = require('../middleware/token.js'),
         adminChecker = require('../middleware/admin.js'),
         basicAuth = require('../middleware/basicauth.js'),
-        allowMethods = require('allow-methods'),
         encryptPassword = require('../middleware/encryptPassword.js'),
         valiDate = require('../middleware/validateDate.js');
 

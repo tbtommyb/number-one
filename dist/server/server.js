@@ -3,9 +3,13 @@
 'use strict';
 
 var express = require('express'),
+    path = require('path'),
     favicon = require('serve-favicon'),
     bodyParser = require('body-parser'),
-    helmet = require('helmet');
+    morgan = require('morgan'),
+    helmet = require('helmet'),
+    https = require('https'),
+    fs = require('fs');
 
 var api = require('./routes/api.js');
 var router = require('./routes/web.js');
@@ -37,12 +41,12 @@ app.set('port_https', httpsPort);*/
 
 // Put everything through HTTPS
 
-/*app.all('*', function (req, res, next) {
+app.all('*', function (req, res, next) {
     if (req.secure) {
         return next();
     }
-    res.redirect('https://' + req.hostname + ':' + app.get('port_https') + req.url);
-});*/
+    res.redirect('https://' + req.hostname + req.url);
+});
 
 // Routing -----------------
 

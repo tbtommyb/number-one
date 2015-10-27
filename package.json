@@ -2,10 +2,12 @@
   "name": "numberone",
   "version": "0.0.1",
   "dependencies": {
+    "allow-methods": "^1.0.1",
     "basic-auth": "^1.0.3",
     "bcrypt": "^0.8.5",
     "body-parser": "^1.14.1",
     "chai": "^3.4.0",
+    "cors": "^2.7.1",
     "csshint": "^0.2.0",
     "expect": "^1.12.2",
     "express": "^4.13.3",
