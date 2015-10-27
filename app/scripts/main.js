@@ -55,7 +55,7 @@ $(function(){
 
         model: Record,
         // link to REST database, queried with birthday date
-        url: 'http://localhost:9000/api/records'
+        url: 'https://number-oneapp.heroku.com/api/records'
     });
 
     var userCollection = new RecordCollection();
