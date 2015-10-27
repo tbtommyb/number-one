@@ -22,6 +22,7 @@ module.exports = (function () {
     });
 
     apiRouter.use('*', basicAuth); // require username and password
+    //apply this just to these two post routes
 
     apiRouter.post('/register', requirePassword, encryptPassword, users.add);
     apiRouter.post('/login', requirePassword, authorise.user);
@@ -46,6 +47,10 @@ module.exports = (function () {
     apiRouter.post('/admin/records/:date', valiDate, record.create);
     apiRouter.put('/admin/records/:rowid', valiDate, record.update);
     apiRouter.delete('/admin/records/:date', valiDate, record.delete);
+
+    apiRouter.all('/', function (err, req, res) {
+        res.status(400).send('You used the wrong verb!');
+    });
 
     return apiRouter;
 }());

@@ -1,13 +1,11 @@
-JSLint and CSSHint everything
+play around with tests a bit more, make them properly asynchronous
 comment properly
-Create token for client app and serve with requests
 Check that HTTPS etc plays ok with Heroku
-do I need to add http headers to all requests now?
 Go through node security checklist to see what i’ve missed
+Make regexs to filter user input (dates are done)
 Create a new SVG for mobile view
 make a better error page
 Create JS script to better handle layout and size of text
-Make regexs to filter user input
 Make sure error codes and messages are all correct and helpful
 make a new /api page giving instructions
 Check no unused code, check variable and function names are sensible
