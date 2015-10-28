@@ -3,13 +3,9 @@
 'use strict';
 
 var express = require('express'),
-    path = require('path'),
     favicon = require('serve-favicon'),
     bodyParser = require('body-parser'),
-    morgan = require('morgan'),
-    helmet = require('helmet'),
-    https = require('https'),
-    fs = require('fs');
+    helmet = require('helmet');
 
 var api = require('./routes/api.js');
 var router = require('./routes/web.js');
