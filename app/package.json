@@ -1,9 +1,16 @@
 {
   "name": "numberone",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "dependencies": {
     "express": "^4.13.3",
-    "sqlite3": "^3.1.0"
+    "sqlite3": "^3.1.0",
+    "allow-methods": "^1.0.1",
+    "basic-auth": "^1.0.3",
+    "bcrypt": "^0.8.5",
+    "body-parser": "^1.14.1",
+    "helmet": "^0.11.0",
+    "jwt-simple": "^0.3.1",
+    "serve-favicon": "^2.3.0"
   },
   "devDependencies": {
     "apache-server-configs": "^2.8.0",
