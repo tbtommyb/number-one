@@ -1,5 +1,6 @@
 play around with tests a bit more, make them properly asynchronous
 comment properly
+Tweak gruntfile etc to exclude secret files
 Go through node security checklist to see what i’ve missed
 Make regexs to filter user input (dates are done)
 Create a new SVG for mobile view
