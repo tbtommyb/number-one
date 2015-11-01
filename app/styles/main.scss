@@ -243,11 +243,11 @@ body {
   height: 600px;
   width: 600px;
   @include iphone {
-    margin-left:-45%;
+    @include svg-fallback('vinyl-mobile');
   }
 
   @include small {
-    margin-left: -25%;
+    @include svg-fallback('vinyl-mobile');
   }
 
   @include smed {

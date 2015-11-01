@@ -220,12 +220,14 @@ body {
 }
 @media (max-width: 320px) {
   .container {
-    margin-left: -45%;
+    background-image: url("../images/vinyl-mobile.png");
+    background-image: none, url("../images/vinyl-mobile.svg");
   }
 }
 @media (min-width: 321px) and (max-width: 441px) {
   .container {
-    margin-left: -25%;
+    background-image: url("../images/vinyl-mobile.png");
+    background-image: none, url("../images/vinyl-mobile.svg");
   }
 }
 @media (min-width: 442px) and (max-width: 514px) {
