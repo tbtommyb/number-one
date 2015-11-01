@@ -10,7 +10,6 @@ module.exports = {
                 return next(err);
             }
             res.contentType('application/json');
-            res.setHeader("Access-Control-Allow-Origin", "*");
             res.json(rows);
         });
     },
@@ -21,7 +20,6 @@ module.exports = {
                 return next(err);
             }
             res.contentType('application/json');
-            res.setHeader("Access-Control-Allow-Origin", "*");
             res.json(rows);
         });
     },

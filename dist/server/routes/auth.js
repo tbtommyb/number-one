@@ -3,9 +3,7 @@
 var jwt = require('jwt-simple');
 var bcrypt = require('../../data/bcrypt');
 var userDB = require('../../data/userDB.js');
-var basicAuth = require('basic-auth');
-
-var secret = process.env['SECRET'];
+var secret = require('../config.js')();
 
 // add in user.get method
 

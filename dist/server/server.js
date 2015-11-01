@@ -37,12 +37,12 @@ app.set('port_https', httpsPort);*/
 
 // Put everything through HTTPS
 
-app.all('*', function (req, res, next) {
+/*app.all('*', function (req, res, next) {
     if (req.secure) {
         return next();
     }
-    res.redirect('https://' + req.hostname + req.url);
-});
+    res.redirect('https://' + req.hostname + ':' + app.get('port_https') + req.url);
+});*/
 
 // Routing -----------------
 
