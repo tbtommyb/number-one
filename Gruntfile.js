@@ -230,8 +230,10 @@ module.exports = function (grunt) {
                         'server/**/*.{ico,pem,js,html,key}'
                     ]
                 }, {
-                    src:'<%= yeoman.app %>/images/vinyl.svg',
-                    dest: '<%= yeoman.dist %>/public/images/vinyl.svg'
+                    expand: true,
+                    dest: '<%= yeoman.dist %>/public/images/',
+                    cwd:'<%= yeoman.app %>/images/',
+                    src: '**'
                 }]
             }
         },
