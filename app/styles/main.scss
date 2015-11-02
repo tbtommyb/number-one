@@ -101,16 +101,16 @@ $med-width: 600px;
   margin-left: 4px;
 
   @include iphone {
-    margin-top: 70px;
+    margin-top: 10%;
   }
   @include small {
-    margin-top: 20%;
+    margin-top: 22%;
   }
   @include smed {
     margin-top:10px;
   }
   @include medium {
-    margin-top: 40px;
+    margin-top: 4%;
   }
 }
 
@@ -137,8 +137,8 @@ $med-width: 600px;
   @include smed {
     @include font-size(28px);
     width: 80%;
-    padding-top: 40px;
-    margin-bottom: 60px;
+    padding-top: 9%;
+    margin-bottom: 7%;
   }
 
   @include medium {
@@ -150,7 +150,7 @@ $med-width: 600px;
 .recordHolder {
   @extend %center;
   background-color: transparent;
-  padding-top: 40px;
+  padding-top: 13%;
   width: 400px;
 
   @include iphone {
@@ -164,13 +164,13 @@ $med-width: 600px;
   }
 
   @include smed {
-    padding-top: 13%;
+    padding-top: 1%;
   }
 
   @include medium {
     width: 85%;
     margin: auto;
-    padding-top: 13%;
+    padding-top: 3%;
   }
 }
 
@@ -186,7 +186,6 @@ $med-width: 600px;
 
   @include smed {
     @include font-size(36px);
-    margin-top: 60px;
   }
 
   @include medium {

@@ -50,12 +50,12 @@
 }
 @media (max-width: 320px) {
   .div-date {
-    margin-top: 70px;
+    margin-top: 10%;
   }
 }
 @media (min-width: 321px) and (max-width: 441px) {
   .div-date {
-    margin-top: 20%;
+    margin-top: 22%;
   }
 }
 @media (min-width: 442px) and (max-width: 514px) {
@@ -65,7 +65,7 @@
 }
 @media (min-width: 515px) and (max-width: 599px) {
   .div-date {
-    margin-top: 40px;
+    margin-top: 4%;
   }
 }
 
@@ -99,8 +99,8 @@
     font-size: 28px;
     font-size: 1.75rem;
     width: 80%;
-    padding-top: 40px;
-    margin-bottom: 60px;
+    padding-top: 9%;
+    margin-bottom: 7%;
   }
 }
 @media (min-width: 515px) and (max-width: 599px) {
@@ -113,7 +113,7 @@
 
 .recordHolder {
   background-color: transparent;
-  padding-top: 40px;
+  padding-top: 13%;
   width: 400px;
 }
 @media (max-width: 320px) {
@@ -130,14 +130,14 @@
 }
 @media (min-width: 442px) and (max-width: 514px) {
   .recordHolder {
-    padding-top: 13%;
+    padding-top: 1%;
   }
 }
 @media (min-width: 515px) and (max-width: 599px) {
   .recordHolder {
     width: 85%;
     margin: auto;
-    padding-top: 13%;
+    padding-top: 3%;
   }
 }
 
@@ -157,7 +157,6 @@
   .recordResult {
     font-size: 36px;
     font-size: 2.25rem;
-    margin-top: 60px;
   }
 }
 @media (min-width: 515px) and (max-width: 599px) {
