@@ -104,7 +104,7 @@ $med-width: 600px;
     margin-top: 70px;
   }
   @include small {
-    margin-top: 26%;
+    margin-top: 20%;
   }
   @include smed {
     margin-top:10px;
@@ -154,23 +154,23 @@ $med-width: 600px;
   width: 400px;
 
   @include iphone {
-    width:48%;
+    width: 100%;
   }
 
   @include small {
-    padding-top: 60px;
-    width: 60%;
+    padding-top: 13%;
+    width: 100%;
     margin: auto
   }
 
   @include smed {
-    padding-top: 12px;
+    padding-top: 13%;
   }
 
   @include medium {
     width: 85%;
     margin: auto;
-    padding-top: 35px;
+    padding-top: 13%;
   }
 }
 
@@ -211,9 +211,8 @@ $med-width: 600px;
   height: 100%;
 
   @include small {
-    width: 80%;
+    width: 100%;
     height: 100%;
-    margin-left: 10%;
   }
 }
 
@@ -245,11 +244,13 @@ body {
   @include iphone {
     @include svg-fallback('vinyl-mobile');
     width: 100%;
+    height: 100%
   }
 
   @include small {
     @include svg-fallback('vinyl-mobile');
     width: 100%;
+    height: 100%
   }
 
   @include smed {
@@ -262,7 +263,7 @@ body {
 }
 
 .githubImage {
-  @include svg-fallback('find-me');
+  background-image: url('../images/#{find_me}.png');
   position: absolute;
   top: 0;
   right: 0;

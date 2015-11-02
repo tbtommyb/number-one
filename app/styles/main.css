@@ -55,7 +55,7 @@
 }
 @media (min-width: 321px) and (max-width: 441px) {
   .div-date {
-    margin-top: 26%;
+    margin-top: 20%;
   }
 }
 @media (min-width: 442px) and (max-width: 514px) {
@@ -118,26 +118,26 @@
 }
 @media (max-width: 320px) {
   .recordHolder {
-    width: 48%;
+    width: 100%;
   }
 }
 @media (min-width: 321px) and (max-width: 441px) {
   .recordHolder {
-    padding-top: 60px;
-    width: 60%;
+    padding-top: 13%;
+    width: 100%;
     margin: auto;
   }
 }
 @media (min-width: 442px) and (max-width: 514px) {
   .recordHolder {
-    padding-top: 12px;
+    padding-top: 13%;
   }
 }
 @media (min-width: 515px) and (max-width: 599px) {
   .recordHolder {
     width: 85%;
     margin: auto;
-    padding-top: 35px;
+    padding-top: 13%;
   }
 }
 
@@ -185,9 +185,8 @@
 }
 @media (min-width: 321px) and (max-width: 441px) {
   .videowrapper iframe, .videowrapper object, .videowrapper embed {
-    width: 80%;
+    width: 100%;
     height: 100%;
-    margin-left: 10%;
   }
 }
 
@@ -223,6 +222,7 @@ body {
     background-image: url("../images/vinyl-mobile.png");
     background-image: none, url("../images/vinyl-mobile.svg");
     width: 100%;
+    height: 100%;
   }
 }
 @media (min-width: 321px) and (max-width: 441px) {
@@ -230,6 +230,7 @@ body {
     background-image: url("../images/vinyl-mobile.png");
     background-image: none, url("../images/vinyl-mobile.svg");
     width: 100%;
+    height: 100%;
   }
 }
 @media (min-width: 442px) and (max-width: 514px) {
@@ -244,8 +245,7 @@ body {
 }
 
 .githubImage {
-  background-image: url("../images/find-me.png");
-  background-image: none, url("../images/find-me.svg");
+  background-image: url("../images/find_me.png");
   position: absolute;
   top: 0;
   right: 0;
