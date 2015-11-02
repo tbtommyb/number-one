@@ -55,7 +55,7 @@
 }
 @media (min-width: 321px) and (max-width: 441px) {
   .div-date {
-    margin-top: 66px;
+    margin-top: 26%;
   }
 }
 @media (min-width: 442px) and (max-width: 514px) {
@@ -81,15 +81,15 @@
   .titleText {
     font-size: 30px;
     font-size: 1.875rem;
-    width: 55%;
+    width: 100%;
     margin-bottom: 80px;
   }
 }
 @media (min-width: 321px) and (max-width: 441px) {
   .titleText {
-    font-size: 30px;
-    font-size: 1.875rem;
-    width: 65%;
+    font-size: 40px;
+    font-size: 2.5rem;
+    width: 100%;
     padding-top: 50px;
     margin-bottom: 80px;
   }
@@ -149,21 +149,21 @@
 }
 @media (min-width: 321px) and (max-width: 441px) {
   .recordResult {
-    font-size: 28px;
-    font-size: 1.75rem;
+    font-size: 36px;
+    font-size: 2.25rem;
   }
 }
 @media (min-width: 442px) and (max-width: 514px) {
   .recordResult {
-    font-size: 28px;
-    font-size: 1.75rem;
+    font-size: 36px;
+    font-size: 2.25rem;
     margin-top: 60px;
   }
 }
 @media (min-width: 515px) and (max-width: 599px) {
   .recordResult {
-    font-size: 32px;
-    font-size: 2rem;
+    font-size: 38px;
+    font-size: 2.375rem;
   }
 }
 
@@ -185,9 +185,9 @@
 }
 @media (min-width: 321px) and (max-width: 441px) {
   .videowrapper iframe, .videowrapper object, .videowrapper embed {
-    width: 60%;
-    height: 60%;
-    margin-left: 20%;
+    width: 80%;
+    height: 100%;
+    margin-left: 10%;
   }
 }
 
@@ -222,12 +222,14 @@ body {
   .container {
     background-image: url("../images/vinyl-mobile.png");
     background-image: none, url("../images/vinyl-mobile.svg");
+    width: 100%;
   }
 }
 @media (min-width: 321px) and (max-width: 441px) {
   .container {
     background-image: url("../images/vinyl-mobile.png");
     background-image: none, url("../images/vinyl-mobile.svg");
+    width: 100%;
   }
 }
 @media (min-width: 442px) and (max-width: 514px) {
@@ -242,10 +244,15 @@ body {
 }
 
 .githubImage {
+  background-image: url("../images/find-me.png");
+  background-image: none, url("../images/find-me.svg");
   position: absolute;
   top: 0;
   right: 0;
   border: 0;
+  display: block;
+  height: 149px;
+  width: 149px;
 }
 @media (max-width: 320px) {
   .githubImage {
