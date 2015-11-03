@@ -1,5 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Pacifico);
-.dateEntry select, .dateEntry button, .titleText, .recordHolder, .container {
+.dateEntry select, .dateEntry button, #number-oneapp #titleHolder, .titleText, .recordHolder, .container {
   margin: auto;
   text-align: center;
 }
@@ -45,8 +45,8 @@
 }
 
 .div-date {
-  margin-top: 60px;
-  margin-left: 4px;
+  margin-top: 8%;
+  margin-left: 0.5%;
 }
 @media (max-width: 320px) {
   .div-date {
@@ -55,12 +55,12 @@
 }
 @media (min-width: 321px) and (max-width: 441px) {
   .div-date {
-    margin-top: 22%;
+    margin-top: 26%;
   }
 }
 @media (min-width: 442px) and (max-width: 514px) {
   .div-date {
-    margin-top: 10px;
+    margin-top: 6%;
   }
 }
 @media (min-width: 515px) and (max-width: 599px) {
@@ -69,46 +69,42 @@
   }
 }
 
-.titleText {
+#number-oneapp #titleHolder {
   font: 100% Pacifico, cursive;
-  font-size: 40px;
-  font-size: 2.5rem;
-  padding-top: 50px;
-  width: 400px;
-  color: white;
+  display: block;
+  height: 150px;
+  width: 500px;
+  padding-top: 9%;
 }
 @media (max-width: 320px) {
-  .titleText {
-    font-size: 30px;
-    font-size: 1.875rem;
-    width: 100%;
-    margin-bottom: 80px;
+  #number-oneapp #titleHolder {
+    width: 400px;
   }
 }
 @media (min-width: 321px) and (max-width: 441px) {
-  .titleText {
-    font-size: 40px;
-    font-size: 2.5rem;
-    width: 100%;
-    padding-top: 50px;
-    margin-bottom: 80px;
+  #number-oneapp #titleHolder {
+    width: 300px;
+    height: 150px;
   }
 }
 @media (min-width: 442px) and (max-width: 514px) {
-  .titleText {
-    font-size: 28px;
-    font-size: 1.75rem;
-    width: 80%;
-    padding-top: 9%;
-    margin-bottom: 7%;
+  #number-oneapp #titleHolder {
+    height: 140px;
+    width: 260px;
+    padding-top: 5%;
   }
 }
 @media (min-width: 515px) and (max-width: 599px) {
-  .titleText {
-    font-size: 40px;
-    font-size: 2.5rem;
-    width: 80%;
+  #number-oneapp #titleHolder {
+    height: 150px;
+    width: 380px;
+    padding-top: 7%;
   }
+}
+
+.titleText {
+  font: 100% Pacifico, cursive;
+  color: white;
 }
 
 .recordHolder {

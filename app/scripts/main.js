@@ -148,6 +148,20 @@ $(function(){
 
     var userView = new AppView({collection: userCollection});
 });
+
+// makes title text resize properly
+$(function(){
+    function resizeText() {
+        $('#titleHolder').textfill({
+            minFontPixels: 4
+        });        
+    };
+    resizeText();
+    $(window).on('resize', function() {
+        resizeText();
+    });
+});
+
 // creates the drop down selection boxes
 $(function(){
     $('#date').combodate({
