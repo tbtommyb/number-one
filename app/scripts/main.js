@@ -80,7 +80,7 @@ $(function(){
 
         render: function(record){
             var view = new RecordView({model: record});
-            this.$record.html($(view.render().el).hide().fadeIn(500));
+            this.$record.html($(view.render().el).hide().trigger('scroll').fadeIn());
         },
 
         submit: function(e) {
