@@ -164,7 +164,7 @@ $(document).ready(function() {
     resizeText('.textHolder');
     resizeText('.recordHolder');
     setDateSpacing();
-    $(window).on('resize', function() {
+    $(window).on('scroll resize', function() {
         resizeText('.textHolder');
         resizeText('.recordHolder');
         setDateSpacing();
