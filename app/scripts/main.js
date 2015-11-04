@@ -126,7 +126,7 @@ $(function(){
 
         tagName: 'h2',
 
-        className: 'recordResult',
+        className: 'textHolder',
 
         template: _.template('<%= artist %>: <%= title %>'),
 
@@ -150,17 +150,29 @@ $(function(){
 });
 
 // makes title text resize properly
-$(function(){
-    function resizeText() {
-        $('#titleHolder').textfill({
-            minFontPixels: 4
-        });        
-    };
-    resizeText();
-    $(window).on('resize', function() {
+$(document).ready(function() {
+    $(function(){
+        function resizeText() {
+            $('.textHolder').textfill({
+                minFontPixels: 4,
+                maxFontPixels: 40
+            });        
+        };
+        function setDateSpacing() {
+            $topDate = ($('#main').width() / 12.5);
+            $leftDate = ($('#main').width() / 2) - ($('.div-date').width() / 2) + 2;
+            $('.div-date').css({'top': $topDate + 'px', 'left': $leftDate + 'px'});
+            console.log($topDate);
+        }
         resizeText();
-    });
+        setDateSpacing();
+        $(window).on('resize', function() {
+            resizeText();
+            setDateSpacing();
+        });
+    }); 
 });
+
 
 // creates the drop down selection boxes
 $(function(){

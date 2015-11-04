@@ -1,5 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Pacifico);
-.dateEntry select, .dateEntry button, #number-oneapp #titleHolder, .titleText, .recordHolder, .container {
+.dateEntry select, .dateEntry button, #number-oneapp .textHolder, #titleText, .recordHolder, .container {
   margin: auto;
   text-align: center;
 }
@@ -45,31 +45,10 @@
 }
 
 .div-date {
-  margin-top: 8%;
-  margin-left: 0.5%;
-}
-@media (max-width: 320px) {
-  .div-date {
-    margin-top: 10%;
-  }
-}
-@media (min-width: 321px) and (max-width: 441px) {
-  .div-date {
-    margin-top: 26%;
-  }
-}
-@media (min-width: 442px) and (max-width: 514px) {
-  .div-date {
-    margin-top: 6%;
-  }
-}
-@media (min-width: 515px) and (max-width: 599px) {
-  .div-date {
-    margin-top: 4%;
-  }
+  position: relative;
 }
 
-#number-oneapp #titleHolder {
+#number-oneapp .textHolder {
   font: 100% Pacifico, cursive;
   display: block;
   height: 150px;
@@ -77,32 +56,32 @@
   padding-top: 9%;
 }
 @media (max-width: 320px) {
-  #number-oneapp #titleHolder {
+  #number-oneapp .textHolder {
     width: 400px;
   }
 }
 @media (min-width: 321px) and (max-width: 441px) {
-  #number-oneapp #titleHolder {
+  #number-oneapp .textHolder {
     width: 300px;
     height: 150px;
   }
 }
 @media (min-width: 442px) and (max-width: 514px) {
-  #number-oneapp #titleHolder {
+  #number-oneapp .textHolder {
     height: 140px;
     width: 260px;
     padding-top: 5%;
   }
 }
 @media (min-width: 515px) and (max-width: 599px) {
-  #number-oneapp #titleHolder {
+  #number-oneapp .textHolder {
     height: 150px;
     width: 380px;
     padding-top: 7%;
   }
 }
 
-.titleText {
+#titleText {
   font: 100% Pacifico, cursive;
   color: white;
 }

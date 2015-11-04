@@ -97,24 +97,12 @@ $med-width: 600px;
 }
 
 .div-date {
-  margin-top: 8%;
-  margin-left: 0.5%;
 
-  @include iphone {
-    margin-top: 10%;
-  }
-  @include small {
-    margin-top: 26%;
-  }
-  @include smed {
-    margin-top: 6%;
-  }
-  @include medium {
-    margin-top: 4%;
-  }
+  position: relative;
+
 }
 
-#number-oneapp #titleHolder {
+#number-oneapp .textHolder {
   @extend %center;
   font: 100% $headline;
   display: block;
@@ -143,13 +131,14 @@ $med-width: 600px;
   }
 }
 
-.titleText {
+#titleText {
   @extend %center;
   font: 100% $headline;
   //@include font-size(40px);
   color: white;
 }
 
+// change titleHolder to a generic class and use for both cases. make sure specificity is ok
 .recordHolder {
   @extend %center;
   background-color: transparent;
