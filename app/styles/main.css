@@ -1,5 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Pacifico);
-.dateEntry select, .dateEntry button, #number-oneapp .textHolder, #titleText, .recordHolder, .container {
+.dateEntry select, .dateEntry button, #number-oneapp .textHolder, #titleText, #number-oneapp.recordHolder, .container {
   margin: auto;
   text-align: center;
 }
@@ -86,59 +86,41 @@
   color: white;
 }
 
-.recordHolder {
+#number-oneapp.recordHolder {
   background-color: transparent;
-  padding-top: 13%;
-  width: 400px;
+  display: block;
+  height: 150px;
+  width: 500px;
 }
 @media (max-width: 320px) {
-  .recordHolder {
-    width: 100%;
+  #number-oneapp.recordHolder {
+    width: 400px;
   }
 }
 @media (min-width: 321px) and (max-width: 441px) {
-  .recordHolder {
-    padding-top: 13%;
-    width: 100%;
-    margin: auto;
+  #number-oneapp.recordHolder {
+    width: 300px;
+    height: 150px;
   }
 }
 @media (min-width: 442px) and (max-width: 514px) {
-  .recordHolder {
-    padding-top: 1%;
+  #number-oneapp.recordHolder {
+    height: 140px;
+    width: 260px;
+    padding-top: 5%;
   }
 }
 @media (min-width: 515px) and (max-width: 599px) {
-  .recordHolder {
-    width: 85%;
-    margin: auto;
-    padding-top: 3%;
+  #number-oneapp.recordHolder {
+    height: 150px;
+    width: 380px;
+    padding-top: 7%;
   }
 }
 
 .recordResult {
   font: 100% Futura, "Trebuchet MS", Arial, sans-serif;
   color: white;
-  font-size: 36px;
-  font-size: 2.25rem;
-}
-@media (min-width: 321px) and (max-width: 441px) {
-  .recordResult {
-    font-size: 36px;
-    font-size: 2.25rem;
-  }
-}
-@media (min-width: 442px) and (max-width: 514px) {
-  .recordResult {
-    font-size: 36px;
-    font-size: 2.25rem;
-  }
-}
-@media (min-width: 515px) and (max-width: 599px) {
-  .recordResult {
-    font-size: 38px;
-    font-size: 2.375rem;
-  }
 }
 
 .videowrapper {

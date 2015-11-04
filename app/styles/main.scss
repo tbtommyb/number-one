@@ -134,55 +134,40 @@ $med-width: 600px;
 #titleText {
   @extend %center;
   font: 100% $headline;
-  //@include font-size(40px);
   color: white;
 }
 
-// change titleHolder to a generic class and use for both cases. make sure specificity is ok
-.recordHolder {
+#number-oneapp.recordHolder {
   @extend %center;
   background-color: transparent;
-  padding-top: 13%;
-  width: 400px;
+  display: block;
+  height: 150px;
+  width: 500px;
 
   @include iphone {
-    width: 100%;
+    width: 400px;
   }
-
   @include small {
-    padding-top: 13%;
-    width: 100%;
-    margin: auto
+    width: 300px;
+    height: 150px;
   }
 
   @include smed {
-    padding-top: 1%;
+    height: 140px;
+    width: 260px;
+    padding-top: 5%;
   }
 
   @include medium {
-    width: 85%;
-    margin: auto;
-    padding-top: 3%;
+    height: 150px;
+    width: 380px;
+    padding-top: 7%;
   }
 }
 
 .recordResult { 
   font: 100% $font-stack;
   color: white;
-
-  @include font-size(36px);
-
-  @include small {
-    @include font-size(36px);
-  }
-
-  @include smed {
-    @include font-size(36px);
-  }
-
-  @include medium {
-    @include font-size(38px);
-  }
 }
 
 .videowrapper {

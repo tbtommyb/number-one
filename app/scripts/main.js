@@ -126,7 +126,7 @@ $(function(){
 
         tagName: 'h2',
 
-        className: 'textHolder',
+        className: 'recordResult',
 
         template: _.template('<%= artist %>: <%= title %>'),
 
@@ -152,8 +152,8 @@ $(function(){
 // makes title text resize properly
 $(document).ready(function() {
     $(function(){
-        function resizeText() {
-            $('.textHolder').textfill({
+        function resizeText(selector) {
+            $(selector).textfill({
                 minFontPixels: 4,
                 maxFontPixels: 40
             });        
@@ -162,12 +162,13 @@ $(document).ready(function() {
             $topDate = ($('#main').width() / 12.5);
             $leftDate = ($('#main').width() / 2) - ($('.div-date').width() / 2) + 2;
             $('.div-date').css({'top': $topDate + 'px', 'left': $leftDate + 'px'});
-            console.log($topDate);
         }
-        resizeText();
+        resizeText('.textHolder');
+        resizeText('.recordResult');
         setDateSpacing();
         $(window).on('resize', function() {
-            resizeText();
+            resizeText('.textHolder');
+            resizeText('.recordResult');
             setDateSpacing();
         });
     }); 
