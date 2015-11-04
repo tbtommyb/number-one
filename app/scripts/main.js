@@ -80,7 +80,7 @@ $(function(){
 
         render: function(record){
             var view = new RecordView({model: record});
-            this.$record.html($(view.render().el).hide().trigger('scroll').fadeIn());
+            this.$record.html($(view.render().el));
         },
 
         submit: function(e) {
@@ -151,10 +151,12 @@ $(function(){
 
 $(document).ready(function() {
     function resizeText(selector) {
+        $(selector).hide();
         $(selector).textfill({
             minFontPixels: 4,
             maxFontPixels: 40
         });
+        $(selector).fadeIn();
     }      
     function setDateSpacing() {
         $topDate = ($('#main').width() / 12.5);
