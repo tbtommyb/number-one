@@ -124,7 +124,7 @@ $(function(){
 
     var RecordView = Backbone.View.extend({
 
-        tagName: 'h2',
+        tagName: 'span',
 
         className: 'recordResult',
 

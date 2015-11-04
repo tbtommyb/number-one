@@ -137,7 +137,7 @@ $med-width: 600px;
   color: white;
 }
 
-#number-oneapp.recordHolder {
+#number-oneapp .recordHolder {
   @extend %center;
   background-color: transparent;
   display: block;
@@ -161,7 +161,7 @@ $med-width: 600px;
   @include medium {
     height: 150px;
     width: 380px;
-    padding-top: 7%;
+    padding-top: 17%;
   }
 }
 
