@@ -139,11 +139,11 @@ $med-width: 600px;
 
 #number-oneapp .recordHolder {
   @extend %center;
-  padding-top: 17%;
+  padding-top: 18%;
   background-color: transparent;
   display: block;
-  height: 150px;
-  width: 500px;
+  height: 160px;
+  width: 440px;
 
   @include iphone {
     width: 400px;
@@ -157,13 +157,13 @@ $med-width: 600px;
   @include smed {
     height: 140px;
     width: 260px;
-    padding-top: 11%;
+    padding-top: 14%;
   }
 
   @include medium {
     height: 150px;
     width: 380px;
-    padding-top: 13%;
+    padding-top: 18%;
   }
 }
 
@@ -178,7 +178,6 @@ $med-width: 600px;
   padding-top: 30px;
   height:  0;
   margin-top: 100px;
-  /*margin-bottom: 10px;*/
 }
 
 .videowrapper iframe, .videowrapper object, .videowrapper embed {

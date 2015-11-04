@@ -87,11 +87,11 @@
 }
 
 #number-oneapp .recordHolder {
-  padding-top: 17%;
+  padding-top: 18%;
   background-color: transparent;
   display: block;
-  height: 150px;
-  width: 500px;
+  height: 160px;
+  width: 440px;
 }
 @media (max-width: 320px) {
   #number-oneapp .recordHolder {
@@ -109,14 +109,14 @@
   #number-oneapp .recordHolder {
     height: 140px;
     width: 260px;
-    padding-top: 11%;
+    padding-top: 14%;
   }
 }
 @media (min-width: 515px) and (max-width: 599px) {
   #number-oneapp .recordHolder {
     height: 150px;
     width: 380px;
-    padding-top: 13%;
+    padding-top: 18%;
   }
 }
 
@@ -131,7 +131,6 @@
   padding-top: 30px;
   height: 0;
   margin-top: 100px;
-  /*margin-bottom: 10px;*/
 }
 
 .videowrapper iframe, .videowrapper object, .videowrapper embed {

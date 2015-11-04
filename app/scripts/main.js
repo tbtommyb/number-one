@@ -149,36 +149,31 @@ $(function(){
     var userView = new AppView({collection: userCollection});
 });
 
-// makes title text resize properly
 $(document).ready(function() {
-    $(function(){
-        function resizeText(selector) {
-            $(selector).textfill({
-                minFontPixels: 4,
-                maxFontPixels: 40
-            });        
-        };
-        function setDateSpacing() {
-            $topDate = ($('#main').width() / 12.5);
-            $leftDate = ($('#main').width() / 2) - ($('.div-date').width() / 2) + 2;
-            $('.div-date').css({'top': $topDate + 'px', 'left': $leftDate + 'px'});
-        }
+    function resizeText(selector) {
+        $(selector).textfill({
+            minFontPixels: 4,
+            maxFontPixels: 40
+        });
+    }      
+    function setDateSpacing() {
+        $topDate = ($('#main').width() / 12.5);
+        $leftDate = ($('#main').width() / 2) - ($('.div-date').width() / 2) + 2;
+        $('.div-date').css({'top': $topDate + 'px', 'left': $leftDate + 'px'});
+    }
+    resizeText('.textHolder');
+    resizeText('.recordHolder');
+    setDateSpacing();
+    $(window).on('resize', function() {
         resizeText('.textHolder');
         resizeText('.recordHolder');
         setDateSpacing();
-        $(window).on('resize', function() {
-            resizeText('.textHolder');
-            resizeText('.recordHolder');
-            setDateSpacing();
-        });
-    }); 
-});
-
-
-// creates the drop down selection boxes
-$(function(){
+    });
+    // creates the drop down selection boxes
     $('#date').combodate({
         minYear: 1953,
         format: 'YYYY-MM-DD'
     });
 });
+
+
