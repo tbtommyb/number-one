@@ -164,11 +164,11 @@ $(document).ready(function() {
             $('.div-date').css({'top': $topDate + 'px', 'left': $leftDate + 'px'});
         }
         resizeText('.textHolder');
-        resizeText('.recordResult');
+        resizeText('.recordHolder');
         setDateSpacing();
         $(window).on('resize', function() {
             resizeText('.textHolder');
-            resizeText('.recordResult');
+            resizeText('.recordHolder');
             setDateSpacing();
         });
     }); 
