@@ -1,51 +1,11 @@
-List of steps to write up into blog post
-========================================
+Number One
+==========
 
-* Found releases table on charts website
-* Saved local version and used jQuery to pull all <tr> elements
-* Used script [insert link] to output to csv
-* Used node csv to json to create array of objects
-* Used dateFormatter.js to change date to valid SQL datestring
-* Used databaseMaker.js to create SQL database
-* Created express app and restful api to communicate with dbase (put server.js in root)
+This little app finds what was number one on your birthday (in the UK) and finds the song on Youtube.
 
-Back-end stuff finished!
+On the client side, it's a Backbone app with a little bit of jQuery for styling.
 
-* Tried to have separate backbone files according to Yeoman generator but it's easier to just put in one file (v small project)
-* Build backbone file to query database and hold results in model, render to page
-* Next is to take user input and pass to backbone
+On the back-end, it's an Express server connecting to an sqlite3 database.
 
-Basic code completed
---------------------
+It has a full RESTful API, accessible at /api. This allows new users to register via basic auth (over HTTPS) and allocates users a JSON web token. Providing the token along with requests allows the user to pull record information from the database. Users with admin status can amend the record and user databases.
 
-install sass via npm, add task to grunt so that on serve etc it's done automatically
-Need to:
-* Add in error-checking for server, in case date out of range.
-* Add styling.
-* Increase functionality
-
-Styling
--------
-
-* Choose suitable colours
-* think about compatibility
-
-API integration
----------------
-
-* Add in auto loading of youtube
-
-* Make youtube video update on model change
-* Fix grunt file
-* Fix paths to public files
-* index.html isn't built properly
-
-Left to do
-----------
-
-* Blog write up
-* Fix up blog - credits, new pics
-* Tidy up formatting a little bit more (create new media mixin for iphone screen, change ids to classes, alignments on the page etc). Make go button change colour on hover
-* security - ssl, cookies, sql (need to use prepared statements)
-
-* Songkick??

@@ -1,4 +1,7 @@
-@import url(https://fonts.googleapis.com/css?family=Pacifico);
+@font-face {
+  font-family: 'Pacifico';
+  src: url("fonts/pacifico-webfont.eot?") format("eot"), url("fonts/pacifico-webfont.woff") format("woff"), url("fonts/pacifico-webfont.ttf") format("truetype");
+}
 .dateEntry select, .dateEntry button, #number-oneapp .textHolder, #titleText, #number-oneapp .recordHolder, .container {
   margin: auto;
   text-align: center;

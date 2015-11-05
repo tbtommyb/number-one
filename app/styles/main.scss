@@ -1,4 +1,9 @@
-@import url(https://fonts.googleapis.com/css?family=Pacifico);
+//@import url(https://fonts.googleapis.com/css?family=Pacifico);
+
+@font-face {
+  font-family: 'Pacifico';
+  src: url('fonts/pacifico-webfont.eot?') format('eot'), url('fonts/pacifico-webfont.woff') format('woff'), url('fonts/pacifico-webfont.ttf') format('truetype');
+}
 
 $headline: Pacifico, cursive;
 $font-stack: Futura, 'Trebuchet MS', Arial, sans-serif;

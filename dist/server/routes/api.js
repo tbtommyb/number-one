@@ -1,6 +1,7 @@
 /* jslint node: true, nomen: true */
 
-var express = require('express');
+var express = require('express'),
+    path = require('path');
 
 module.exports = (function () {
     'use strict';
@@ -18,7 +19,7 @@ module.exports = (function () {
     var apiRouter = express.Router();
 
     apiRouter.get('/', function(req, res, next) {
-        res.status(200).send({message: 'hello!'});
+        res.sendFile(path.join(__dirname, '/../../api.html'));
     });
 
     apiRouter.route('/register')

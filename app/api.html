@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie-edge">
+        <title>Welcome to the API</title>
+        <meta name="description" content="Instructions for accessing the Number One API">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+    	<section id="intro">
+	    	<h1>Accessing the API</h1>
+	    	<p>All users must register with the API. Having registered, they must login to be allocated a JSON Web Token (JWT). They will then be able to access the public routes. Authenticated uers will have access to private routes.</p>
+	    </section>
+	    <section id='registration'>
+	    	<h2>Registering</h2>
+	    	<p>POST to /api/register, providing a username and password in the basic authorisation header. Both must be longer than zero. As yet there is no character limit. Passwords are salted and encrypted on the database.</p>
+	    	<h2>Logging in</h2>
+	    	<p>After registering, POST to /api/login with the previously registered user details. If the user is found, a JWT will be returned. This must be used in all further requests in the 'x-access-token' header.</p>
+	    </section>
+	    <section id="public">
+	    	<h2>Records</h2>
+	    	<p>GET /records to have the full list of records, or GET /records/:date in the format YYYY-MM-DD to find the number one record on a specific date.</p>
+	    <section id="private">
+	    	<h2>Private Routes</h2>
+	    	<p>For these routes the JWT token will be checked to see if the user has admin status.</p>
+	    	<h3>User routes</h3>
+	    	<p>GET /admin/users returns the full list of users.</p><br />
+	    	<p>GET /admin/users/:name returns the details of the specified user.</p><br />
+	    	<p>PUT /admin/users/:name updates the details of the specified user. The values 'name' (string), 'password' (string) and 'admin' (boolean) must be provided in the request body.</p><br />
+	    	<p>DELETE /admin/users/:name will delete the specified user from the database.</p><br />
+	    	<h3>Record routes</h3>
+	    	<p>POST /admin/records/:date will create a new record in the database with the specified datestring. 'Artist' (string), 'title' (string) and 'weeks' (integer) must all be provided in the request body.</p><br />
+	    	<p>PUT /admin/records/:rowid (not :date) will update the record at the specified database row ID (which can be found using the GET routes). 'Date' (string), 'artist' (string), 'title' (string) and 'weeks' (integer) must all be provided in the request body.</p><br />
+	    	<p>DELETE /admin/records/:date will delete the record with the specified date.</p>
+	    </section>
+	</body>
+</html>

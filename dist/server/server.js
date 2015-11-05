@@ -1,6 +1,7 @@
 var express = require('express'),
     favicon = require('serve-favicon'),
     bodyParser = require('body-parser'),
+    compression = require('compression'),
     helmet = require('helmet');
 
 var api = require('./routes/api.js');
@@ -11,12 +12,11 @@ var app = express();
 var port = process.env.PORT || 9000;
 
 //Static content and favicon
-app.use(express.static(__dirname + '/../'));
-app.use(favicon(__dirname + '/favicon.ico'));
-
-//Middleware
-
+app.use(compression());
 app.use(helmet());
+
+app.use(express.static(__dirname + '/../', { maxAge: 31536000 }));
+app.use(favicon(__dirname + '/favicon.ico'));
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
