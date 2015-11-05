@@ -80,7 +80,7 @@ $(function(){
 
         render: function(record){
             var view = new RecordView({model: record});
-            this.$record.html($(view.render().el).trigger('textLoaded'));
+            this.$record.html($(view.render().el)).trigger('textLoaded');
         },
 
         submit: function(e) {
@@ -171,7 +171,7 @@ $(document).ready(function() {
         setDateSpacing();
     });
 
-    $(window).on('textLoaded', function () {
+    $('#record').on('textLoaded', function () {
         $('.recordHolder').text({
             minFontPixels: 4,
             maxFontPixels: 40,
