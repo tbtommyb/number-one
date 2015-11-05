@@ -81,9 +81,7 @@ $(function(){
         render: function(record){
             var view = new RecordView({model: record});
             this.$record.html($(view.render().el)
-                .css({'visibility': 'hidden'})
                 .trigger('scroll')
-                .delay(200)
                 .css({opacity: 0, visibility: "visible"})
                 .animate({opacity: 1}, 'slow'));
         },

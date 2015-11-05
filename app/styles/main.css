@@ -123,6 +123,7 @@
 .recordResult {
   font: 100% Futura, "Trebuchet MS", Arial, sans-serif;
   color: white;
+  visibility: hidden;
 }
 
 .videowrapper {
