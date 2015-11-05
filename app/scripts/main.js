@@ -172,7 +172,7 @@ $(document).ready(function() {
     });
 
     $('.recordResult').on('textLoaded', function () {
-        $('.recordHolder').text({
+        $('.recordHolder').textfill({
             minFontPixels: 4,
             maxFontPixels: 40,
             success: function() {
