@@ -175,7 +175,8 @@ $(document).ready(function() {
         $('.recordHolder').text({
             minFontPixels: 4,
             maxFontPixels: 40,
-            complete: function() {
+            success: function() {
+                console.log('function called');
                 $('.recordResult').css({opacity: 0, visibility: "visible"}).animate({opacity: 1}, 'slow');
             }
         });
