@@ -171,7 +171,7 @@ $(document).ready(function() {
         setDateSpacing();
     });
 
-    $('#record').on('textLoaded', function () {
+    $('.recordResult').on('textLoaded', function () {
         $('.recordHolder').text({
             minFontPixels: 4,
             maxFontPixels: 40,
