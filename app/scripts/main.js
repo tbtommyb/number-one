@@ -80,7 +80,7 @@ $(function(){
 
         render: function(record){
             var view = new RecordView({model: record});
-            this.$record.html($(view.render().el)).trigger('textLoaded');
+            this.$record.html($(view.render().el).trigger('textLoaded'));
         },
 
         submit: function(e) {
