@@ -172,12 +172,10 @@ $(document).ready(function() {
     });
 
     $('#record').on('textLoaded', function () {
-        console.log('catching event');
         $('.recordHolder').textfill({
             minFontPixels: 4,
             maxFontPixels: 40,
             success: function() {
-                console.log('function called');
                 $('.recordResult').css({opacity: 0, visibility: "visible"}).animate({opacity: 1}, 'slow');
             }
         });

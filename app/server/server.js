@@ -1,7 +1,3 @@
-/* jslint node: true, nomen: true */
-
-'use strict';
-
 var express = require('express'),
     favicon = require('serve-favicon'),
     bodyParser = require('body-parser'),
