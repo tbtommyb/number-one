@@ -77,7 +77,7 @@ module.exports = (function () {
         res.status(err.status || 500).send({
             message: err.message
         });
-});
+    });
 
     return apiRouter;
-}());
+}())
