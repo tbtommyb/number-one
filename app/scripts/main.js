@@ -170,13 +170,13 @@ $(document).ready(function() {
         resizeText('.recordHolder');
         setDateSpacing();
     });
-    
+
     $(window).on('textLoaded', function () {
         $('.recordHolder').text({
             minFontPixels: 4,
             maxFontPixels: 40,
             complete: function() {
-                $('.recordHolder').css({opacity: 0, visibility: "visible"}).animate({opacity: 1}, 'slow');
+                $('.recordResult').css({opacity: 0, visibility: "visible"}).animate({opacity: 1}, 'slow');
             }
         });
     });
