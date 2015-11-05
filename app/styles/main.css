@@ -5,10 +5,10 @@
 }
 
 .dateEntry select, .dateEntry button {
-  font-size: 14px;
-  font-size: 0.875rem;
+  font-size: 16px;
+  font-size: 1rem;
   background-color: white;
-  border: 2px solid #94a2f4;
+  border: 2px solid #874fed;
   outline: 0;
   padding: 1px;
   height: 30px;
@@ -16,11 +16,6 @@
   margin: 0;
 }
 
-@media screen and (-webkit-min-device-pixel-ratio: 0) {
-  select:focus, textarea:focus, input:focus {
-    font-size: 16px;
-  }
-}
 @media (max-width: 320px) {
   .wrapper {
     max-width: 320px;

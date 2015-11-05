@@ -80,10 +80,7 @@ $(function(){
 
         render: function(record){
             var view = new RecordView({model: record});
-            this.$record.html($(view.render().el)
-                .trigger('scroll')
-                .css({opacity: 0, visibility: "visible"})
-                .animate({opacity: 1}, 'slow'));
+            this.$record.html($(view.render().el).trigger('textLoaded'));
         },
 
         submit: function(e) {
@@ -158,21 +155,30 @@ $(document).ready(function() {
             minFontPixels: 4,
             maxFontPixels: 40
         });
-    }      
+    }    
     function setDateSpacing() {
         $topDate = ($('#main').width() / 12.5);
         $leftDate = ($('#main').width() / 2) - ($('.div-date').width() / 2) + 2;
         $('.div-date').css({'top': $topDate + 'px', 'left': $leftDate + 'px'});
     }
+
     resizeText('.textHolder');
     setDateSpacing();
+
     $(window).on('resize', function() {
         resizeText('.textHolder');
         resizeText('.recordHolder');
         setDateSpacing();
     });
-    $(window).on('scroll', function () {
-        resizeText('.recordHolder');
+    
+    $(window).on('textLoaded', function () {
+        $('.recordHolder').text({
+            minFontPixels: 4,
+            maxFontPixels: 40,
+            complete: function() {
+                $('.recordHolder').css({opacity: 0, visibility: "visible"}).animate({opacity: 1}, 'slow');
+            }
+        });
     });
     // creates the drop down selection boxes
     $('#date').combodate({
