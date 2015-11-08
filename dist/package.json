@@ -10,7 +10,8 @@
     "body-parser": "^1.14.1",
     "helmet": "^0.11.0",
     "jwt-simple": "^0.3.1",
-    "serve-favicon": "^2.3.0"
+    "serve-favicon": "^2.3.0",
+    "compression": "^1.6.0"
   },
   "devDependencies": {
     "apache-server-configs": "^2.8.0",
