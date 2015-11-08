@@ -99,7 +99,7 @@ $(function(){
             } else {
                 this.setupPlayer(videoId);
             }
-            $('body').animate({scrollTop: $('body').height()}, 1000);
+            $('body, html').animate({scrollTop: $('body').height()}, 1000);
         },
 
         setupPlayer: function(videoId) {
