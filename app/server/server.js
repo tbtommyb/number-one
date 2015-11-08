@@ -15,6 +15,14 @@ var port = process.env.PORT || 9000;
 app.use(compression());
 app.use(helmet());
 
+// Content Security Policy
+
+app.use(function(req, res, next) {
+    res.setHeader("Content-Security-Policy", "default-src 'self' https://www.googleapis.com/ https://www.youtube.com/ https://s.ytimg.com/ 'unsafe-eval'");
+    return next();
+});
+
+// maxAge to enable caching
 app.use(express.static(__dirname + '/../', { maxAge: 31536000 }));
 app.use(favicon(__dirname + '/favicon.ico'));
 
@@ -48,12 +56,6 @@ app.use('/api', api);
 
 // Web route
 app.use('/', router);
-
-// Make better error handling
-app.use(function (err, req, res, next) {
-    console.error(err.stack);
-    res.status(400).send('An error occurred, sorry!');
-});
 
 //var secureServer = https.createServer(httpsOptions, app).listen(httpsPort);
 var server = app.listen(port);
