@@ -15,7 +15,6 @@ module.exports = (function () {
         allowMethods = require('allow-methods'),
         encryptPassword = require('../middleware/encryptPassword.js'),
         valiDate = require('../middleware/validateDate.js');
-
     var apiRouter = express.Router();
 
     apiRouter.get('/', function(req, res, next) {

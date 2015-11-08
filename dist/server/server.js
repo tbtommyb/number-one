@@ -2,6 +2,7 @@ var express = require('express'),
     favicon = require('serve-favicon'),
     bodyParser = require('body-parser'),
     compression = require('compression'),
+    rateLimit = require('express-rate-limit'),
     helmet = require('helmet');
 
 var api = require('./routes/api.js');
@@ -10,6 +11,19 @@ var router = require('./routes/web.js');
 // Initial setup
 var app = express();
 var port = process.env.PORT || 9000;
+
+// Rate limiter
+
+app.enable('trust proxy');
+
+var limiter = rateLimit({
+    windowMs: 30000,
+    delayAfter: 0,
+    delayMs: 0,
+    max: 100
+});
+
+app.use(limiter);
 
 //Static content and favicon
 app.use(compression());
@@ -23,7 +37,7 @@ app.use(function(req, res, next) {
 });
 
 // maxAge to enable caching
-app.use(express.static(__dirname + '/../', { maxAge: 31536000 }));
+app.use(express.static(__dirname + '/../', { maxAge: 31536001 }));
 app.use(favicon(__dirname + '/favicon.ico'));
 
 app.use(bodyParser.urlencoded({extended: false}));
