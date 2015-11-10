@@ -17,8 +17,6 @@ module.exports = function (req, res, next) {
         } catch (err) {
             return next(err);
         }
-        next();
-        /* maybe move the following logic into admin if needed
         if (req.user.name === req.decoded.name) {
             // user exists and correct token
             next();
@@ -27,6 +25,6 @@ module.exports = function (req, res, next) {
                 success: false,
                 message: 'Token does not match username'
             });
-        }*/
+        }
     }
 };
