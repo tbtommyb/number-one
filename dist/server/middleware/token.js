@@ -1,7 +1,7 @@
 'use strict';
 
 var jwt = require('jwt-simple');
-var secret = require('../config.js')();
+var secret = process.env.SECRET;
 
 module.exports = function (req, res, next) {
 

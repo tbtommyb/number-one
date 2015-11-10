@@ -7,3 +7,5 @@ test/bower_components/
 test/config.js
 app/server/private.key
 dist/server/private.key
+app/server/config.js
+dist/server/config.js
