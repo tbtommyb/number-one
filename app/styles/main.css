@@ -207,6 +207,18 @@ body {
   }
 }
 
+@-moz-document url-prefix() {
+  .container {
+    background-image: url("../images/vinyl.png");
+  }
+
+  @media (max-width: 320px) {
+    background-image: url("../images/vinyl-mobile.png");
+  }
+  @media (min-width: 321px) and (max-width: 441px) {
+    background-image: url("../images/vinyl-mobile.png");
+  }
+}
 .githubImage {
   background-image: url("../images/find_me.png");
   position: absolute;

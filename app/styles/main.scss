@@ -1,5 +1,3 @@
-//@import url(https://fonts.googleapis.com/css?family=Pacifico);
-
 @font-face {
   font-family: 'Pacifico';
   src: url('fonts/pacifico-webfont.eot?') format('eot'), url('fonts/pacifico-webfont.woff') format('woff'), url('fonts/pacifico-webfont.ttf') format('truetype');
@@ -244,6 +242,19 @@ body {
 
   @include medium {
     width: 100%;
+  }
+}
+
+@-moz-document url-prefix() {
+  .container {
+    background-image: url('../images/vinyl.png');
+  }
+
+  @include iphone {
+    background-image: url('../images/vinyl-mobile.png');
+  }
+  @include small {
+    background-image: url('../images/vinyl-mobile.png');
   }
 }
 
