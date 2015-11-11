@@ -215,7 +215,7 @@ body {
   @media (max-width: 320px) {
     background-image: url("../images/vinyl-mobile.png");
   }
-  @media (min-width: 321px) and (max-width: 441px) {
+  @media (min-width: 320px) and (max-width: 441px) {
     background-image: url("../images/vinyl-mobile.png");
   }
 }

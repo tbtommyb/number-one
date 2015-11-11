@@ -245,18 +245,20 @@ body {
   }
 }
 
-/*@-moz-document url-prefix() {
+@-moz-document url-prefix() {
   .container {
     background-image: url('../images/vinyl.png');
   }
 
-  @include iphone {
+  @media (max-width: 320px) {
     background-image: url('../images/vinyl-mobile.png');
   }
-  @include small {
+
+  @media (min-width: 320px) and (max-width: 441px) {
     background-image: url('../images/vinyl-mobile.png');
   }
-}*/
+
+}
 
 .githubImage {
   background-image: url('../images/#{find_me}.png');
