@@ -245,7 +245,7 @@ body {
   }
 }
 
-@-moz-document url-prefix() {
+/*@-moz-document url-prefix() {
   .container {
     background-image: url('../images/vinyl.png');
   }
@@ -256,7 +256,7 @@ body {
   @include small {
     background-image: url('../images/vinyl-mobile.png');
   }
-}
+}*/
 
 .githubImage {
   background-image: url('../images/#{find_me}.png');

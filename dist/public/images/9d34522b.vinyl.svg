@@ -199,6 +199,24 @@
          cx="428.86029"
          cy="579.38312"
          r="351.00366" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3777"
+         y="483.60452"
+         x="374.39481"
+         style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+         xml:space="preserve"><tspan
+           y="483.60452"
+           x="374.39481"
+           id="tspan3779"
+           sodipodi:role="line" /></text>
     </g>
+    <rect
+       style="fill:none;fill-rule:evenodd;stroke:none;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect3356"
+       width="730.34796"
+       height="730.32965"
+       x="5.221137"
+       y="112.97347" />
   </g>
 </svg>
