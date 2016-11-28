@@ -45,6 +45,10 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "start": "node app/server/server.js"
+    "start": "node app/server/server.js",
+    "start:dist": "node dist/server/server.js",
+    "build": "grunt build",
+    "serve": "grunt serve",
+    "serve:dist": "grunt serve:dist"
   }
 }
