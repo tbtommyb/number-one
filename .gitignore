@@ -9,3 +9,4 @@ app/server/private.key
 dist/server/private.key
 app/server/config.js
 dist/server/config.js
+npm-debug.log
