@@ -1,7 +1,7 @@
 'use strict';
 
 var basicAuth = require('basic-auth'),
-    userDB = require('../../data/userDB.js'),
+    userDB = require('../data/userDB.js'),
     User = require('../routes/User.js');
 
 module.exports = function (req, res, next) {

@@ -35,7 +35,6 @@
     "grunt-open": "^0.2.3",
     "grunt-rev": "^0.1.0",
     "grunt-usemin": "^2.4.0",
-    "jshint-stylish": "^1.0.0",
     "load-grunt-tasks": "^0.6.0",
     "mocha": "^2.3.3",
     "mongoose": "^4.1.11",
@@ -46,6 +45,6 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "start": "node server/server.js"
+    "start": "node app/server/server.js"
   }
 }

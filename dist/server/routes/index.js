@@ -11,7 +11,8 @@ module.exports = function () {
     // Serve the client route ------------
 
     router.get('/', function (req, res) {
-        res.sendFile(__dirname + '/index.html');
+        console.log(__dirname);
+        res.sendFile(__dirname + '/public/index.html');
     });
 
     return router;

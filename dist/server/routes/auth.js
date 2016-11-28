@@ -1,9 +1,9 @@
 'use strict';
 
 var jwt = require('jwt-simple');
-var bcrypt = require('../../data/bcrypt');
-var userDB = require('../../data/userDB.js');
-var secret = process.env.SECRET;
+var bcrypt = require('../data/bcrypt');
+var userDB = require('../data/userDB.js');
+var secret = require('../config.js')();
 
 // add in user.get method
 

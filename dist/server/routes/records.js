@@ -1,6 +1,6 @@
 'use strict';
 
-var recordDB = require('../../data/recordDB');
+var recordDB = require('../data/recordDB');
 
 module.exports = {
 

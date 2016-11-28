@@ -1,6 +1,6 @@
 'use strict';
 
-var bcrypt = require('../../data/bcrypt');
+var bcrypt = require('../data/bcrypt');
 
 module.exports = function (req, res, next) {
     // encrypt a password in the body if the request is to update a user

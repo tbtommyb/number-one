@@ -18,7 +18,7 @@ module.exports = (function () {
     var apiRouter = express.Router();
 
     apiRouter.get('/', function(req, res, next) {
-        res.sendFile(path.join(__dirname, '/../../api.html'));
+        res.sendFile(path.join(__dirname, '/../../public/api.html'));
     });
 
     apiRouter.route('/register')

@@ -2,7 +2,7 @@
 
 'use strict';
 
-var db = require('../server/db.js')();
+var db = require('../db.js')();
 
 module.exports = {
 

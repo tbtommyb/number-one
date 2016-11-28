@@ -1,6 +1,6 @@
 'use strict';
 
-var userDB = require('../../data/userDB');
+var userDB = require('../data/userDB');
 var User = require('./User.js');
 
 var users = {

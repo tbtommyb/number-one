@@ -1,6 +1,6 @@
 'use strict';
 
-var userDB = require('../../data/userDB.js');
+var userDB = require('../data/userDB.js');
 
 var User = function (attr) {
     this.name = attr.name;

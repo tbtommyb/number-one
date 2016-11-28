@@ -37,17 +37,16 @@ module.exports = function (grunt) {
                     livereload: grunt.option('livereloadport') || LIVERELOAD_PORT
                 },
                 files: [
-                    '<%= yeoman.app %>/*.html',
-                    '{.tmp,<%= yeoman.app %>}/styles/{,*/}*.css',
-                    '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
-                    '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}',
-                    '<%= yeoman.app %>/scripts/templates/*.{ejs,mustache,hbs}',
+                    '<%= yeoman.app %>/public/*.html',
+                    '{.tmp,<%= yeoman.app %>}/public/styles/{,*/}*.css',
+                    '{.tmp,<%= yeoman.app %>}/public/scripts/{,*/}*.js',
+                    '<%= yeoman.app %>/public/images/{,*/}*.{png,jpg,jpeg,gif,webp}',
                     'test/**/*.js',
                     '<%= yeoman.app %>/server/{,*/}*.{ico,pem,js,html,key}'
                 ]
             },
             sass: {
-                files: '<%= yeoman.app %>/styles/main.scss',
+                files: '<%= yeoman.app %>/public/styles/main.scss',
                 tasks: ['sass'],
                 options: {
                     livereload: true
@@ -55,12 +54,12 @@ module.exports = function (grunt) {
             },
             jst: {
                 files: [
-                    '<%= yeoman.app %>/scripts/templates/*.ejs'
+                    '<%= yeoman.app %>/public/scripts/templates/*.ejs'
                 ],
                 tasks: ['jst']
             },
             test: {
-                files: ['<%= yeoman.app %>/scripts/{,*/}*.js', 'test/**/*.js'],
+                files: ['<%= yeoman.app %>/public/scripts/{,*/}*.js', 'test/**/*.js'],
                 tasks: ['test:true']
             }
         },
@@ -116,20 +115,6 @@ module.exports = function (grunt) {
             dist: ['.tmp', '<%= yeoman.dist %>/*'],
             server: '.tmp'
         },
-        jshint: {
-            options: {
-                jshintrc: '.jshintrc',
-                reporter: require('jshint-stylish')
-            },
-            all: [
-                'Gruntfile.js',
-                '<%= yeoman.app %>/data/**/*.js',
-                '<%= yeoman.app %>/server/**/*.js',
-                '<%= yeoman.app %>/scripts/{,*/}*.js',
-                '!<%= yeoman.app %>/scripts/vendor/*',
-                'test/{,*/}*.js'
-            ]
-        },
         mocha: {
             all: {
                 options: {
@@ -138,14 +123,8 @@ module.exports = function (grunt) {
                 }
             }
         },
-        // not enabled since usemin task does concat and uglify
-        // check index.html to edit your build targets
-        // enable this task if you prefer defining your build targets here
-        /*uglify: {
-            dist: {}
-        },*/
         useminPrepare: {
-            html: '<%= yeoman.app %>/index.html',
+            html: '<%= yeoman.app %>/public/index.html',
             options: {
                 dest: '<%= yeoman.dist %>'
             }
@@ -161,7 +140,7 @@ module.exports = function (grunt) {
             dist: {
                 files: [{
                     expand: true,
-                    cwd: '<%= yeoman.app %>/images',
+                    cwd: '<%= yeoman.app %>/public/images',
                     src: '{,*/}*.{png,jpg,jpeg}',
                     dest: '<%= yeoman.dist %>/public/images'
                 }]
@@ -172,7 +151,7 @@ module.exports = function (grunt) {
                 files: {
                     '<%= yeoman.dist %>/public/styles/main.css': [
                         '.tmp/styles/{,*/}*.css',
-                        '<%= yeoman.app %>/styles/{,*/}*.css'
+                        '<%= yeoman.app %>/public/styles/{,*/}*.css'
                     ]
                 }
             }
@@ -192,9 +171,9 @@ module.exports = function (grunt) {
                 },
                 files: [{
                     expand: true,
-                    cwd: '<%= yeoman.app %>',
+                    cwd: '<%= yeoman.app %>/public/',
                     src: '*.html',
-                    dest: '<%= yeoman.dist %>'
+                    dest: '<%= yeoman.dist %>/public/'
                 }]
             }
         },
@@ -212,7 +191,7 @@ module.exports = function (grunt) {
                 }, {
                     expand: true,
                     dest: '<%= yeoman.dist %>/public/styles/fonts/',
-                    cwd:'<%= yeoman.app %>/styles/fonts/',
+                    cwd:'<%= yeoman.app %>/public/styles/fonts/',
                     src: '**'
                 }, {
                     expand: true,
@@ -236,7 +215,7 @@ module.exports = function (grunt) {
                 }, {
                     expand: true,
                     dest: '<%= yeoman.dist %>/public/images/',
-                    cwd:'<%= yeoman.app %>/images/',
+                    cwd:'<%= yeoman.app %>/public/images/',
                     src: '**'
                 }]
             }
@@ -244,7 +223,7 @@ module.exports = function (grunt) {
         jst: {
             compile: {
                 files: {
-                    '.tmp/scripts/templates.js': ['<%= yeoman.app %>/scripts/templates/*.ejs']
+                    '.tmp/scripts/templates.js': ['<%= yeoman.app %>/public/scripts/templates/*.ejs']
                 }
             }
         },
@@ -267,9 +246,9 @@ module.exports = function (grunt) {
                 },
                 files: [{
                     expand: true,
-                    cwd: '<%= yeoman.app %>/styles',
+                    cwd: '<%= yeoman.app %>/public/styles/',
                     src: ['*.scss'],
-                    dest: '<%= yeoman.app %>/styles/',
+                    dest: '<%= yeoman.app %>/public/styles/',
                     ext: '.css'
                 }]
             }
@@ -351,7 +330,6 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('default', [
-        'jshint',
         'test',
         'build',
         'sass'
