@@ -1,22 +1,22 @@
-var express = require('express'),
-    favicon = require('serve-favicon'),
-    bodyParser = require('body-parser'),
-    compression = require('compression'),
-    rateLimit = require('express-rate-limit'),
-    helmet = require('helmet');
+const express = require('express');
+const favicon = require('serve-favicon');
+const bodyParser = require('body-parser');
+const compression = require('compression');
+const rateLimit = require('express-rate-limit');
+const helmet = require('helmet');
 
-var api = require('./routes/api.js');
-var router = require('./routes/web.js');
+const apiRoute = require('./routes/api.js');
+const webRoute = require('./routes/web.js');
 
-// Initial setup
-var app = express();
-var port = process.env.PORT || 9000;
+/*** Initial setup ***/
+const app = express();
+
+/*** Middleware ***/
 
 // Rate limiter
-
 app.enable('trust proxy');
 
-var limiter = rateLimit({
+const limiter = rateLimit({
     windowMs: 30000,
     delayAfter: 0,
     delayMs: 0,
@@ -30,9 +30,8 @@ app.use(compression());
 app.use(helmet());
 
 // Content Security Policy
-
 app.use(function(req, res, next) {
-    res.setHeader("Content-Security-Policy", "default-src 'self' https://www.googleapis.com/ https://www.youtube.com/ https://s.ytimg.com/ 'unsafe-eval'");
+    res.setHeader('Content-Security-Policy', "default-src 'self' https://www.googleapis.com/ https://www.youtube.com/ https://s.ytimg.com/ 'unsafe-eval'");
     return next();
 });
 
@@ -43,33 +42,12 @@ app.use(favicon(__dirname + '/favicon.ico'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
-/* HTTPS setup - not needed using Heroku
-var httpsPort = 3443;
+/*** Routing ***/
+app.use('/', webRoute);
+app.use('/api', apiRoute);
 
-var httpsOptions = {
-    key: fs.readFileSync(__dirname + '/private.key'),
-    cert: fs.readFileSync(__dirname + '/certificate.pem')
-};
+/*** Initialise ***/
+const port = process.env.PORT || 9000;
+const server = app.listen(port);
 
-app.set('port_https', httpsPort);*/
-
-// Put everything through HTTPS
-
-/*app.all('*', function (req, res, next) {
-    if (req.secure) {
-        return next();
-    }
-    res.redirect('https://' + req.hostname + ':' + app.get('port_https') + req.url);
-});*/
-
-// Routing -----------------
-
-// API route
-
-app.use('/api', api);
-
-// Web route
-app.use('/', router);
-
-//var secureServer = https.createServer(httpsOptions, app).listen(httpsPort);
-var server = app.listen(port);
+module.exports = server;
