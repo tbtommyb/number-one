@@ -1,29 +1,18 @@
 {
   "name": "numberone",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "dependencies": {
+    "express": "^4.13.3",
+    "sqlite3": "^3.1.0",
     "allow-methods": "^1.0.1",
     "basic-auth": "^1.0.3",
     "bcrypt": "^0.8.5",
     "body-parser": "^1.14.1",
-    "chai": "^3.4.0",
-    "compression": "^1.6.0",
-    "cors": "^2.7.1",
-    "csshint": "^0.2.0",
-    "expect": "^1.12.2",
-    "express": "^4.13.3",
-    "express-rate-limit": "^2.0.2",
-    "express-validator": "^2.18.0",
-    "helmet": "^0.12.0",
-    "hooks": "^0.3.2",
+    "helmet": "^0.11.0",
     "jwt-simple": "^0.3.1",
-    "mocha": "^2.3.3",
-    "mongoose": "^4.1.11",
-    "morgan": "^1.6.1",
     "serve-favicon": "^2.3.0",
-    "should": "^7.1.1",
-    "sqlite3": "^3.1.0",
-    "supertest": "^1.1.0"
+    "compression": "^1.6.0",
+    "express-rate-limit": "^2.0.0"
   },
   "devDependencies": {
     "apache-server-configs": "^2.8.0",
@@ -47,13 +36,12 @@
     "grunt-usemin": "^2.4.0",
     "jshint-stylish": "^1.0.0",
     "load-grunt-tasks": "^0.6.0",
-    "mongoose": "^4.1.11",
     "time-grunt": "^1.0.0"
   },
   "engines": {
     "node": ">=0.10.0"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "node server/server.js"
   }
 }
