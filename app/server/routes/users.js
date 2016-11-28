@@ -1,24 +1,24 @@
 'use strict';
 
 var userDB = require('../data/userDB');
+var db = require('../data/db');
 var User = require('./User.js');
 
-var users = {
-
-    get: function (req, res, next) {
-        userDB.get(req.user.name, function (err, storedUser) {
-            if (err) {
-                return next(err);
-            }
-            if (storedUser) {
-                res.status(200).json(storedUser);
-            } else {
-                res.status(404).send({
-                    success: false,
-                    message: 'User not found'
-                });
-            }
+var handleResult = function(req, res, next) {
+    return function(err, response) {
+        if(err) { return next(err); }
+        if(response) { return res.status(200).json(response); }
+        res.status(404).send({
+            success: false,
+            message: 'Resource not found'
         });
+    };
+};
+
+var users = {
+    get: function(req, res, next) {
+        db.get('SELECT rowid, * FROM Users WHERE name = ?', req.user.name,
+                handleResult(req, res, next));
     },
 
     getOne: function (req, res, next) {
