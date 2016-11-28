@@ -74,6 +74,4 @@ app.use('/', router);
 //var secureServer = https.createServer(httpsOptions, app).listen(httpsPort);
 var server = app.listen(port);
 
-module.exports = {
-    server
-};
+module.exports = server;
