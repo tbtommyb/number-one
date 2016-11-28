@@ -1,25 +1,20 @@
 /* jslint node: true, nomen: true */
 
-module.exports = (function () {
+'use strict';
 
-    'use strict';
+var express = require('express');
+var path = require('path');
 
-    var express = require('express');
-    var path = require('path');
+var router = express.Router();
 
-    var router = express.Router();
+// Serve the client route ------------
 
-    console.log("in web.js");
+router.get('/', function (req, res) {
+    res.sendFile(path.join(__dirname, '/../../public/index.html'));
+});
 
-    // Serve the client route ------------
+router.use(function (err, req, res, next) {
+    res.sendFile(path.join(__dirname, '/../../public/404.html'));
+});
 
-    router.get('/', function (req, res) {
-        res.sendFile(path.join(__dirname, '/../../public/index.html'));
-    });
-
-    router.use(function (err, req, res, next) {
-        res.sendFile(path.join(__dirname, '/../../public/404.html'));
-    });
-
-    return router;
-}());
+module.exports = router;

@@ -1,19 +1,14 @@
-/* jslint node: true, nomen: true */
+'use strict';
 
 var express = require('express');
 
-module.exports = function () {
+var router = express.Router();
 
-    'use strict';
+// Serve the client route ------------
 
-    var router = express.Router();
+router.get('/', function (req, res) {
+    console.log(__dirname);
+    res.sendFile(__dirname + '/public/index.html');
+});
 
-    // Serve the client route ------------
-
-    router.get('/', function (req, res) {
-        console.log(__dirname);
-        res.sendFile(__dirname + '/public/index.html');
-    });
-
-    return router;
-};
+module.exports = router;
