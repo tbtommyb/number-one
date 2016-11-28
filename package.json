@@ -44,7 +44,7 @@
   },
   "scripts": {
     "start": "node app/server/server.js",
-    "start:dist": "node dist/server/server.js",
+    "start:dist": "nodemon dist/server/server.js",
     "build": "grunt build",
     "serve": "grunt serve",
     "serve:dist": "grunt serve:dist"

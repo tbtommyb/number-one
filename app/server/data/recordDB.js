@@ -1,6 +1,6 @@
 'use strict';
 
-var db = require('db');
+var db = require('./db');
 
 var checkExists = function(date, callback) {
     db.get('SELECT rowid, * FROM Data WHERE date = ?', date, function(err, exists) {

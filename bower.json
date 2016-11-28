@@ -6,7 +6,8 @@
     "lodash": "~2.4.1",
     "backbone": "~1.1.0",
     "modernizr": "~2.7.1",
-    "combodate": "~1.1.0"
+    "combodate": "~1.1.0",
+    "jquery-textfill": "^0.6.0"
   },
   "devDependencies": {
     "chai": "~3.2.0",

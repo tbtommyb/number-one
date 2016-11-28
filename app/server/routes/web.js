@@ -17,4 +17,4 @@ router.use(function (err, req, res, next) {
     res.sendFile(path.join(__dirname, '/../../public/404.html'));
 });
 
-module.exports = router;
+module.exports = function() { return router; };

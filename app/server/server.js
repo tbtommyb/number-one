@@ -43,8 +43,8 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 /*** Routing ***/
-app.use('/', webRoute);
-app.use('/api', apiRoute);
+app.use('/', webRoute());
+app.use('/api', apiRoute());
 
 /*** Initialise ***/
 const port = process.env.PORT || 9000;

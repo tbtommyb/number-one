@@ -76,6 +76,4 @@ apiRouter.use(function (err, req, res, next) {
     });
 });
 
-module.exports = {
-    apiRouter: apiRouter
-}
+module.exports = function() { return apiRouter; };
