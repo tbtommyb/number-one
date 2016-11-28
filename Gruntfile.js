@@ -75,7 +75,7 @@ module.exports = function (grunt) {
                         return [
                             lrSnippet,
                             mountFolder(connect, '.tmp'),
-                            mountFolder(connect, yeomanConfig.app + "/public")
+                            mountFolder(connect, yeomanConfig.app + '/public')
                         ];
                     }
                 }
@@ -124,16 +124,16 @@ module.exports = function (grunt) {
             }
         },
         useminPrepare: {
-            html: '<%= yeoman.app %>/public/index.html',
+            html: '<%= yeoman.app %>/public/*.html',
             options: {
                 dest: '<%= yeoman.dist %>'
             }
         },
         usemin: {
-            html: ['<%= yeoman.dist %>/{,*/}*.html'],
-            css: ['<%= yeoman.dist %>/public/styles/{,*/}*.css'],
+            html: ['<%= yeoman.dist %>/**/*.html'],
+            css: ['<%= yeoman.dist %>/public/styles/**/*.css'],
             options: {
-                dirs: ['<%= yeoman.dist %>']
+                assetDirs: ['<%= yeoman.dist %>/public', '<%= yeoman.dist %>/public/styles']
             }
         },
         imagemin: {
@@ -171,9 +171,9 @@ module.exports = function (grunt) {
                 },
                 files: [{
                     expand: true,
-                    cwd: '<%= yeoman.app %>/public/',
+                    cwd: '<%= yeoman.app %>/public',
                     src: '*.html',
-                    dest: '<%= yeoman.dist %>/public/'
+                    dest: '<%= yeoman.dist %>/public'
                 }]
             }
         },
@@ -325,7 +325,7 @@ module.exports = function (grunt) {
         'cssmin',
         'uglify',
         'copy',
-        'rev',
+        //'rev',
         'usemin'
     ]);
 
