@@ -23,8 +23,8 @@ var users = {
     getOne: function(req, res, next) {
         db.get('SELECT rowid, * FROM Users WHERE name = ?', req.params.name,
                 handleResult(req, res, next));
-    }
-    getAll: function (req, res, next) {
+    },
+    getAll: function(req, res, next) {
         db.all('SELECT rowid, * FROM Users', handleResult(req, res, next));
     },
     add: function (req, res, next) {
