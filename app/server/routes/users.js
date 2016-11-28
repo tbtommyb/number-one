@@ -20,48 +20,18 @@ var users = {
         db.get('SELECT rowid, * FROM Users WHERE name = ?', req.user.name,
                 handleResult(req, res, next));
     },
-
-    getOne: function (req, res, next) {
-        userDB.get(req.params.name, function (err, storedUser) {
-            if (err) {
-                return next(err);
-            }
-            if (storedUser) {
-                res.status(200).json(storedUser);
-            } else {
-                res.status(404).send({
-                    success: false,
-                    message: 'User not found'
-                });
-            }
-        });
-    },
-
-    add: function (req, res, next) {
-        // check that user doesn't exist first
-        if (req.user.existsInDB) {
-            res.status(409).send('The user already exists!');
-        } else {
-            userDB.add(req.user, function (err, isAdded) {
-                if (err) {
-                    return next(err);
-                }
-                if (isAdded) {
-                    res.status(201).send({
-                        success: true,
-                        message: 'User created'
-                    });
-                }
-            });
-        }
-    },
-
+    getOne: function(req, res, next) {
+        db.get('SELECT rowid, * FROM Users WHERE name = ?', req.params.name,
+                handleResult(req, res, next));
+    }
     getAll: function (req, res, next) {
-        userDB.getAll(function (err, rows) {
-            if (err) {
-                return next(err);
-            }
-            res.status(200).json(rows);
+        db.all('SELECT rowid, * FROM Users', handleResult(req, res, next));
+    },
+    add: function (req, res, next) {
+        var values = [req.user.name, req.user.password, req.user.admin];
+        db.run('INSERT OR IGNORE INTO Users VALUES (?, ?, ?)', values, function(err) {
+            if(err) { return next(err); }
+            res.status(201).send({success: true, message: 'User created'});
         });
     },
 
