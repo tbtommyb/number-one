@@ -109,27 +109,27 @@ describe('Token checker', function () {
 
     it('should return a 403 if a token is not provided', function (done) {
         request
-            .get('/records')
+            .get('/admin/users')
             .auth('admin', config.password)
             .expect(403, done);
     });
-    it('should return a 400 if the token is invalid', function (done) {
+    it('should return a 403 if the token is invalid', function (done) {
         request
-            .get('/records')
+            .get('/admin/users')
             .auth('admin', config.password)
-            .set('x-access-token', 'EyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJudW1iZXItb25lLWFwcCIsIm5hbWUiOiJhZG1pbiIsImFkbWluIjoidHJ1ZSJ9.99lt5BjGarA5rwa4BQNl-xL8R2BZFIzPw4y-BG8_b0U')
-            .expect(400, done);
+            .set('x-access-token', config.invalid_token)
+            .expect(403, done);
     });
     it('should return a 403 if the token has a different name', function (done) {
         request
-            .get('/records')
+            .get('/admin/users')
             .auth('admin', config.password)
-            .set('x-access-token', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJudW1iZXItb25lLWFwcCIsIm5hbWUiOiJ0b20iLCJhZG1pbiI6InRydWUifQ.EURon1HHzSL4ReoYq5ZwnfBvIeC7_t1ZPxiGjpXFpA4')
+            .set('x-accessoken', config.invalid_token)
             .expect(403, done);
     });
     it('should return a 200 if the token is valid', function (done) {
         request
-            .get('/records')
+            .get('/admin/users')
             .auth('admin', config.password)
             .set('x-access-token', config.admin_token)
             .expect(200, done);
@@ -161,7 +161,13 @@ describe('Getting records', function () {
             });
 
     });
-    it('should return 400 bad request with an invalid date string');
+    it('should return 400 bad request with an invalid date string', function(done) {
+        request
+            .get('/records/1943-c')
+            .auth('admin', config.password)
+            .set('x-access-token', config.admin_token)
+            .expect(400, done);
+    });
 });
 
 describe('Admin', function () {
@@ -198,7 +204,7 @@ describe('GET /users', function () {
             .end(function (err, res) {
                 res.status.should.equal(200);
                 res.headers['content-type'].should.equal('application/json; charset=utf-8');
-                res.body.length.should.equal(2);
+                res.body.length.should.equal(3);
                 done();
             });
     });
@@ -221,7 +227,6 @@ describe('GET /users', function () {
             .set('x-access-token', config.admin_token)
             .expect(404, done);       
     });
-    it('non-admin users should be able to access their own details');
 });
 
 describe('PUT /users', function () {

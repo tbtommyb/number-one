@@ -1,6 +1,7 @@
 
 module.exports = function(req, res, next) {
-    if(!(req.body.name && req.body.password && req.body.admin)) {
+    if(!(req.body.name && req.body.password)) {
+        console.log("error with user", req);
         res.status(400).send({
             success: false,
             message: 'Name, password and admin data not in correct format'
@@ -8,7 +9,7 @@ module.exports = function(req, res, next) {
     }
     req.newUser = [
         req.body.password,
-        req.body.admin,
+        req.body.admin || false,
         req.body.name
     ];
     next();

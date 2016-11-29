@@ -17,7 +17,7 @@ var getAll = cb => {
 };
 
 var add = (values, cb) => {
-    db.run('INSERT INTO Users (password, admin, name) VALUES (?, ?, ?)', values, function(err) {
+    db.run('INSERT OR IGNORE INTO Users (password, admin, name) VALUES (?, ?, ?)', values, function(err) {
         if(err) { return cb(err); }
         cb(null, this.lastID);
     });

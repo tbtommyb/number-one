@@ -8,13 +8,16 @@ const users = require(__dirname + '/../data/users.js');
 const authorise = require('./auth.js');
 const util = require('./util');
 
-const adminChecker = require('../middleware/admin.js');
+const admin = require('../middleware/admin.js');
 const basicAuth = require('../middleware/basicauth.js');
+const token = require('../middleware/token.js');
 const encryptPassword = require('../middleware/encryptPassword.js');
 const validateDate = require('../middleware/validateDate.js');
 const validateNewUser = require('../middleware/validateNewUser');
 
 var apiRouter = express.Router();
+
+// Open access routes
 
 apiRouter.get('/', function(req, res, next) {
     res.sendFile(path.join(__dirname, '/../../public/api.html'));
@@ -22,13 +25,14 @@ apiRouter.get('/', function(req, res, next) {
 
 apiRouter.route('/register')
     .all(allowMethods(['post'], 'Please use POST method'))
-    .post(basicAuth, encryptPassword, validateNewUser, (req, res) => {
-        users.add(req.newUser, util.handleInsert(req, res));
+    .post(basicAuth, encryptPassword, (req, res) => {
+        var details = [req.user.password, req.user.admin, req.user.name];
+        users.add(details, util.handleInsert(req, res));
     });
 
 apiRouter.route('/login')
    .all(allowMethods(['post'], 'Please use POST method'))
-    .post(basicAuth, authorise.user); /* TODO */
+    .post(basicAuth, authorise); /* TODO */
 
 apiRouter.route('/records')
     .all(allowMethods(['get'], 'Please use GET method'))
@@ -43,12 +47,13 @@ apiRouter.route('/records/:date/')
     });
 
 // Authenticated and authorised users only
-
-apiRouter.use('*', adminChecker); // require admin status
+apiRouter.use(token);
+apiRouter.use(admin);
 
 apiRouter.use('/admin/users', require('./admin/users'));
 apiRouter.use('/admin/records', require('./admin/records'));
-apiRouter.use(function(err, req, res) {
+
+apiRouter.use(function(err, req, res, next) {
     res.status(err.status || 500).send({
         message: err.message
     });
