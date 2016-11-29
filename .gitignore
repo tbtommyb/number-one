@@ -10,3 +10,5 @@ dist/server/private.key
 app/server/config.js
 dist/server/config.js
 npm-debug.log
+**/.DS_Store
+app/server/data/data.db
