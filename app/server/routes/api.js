@@ -3,7 +3,7 @@
 var express = require('express'),
     path = require('path');
 var users = require('./users.js'),
-    record = require('./records.js'),
+    record = require(__dirname + '/../data/records.js'),
     authorise = require('./auth.js'),
     adminChecker = require('../middleware/admin.js'),
     basicAuth = require('../middleware/basicauth.js'),
@@ -37,8 +37,8 @@ apiRouter.route('/records/:date/')
 
 apiRouter.use('*', adminChecker); // require admin status
 
-apiRouter.use('/admin/users', require('admin/users'));
-apiRouter.use('/admin/records', require('admin/records'));
+apiRouter.use('/admin/users', require('./admin/users'));
+apiRouter.use('/admin/records', require('./admin/records'));
 apiRouter.use(function(err, req, res, next) {
     res.status(err.status || 500).send({
         message: err.message

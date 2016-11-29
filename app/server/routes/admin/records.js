@@ -1,7 +1,7 @@
 var router = require('express').Router();
 var valiDate = require('../../middleware/validateDate.js');
 var allowMethods = require('allow-methods');
-var record = require('../records.js');
+var record = require(__dirname + '/../../data/records.js');
 
 router.route('/:date')
     .all(allowMethods(['post'], 'Please use POST method'))

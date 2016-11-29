@@ -36,6 +36,7 @@
     "grunt-rev": "^0.1.0",
     "grunt-usemin": "^2.4.0",
     "load-grunt-tasks": "^0.6.0",
+    "mocha": "^3.2.0",
     "mongoose": "^4.1.11",
     "time-grunt": "^1.0.0"
   },
