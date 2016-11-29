@@ -14,5 +14,8 @@ Fix it so that if entered date is after most recent DB entry throw an error
 Add input page to submit data
 Add in batch processing functionality
 
-blog post
-oxgrow
+
+29/11/16
+
+Run tests and make sure they're passing.
+Start with simple record-fetching API, refactor that and then do front-end. Then users etc.
