@@ -48,6 +48,7 @@
     "start:dist": "nodemon dist/server/server.js",
     "build": "grunt build",
     "serve": "grunt serve",
-    "serve:dist": "grunt serve:dist"
+    "serve:dist": "grunt serve:dist",
+    "test": "mocha test/test.js"
   }
 }
