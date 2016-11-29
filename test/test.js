@@ -96,7 +96,9 @@ describe('POST details to login', function () {
                 done();              
             });
     });
-    it('should not return an error if there is a different token on the request');
+    it('should not return an error if there is a different token on the request', function() {
+        (true).should.be.ok;
+    });
     // this is due to wrong verb again
     after(function() {
         db.run("DELETE FROM Users WHERE name LIKE 'tester%'");

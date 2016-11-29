@@ -2,7 +2,7 @@
 
 var jwt = require('jwt-simple');
 var bcrypt = require('../data/bcrypt');
-var userDB = require('../data/userDB.js');
+var users = require('../data/users.js');
 var secret = require('../config.js')();
 
 // add in user.get method
@@ -11,7 +11,7 @@ var authorise = {
 
     user: function (req, res, next) {
         if (req.user.existsInDB) {
-            userDB.get(req.user.name, function (err, userReturned) {
+            users.get(req.user.name, function (err, userReturned) {
                 if (err) {
                     return next(err);
                 }

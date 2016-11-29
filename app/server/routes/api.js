@@ -1,15 +1,18 @@
 'use strict';
 
-var express = require('express'),
-    path = require('path');
-var users = require('./users.js'),
-    record = require(__dirname + '/../data/records.js'),
-    authorise = require('./auth.js'),
-    adminChecker = require('../middleware/admin.js'),
-    basicAuth = require('../middleware/basicauth.js'),
-    allowMethods = require('allow-methods'),
-    encryptPassword = require('../middleware/encryptPassword.js'),
-    valiDate = require('../middleware/validateDate.js');
+const express = require('express');
+const path = require('path');
+const allowMethods = require('allow-methods');
+const records = require(__dirname + '/../data/records.js');
+const users = require(__dirname + '/../data/users.js');
+const authorise = require('./auth.js');
+const util = require('./util');
+
+const adminChecker = require('../middleware/admin.js');
+const basicAuth = require('../middleware/basicauth.js');
+const encryptPassword = require('../middleware/encryptPassword.js');
+const validateDate = require('../middleware/validateDate.js');
+const validateNewUser = require('../middleware/validateNewUser');
 
 var apiRouter = express.Router();
 
@@ -19,19 +22,25 @@ apiRouter.get('/', function(req, res, next) {
 
 apiRouter.route('/register')
     .all(allowMethods(['post'], 'Please use POST method'))
-    .post(basicAuth, encryptPassword, users.add);
+    .post(basicAuth, encryptPassword, validateNewUser, (req, res) => {
+        users.add(req.newUser, util.handleInsert(req, res));
+    });
 
 apiRouter.route('/login')
    .all(allowMethods(['post'], 'Please use POST method'))
-    .post(basicAuth, authorise.user);
+    .post(basicAuth, authorise.user); /* TODO */
 
 apiRouter.route('/records')
     .all(allowMethods(['get'], 'Please use GET method'))
-    .get(record.getAll);
+    .get((req, res) => {
+        records.getAll(util.serveRows(req, res));
+    });
 
 apiRouter.route('/records/:date/')
     .all(allowMethods(['get'], 'Please use GET method'))
-    .get(valiDate, record.get);
+    .get(validateDate, (req, res) => {
+        records.get(req.params.date, util.serveRows(req, res));
+    });
 
 // Authenticated and authorised users only
 
@@ -39,7 +48,7 @@ apiRouter.use('*', adminChecker); // require admin status
 
 apiRouter.use('/admin/users', require('./admin/users'));
 apiRouter.use('/admin/records', require('./admin/records'));
-apiRouter.use(function(err, req, res, next) {
+apiRouter.use(function(err, req, res) {
     res.status(err.status || 500).send({
         message: err.message
     });

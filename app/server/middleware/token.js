@@ -16,7 +16,7 @@ module.exports = function (req, res, next) {
             req.decoded = jwt.decode(token, secret);
         } catch (err) {
             return next(err);
-        };
+        }
         next();
         /*
         if (req.user.name === req.decoded.name) {

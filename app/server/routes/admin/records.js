@@ -1,18 +1,27 @@
 var router = require('express').Router();
-var valiDate = require('../../middleware/validateDate.js');
+var validateDate = require('../../middleware/validateDate.js');
+var validateNewRecord = require('../../middleware/validateNewRecord.js');
+var validateUpdateRecord = require('../../middleware/validateUpdateRecord.js');
 var allowMethods = require('allow-methods');
-var record = require(__dirname + '/../../data/records.js');
+var records = require(__dirname + '/../../data/records.js');
+var util = require('../util');
 
 router.route('/:date')
     .all(allowMethods(['post'], 'Please use POST method'))
-    .post(valiDate, record.create);
+    .post(validateDate, validateNewRecord, (req, res) => {
+        records.create(req.recordData, util.handleInsert(req, res));
+    });
 
 router.route('/:rowid')
     .all(allowMethods(['put'], 'Please use PUT method'))
-    .put(valiDate, record.update);
+    .put(validateDate, validateUpdateRecord, (req, res) => {
+        records.update(req.recordData, util.handleChange(req, res));
+    });
 
 router.route('/:date')
     .all(allowMethods(['delete'], 'Please use DELETE method'))
-    .delete(valiDate, record.delete);
+    .delete(validateDate, (req, res) => {
+        records.delete(req.params.date, util.handleChange(req, res));
+    });
 
 module.exports = router;
