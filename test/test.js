@@ -2,66 +2,60 @@
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
-var should = require('should'),
-    expect = require('expect'),
-    supertest = require('supertest'),
-    request = supertest('https://127.0.0.1:3443/api'),
-    config = require('./config.js'),
-    db = require('../app/server/db.js')();
+const should = require('should');
+const supertest = require('supertest');
+const request = supertest('http://localhost:9000/api');
+const config = require('./config.js');
+const db = require('../app/server/data/db.js');
 
 // TO DO: adding tests for using wrong HTTP verb
 
-describe('GET /api', function () { 
-
-    it('should return a 200 response and say hello', function (done) {
+describe('GET /api', function() { 
+    it('should return a 200 response with HTML content-type', function(done) {
         request
-            .get('/')
-            .expect('Content-Type', /json/)
-            .expect(200, {
-                message: 'hello!'
-            }, done);
+        .get('/')
+        .expect('Content-Type', 'text/html; charset=UTF-8')
+        .expect(200, done);
     });
 });
 
-describe('Requiring basic auth details to be present', function (done) {
-    
-    it('should return a 401 error if no auth in header', function (done) {
+describe('Requiring basic auth details to be present', function(done) {
+    it('should return a 401 error if no auth in header', function(done) {
         request
-            .post('/register')
-            .end(function (err, res) {
-                should.not.exist(err);
-                res.status.should.equal(401);
-                should.exist(res.headers['www-authenticate']);
-                done();
-            });
+        .post('/register')
+        .end(function(err, res) {
+            should.not.exist(err);
+            res.status.should.equal(401);
+            should.exist(res.headers['www-authenticate']);
+            done();
+        });
     });
     it('should return a 401 error if username is empty string', function (done) {
         request
-            .post('/register')
-            .auth('', 'testpass')
-            .expect(401, done);
+        .post('/register')
+        .auth('', 'testpass')
+        .expect(401, done);
     });
 });
 
-describe('POST a new user', function () {
-
-    it('should return a 201 (content created) message when details are provided', function (done) {
+describe('POST a new user', function() {
+    it('should return a 201 (content created) message when details are provided', function(done) {
         request
-            .post('/register')
-            .auth('tester3', 'testpass')
-            .expect(201, done);
+        .post('/register')
+        .auth('tester3', 'testpass')
+        .expect(201, done);
     });
-    it('should return a 401 error if password is empty string', function (done) {
+    it('should return a 401 error if password is empty string', function(done) {
         request
-            .post('/register')
-            .auth('tester2', '')
-            .expect(401, done);
+        .post('/register')
+        .auth('tester2', '')
+        .expect(401, done);
     });
-    it('should return a 409 error if the user already exists in DB', function (done) {
+    it('should return a 201 (content created) when the user already exists in DB', function(done) {
         request
-            .post('/register')
-            .auth('tester3', 'testpass')
-            .expect(409, done);
+        .post('/register')
+        .auth('tester3', 'testpass')
+        .expect(201, done);
     });
     after(function() {
         db.run("DELETE FROM Users WHERE name LIKE 'tester%'");
