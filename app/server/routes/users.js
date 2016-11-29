@@ -31,7 +31,7 @@ var users = {
         var values = [req.user.name, req.user.password, req.user.admin];
         db.run('INSERT OR IGNORE INTO Users VALUES (?, ?, ?)', values, function(err) {
             if(err) { return next(err); }
-            res.status(201).send({success: true, message: 'User created'});
+            res.status(201).send({success: true, message: 'User in DB'});
         });
     },
 
