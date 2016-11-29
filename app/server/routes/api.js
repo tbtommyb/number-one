@@ -47,8 +47,7 @@ apiRouter.route('/records/:date/')
     });
 
 // Authenticated and authorised users only
-apiRouter.use(token);
-apiRouter.use(admin);
+apiRouter.use(token, admin);
 
 apiRouter.use('/admin/users', require('./admin/users'));
 apiRouter.use('/admin/records', require('./admin/records'));
