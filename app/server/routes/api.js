@@ -5,12 +5,12 @@ var express = require('express'),
 var users = require('./users.js'),
     record = require('./records.js'),
     authorise = require('./auth.js'),
-    tokenChecker = require('../middleware/token.js'),
     adminChecker = require('../middleware/admin.js'),
     basicAuth = require('../middleware/basicauth.js'),
     allowMethods = require('allow-methods'),
     encryptPassword = require('../middleware/encryptPassword.js'),
     valiDate = require('../middleware/validateDate.js');
+
 var apiRouter = express.Router();
 
 apiRouter.get('/', function(req, res, next) {
@@ -37,35 +37,9 @@ apiRouter.route('/records/:date/')
 
 apiRouter.use('*', adminChecker); // require admin status
 
-apiRouter.route('/admin/users')
-    .all(allowMethods(['get'], 'Please use GET method'))
-    .get(users.getAll);
-
-apiRouter.route('/admin/users/:name')
-    .all(allowMethods(['get'], 'Please use GET method'))
-    .get(users.getOne);
-
-apiRouter.route('/admin/users/:name')
-    .all(allowMethods(['put'], 'Please use PUT method'))
-    .put(encryptPassword, users.update);
-
-apiRouter.route('/admin/users/:name')
-    .all(allowMethods(['delete'], 'Please use DELETE method'))
-    .delete(users.delete);
-
-apiRouter.route('/admin/records/:date')
-    .all(allowMethods(['post'], 'Please use POST method'))
-    .post(valiDate, record.create);
-
-apiRouter.route('/admin/records/:rowid')
-    .all(allowMethods(['put'], 'Please use PUT method'))
-    .put(valiDate, record.update);
-
-apiRouter.route('/admin/records/:date')
-    .all(allowMethods(['delete'], 'Please use DELETE method'))
-    .delete(valiDate, record.delete);
-
-apiRouter.use(function (err, req, res, next) {
+apiRouter.use('/admin/users', require('admin/users'));
+apiRouter.use('/admin/records', require('admin/records'));
+apiRouter.use(function(err, req, res, next) {
     res.status(err.status || 500).send({
         message: err.message
     });
