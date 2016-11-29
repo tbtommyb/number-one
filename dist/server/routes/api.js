@@ -28,7 +28,7 @@ apiRouter.route('/login')
 
 // Authenticated users only
 
-apiRouter.use('*', tokenChecker); // require auth token
+//apiRouter.use('*', tokenChecker); // require auth token
 
 apiRouter.route('/records')
     .all(allowMethods(['get'], 'Please use GET method'))

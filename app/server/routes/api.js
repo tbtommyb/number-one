@@ -1,4 +1,3 @@
-/* jslint node: true, nomen: true */
 'use strict';
 
 var express = require('express'),
@@ -25,10 +24,6 @@ apiRouter.route('/register')
 apiRouter.route('/login')
    .all(allowMethods(['post'], 'Please use POST method'))
     .post(basicAuth, authorise.user);
-
-// Authenticated users only
-
-apiRouter.use('*', tokenChecker); // require auth token
 
 apiRouter.route('/records')
     .all(allowMethods(['get'], 'Please use GET method'))
