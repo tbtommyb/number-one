@@ -1,12 +1,11 @@
 'use strict';
 
 const basicAuth = require('basic-auth');
-const users = require('../data/users.js');
 
 module.exports = function(req, res, next) {
     var authHeaders = basicAuth(req);
 
-    if (authHeaders === undefined || authHeaders.name === '' || authHeaders.pass === '') {
+    if(!authHeaders || !authHeaders.name|| !authHeaders.pass) {
         res.status(401);
         res.setHeader('www-authenticate', 'Basic realm="number-one"');
         return res.send({

@@ -1,11 +1,10 @@
 'use strict';
 
-var jwt = require('jwt-simple');
-var bcrypt = require('../data/bcrypt');
-var users = require('../data/users.js');
-var secret = require('../config.js')();
-
-// add in user.get method
+const path = require('path');
+const jwt = require('jwt-simple');
+const bcrypt = require(path.join('..', 'data', 'bcrypt'));
+const users = require(path.join('..', 'data', 'users.js'));
+const secret = require(path.join('..', 'config.js'))();
 
 module.exports = (req, res, next) => {
     users.getByName(req.user.name, (err, rows) => {
@@ -16,7 +15,7 @@ module.exports = (req, res, next) => {
                 message: 'User not found'
             });
         }
-        var storedUser = rows[0];
+        const storedUser = rows[0];
         bcrypt.comparePassword(req.user, storedUser.password, function(err, isMatch) {
             if(err) { return next(err); }
             if(!isMatch) {
@@ -25,7 +24,7 @@ module.exports = (req, res, next) => {
                     message: 'Incorrect password'
                 });
             }
-            var payload = {
+            const payload = {
                 iss: 'number-one-app',
                 name: req.user.name,
                 admin: storedUser.admin

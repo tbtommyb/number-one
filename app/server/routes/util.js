@@ -1,5 +1,5 @@
 
-var serveRows = function(req, res) {
+const serveRows = function(req, res) {
     return function(err, rows) {
         if(err) return res.status(err.status || 500).send(err);
         if(!rows.length) {
@@ -13,7 +13,7 @@ var serveRows = function(req, res) {
     };
 };
 
-var handleInsert = function(req, res) {
+const handleInsert = function(req, res) {
     return function(err, id) {
         if(err) return res.status(err.status || 500).send(err);
         res.status(201).send({
@@ -23,7 +23,7 @@ var handleInsert = function(req, res) {
     };
 };
 
-var handleChange = function(req, res) {
+const handleChange = function(req, res) {
     return function(err, changes) {
         if(err) return res.status(err.status || 500).send(err);
         if(!changes) {

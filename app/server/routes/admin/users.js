@@ -1,10 +1,11 @@
-var router = require('express').Router();
-var allowMethods = require('allow-methods');
-var users = require(__dirname + '/../../data/users.js');
-var validateNewUser = require('../../middleware/validateNewUser.js');
-var encryptPassword = require('../../middleware/encryptPassword.js');
-var basicauth = require('../../middleware/basicauth');
-var util = require('../util');
+const path = require('path');
+const router = require('express').Router();
+const allowMethods = require('allow-methods');
+const util = require(path.join('..', 'util'));
+const users = require(path.join(__dirname, '..', '..', 'data', 'users'));
+const validateNewUser = require(path.join(__dirname, '..', '..', 'middleware', 'validateNewUser'));
+const encryptPassword = require(path.join(__dirname, '..', '..', 'middleware', 'encryptPassword'));
+const basicauth = require(path.join(__dirname, '..', '..', 'middleware', 'basicauth'));
 
 router.route('/')
     .all(allowMethods(['get', 'put'], 'Please use GET or PUT method'))

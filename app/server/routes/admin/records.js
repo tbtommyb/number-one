@@ -1,10 +1,11 @@
-var router = require('express').Router();
-var validateDate = require('../../middleware/validateDate.js');
-var validateNewRecord = require('../../middleware/validateNewRecord.js');
-var validateUpdateRecord = require('../../middleware/validateUpdateRecord.js');
-var allowMethods = require('allow-methods');
-var records = require(__dirname + '/../../data/records.js');
-var util = require('../util');
+const path = require('path');
+const router = require('express').Router();
+const allowMethods = require('allow-methods');
+const util = require(path.join('..', 'util'));
+const records = require(path.join(__dirname, '..', '..', 'data', 'records'));
+const validateDate = require(path.join(__dirname, '..', '..', 'middleware', 'validateDate'));
+const validateNewRecord = require(path.join(__dirname, '..', '..', 'middleware', 'validateNewRecord'));
+const validateUpdateRecord = require(path.join(__dirname, '..', '..', 'middleware', 'validateUpdateRecord'));
 
 router.route('/')
     .all(allowMethods(['post'], 'Please use POST method'))
