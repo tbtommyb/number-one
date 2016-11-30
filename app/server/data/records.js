@@ -16,9 +16,8 @@ var getByDate = (date, cb) => {
     });
 };
 
-/* Specify order of values - TODO */
-var create = (data, cb) => {
-    db.run('INSERT OR IGNORE INTO Data VALUES (?, ?, ?, ?)', data, function(err) {
+var create = (input, cb) => {
+    db.run('INSERT OR IGNORE INTO Data (date, artist, title, weeks) VALUES (?, ?, ?, ?)', input, function(err) {
         if(err) { return cb(err); }
         return cb(null, this.lastID);
     });

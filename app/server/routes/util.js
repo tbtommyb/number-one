@@ -32,7 +32,7 @@ var handleChange = function(req, res) {
                 message: 'Resource not found'
             });
         }
-        res.status(201).send({
+        res.status(200).send({
             success: true,
             message: `Following changes made: ${changes}`
         });

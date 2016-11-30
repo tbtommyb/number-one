@@ -18,7 +18,6 @@ const validateNewUser = require('../middleware/validateNewUser');
 var apiRouter = express.Router();
 
 // Open access routes
-
 apiRouter.get('/', function(req, res, next) {
     res.sendFile(path.join(__dirname, '/../../public/api.html'));
 });
@@ -43,7 +42,6 @@ apiRouter.route('/records')
 apiRouter.route('/records/:date/')
     .all(allowMethods(['get'], 'Please use GET method'))
     .get(validateDate, (req, res) => {
-        console.log(req.params.date)
         records.getByDate(req.params.date, util.serveRows(req, res));
     });
 
