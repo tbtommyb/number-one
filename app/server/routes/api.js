@@ -43,6 +43,7 @@ apiRouter.route('/records')
 apiRouter.route('/records/:date/')
     .all(allowMethods(['get'], 'Please use GET method'))
     .get(validateDate, (req, res) => {
+        console.log(req.params.date)
         records.getByDate(req.params.date, util.serveRows(req, res));
     });
 

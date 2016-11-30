@@ -1,8 +1,7 @@
 
 module.exports = function(req, res, next) {
     if(!(req.body.name && req.body.password)) {
-        console.log("error with user", req);
-        res.status(400).send({
+        return res.status(400).send({
             success: false,
             message: 'Name, password and admin data not in correct format'
         });

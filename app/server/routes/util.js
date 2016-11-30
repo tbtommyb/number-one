@@ -25,8 +25,13 @@ var handleInsert = function(req, res) {
 
 var handleChange = function(req, res) {
     return function(err, changes) {
-        console.log(err)
         if(err) return res.status(err.status || 500).send(err);
+        if(!changes) {
+            return res.status(404).send({
+                success: false,
+                message: 'Resource not found'
+            });
+        }
         res.status(201).send({
             success: true,
             message: `Following changes made: ${changes}`

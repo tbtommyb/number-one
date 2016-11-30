@@ -232,47 +232,44 @@ describe('GET /users', function () {
 
 describe('PUT /users', function () {
     before(function () {
-        db.run("INSERT INTO Users VALUES ('tester', 'tester', 'false')");
+        db.run("INSERT INTO Users VALUES ('tester9', 'tester', 'false')");
     });
     var invalidUser = {
-        name: 'tester2',
-        password: 'tester2',
+        name: 'tester5',
+        admin: 'true'
     };
     var validUser = {
-        name: 'tester2',
+        name: 'tester9',
         password: 'tester2',
         admin: 'true'
     };
-    it('should return 200 code if the update is successful', function (done) {
+    var nonExistentUser = {
+        name: 'tester5',
+        password: 'tester5',
+        admin: 'true'
+    };
+    it('should return 201 code if the update is successful', function (done) {
         request
-            .put('/admin/users/tester')
+            .put('/admin/users/')
             .auth('admin', config.password)
             .set('x-access-token', config.admin_token)
             .send(validUser)
-            .expect(200, done); 
+            .expect(201, done); 
     });
-    it('should require a name url param', function (done) {
+    it('should require password params in the req body', function (done) {
         request
-            .put('/admin/users')
-            .auth('admin', config.password)
-            .set('x-access-token', config.admin_token)
-            .send(validUser)
-            .expect(404, done);           
-    });
-    it('should require all params in the req body', function (done) {
-        request
-            .put('/admin/users/tester')
+            .put('/admin/users/')
             .auth('admin', config.password)
             .set('x-access-token', config.admin_token)
             .send(invalidUser)
             .expect(400, done);
     });
-    it('should return an error if the user does not exist', function (done) {
+    it('should return a 404 if the user does not exist', function (done) {
         request
-            .put('/admin/users/tester5')
+            .put('/admin/users/')
             .auth('admin', config.password)
             .set('x-access-token', config.admin_token)
-            .send(validUser)
+            .send(nonExistentUser)
             .expect(404, done);       
     });
     it('should return an error if details provided are invalid');
@@ -280,14 +277,14 @@ describe('PUT /users', function () {
 
 describe('DEL /users', function () {
     before(function () {
-        db.run("INSERT INTO Users VALUES ('tester', 'tester', 'false')");
+        db.run("INSERT INTO Users VALUES ('tester10', 'tester', 'false')");
     });
     it('should return an error code if no username param provided', function (done) {
         request
             .del('/admin/users')
             .auth('admin', config.password)
             .set('x-access-token', config.admin_token)
-            .expect(404, done);           
+            .expect(405, done);           
     });
     it('should return an error if user does not exist', function (done) {
         request
@@ -296,15 +293,12 @@ describe('DEL /users', function () {
             .set('x-access-token', config.admin_token)
             .expect(404, done); 
     });
-    it('should return 200 ok if user deleted', function (done) {
+    it('should return 201 if user deleted', function (done) {
         request
-            .del('/admin/users/tester')
+            .del('/admin/users/tester10')
             .auth('admin', config.password)
             .set('x-access-token', config.admin_token)
-            .end(function (err, res) {
-                res.status.should.equal(200);
-                done();
-            }); 
+            .expect(201, done);
     });
     it('should return an error if an invalid string is provided');
     after(function() {
@@ -361,7 +355,7 @@ describe('POST /records', function () {
             .expect(201, done);
     });
     before(function(){
-        db.run("INSERT INTO Data VALUES ('2015-12-24', tester', 'tester', '5'");
+        db.run("INSERT INTO Data VALUES ('2015-12-24', 'tester', 'tester', '5'");
     });
     it('should return an error 409 if the date is already taken', function (done) {
         request

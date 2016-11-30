@@ -1,7 +1,7 @@
 
 module.exports = function(req, res, next) {
     if(!(req.body.artist && req.body.title && req.body.weeks && req.body.date)) {
-        res.status(400).send({
+        return res.status(400).send({
             success: false,
             message: 'Date, artist, title and week data not in correct format'
         });
