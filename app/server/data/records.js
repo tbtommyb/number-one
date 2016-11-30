@@ -2,20 +2,21 @@
 
 var db = require('./db');
 
-var getAll = cb => {
+var get = cb => {
     db.all('SELECT rowid, * FROM Data', function(err, rows) {
         if(err) { return cb(err); }
         return cb(null, rows);
     });
 };
 
-var get = (date, cb) => {
-    db.get('SELECT rowid, * FROM Data WHERE date <= ? ORDER BY rowid DESC LIMIT 1', date, function (err, row) {
+var getByDate = (date, cb) => {
+    db.all('SELECT rowid, * FROM Data WHERE date <= ? ORDER BY rowid DESC LIMIT 1', date, function (err, rows) {
         if(err) { return cb(err); }
-        return cb(null, row);
+        return cb(null, rows);
     });
 };
 
+/* Specify order of values - TODO */
 var create = (data, cb) => {
     db.run('INSERT OR IGNORE INTO Data VALUES (?, ?, ?, ?)', data, function(err) {
         if(err) { return cb(err); }
@@ -31,15 +32,15 @@ var update = (data, cb) => {
         });
 };
 
-var remove = (date, cb) => {
-    db.run('DELETE FROM Data WHERE date = ?', date, function(err) {
+var remove = (rowid, cb) => {
+    db.run('DELETE FROM Data WHERE rowid = ?', rowid, function(err) {
         if(err) { return cb(err); }
         return cb(null, this.changes);
     });
 };
 
 module.exports = {
-    getAll: getAll,
+    getByDate: getByDate,
     get: get,
     create: create,
     update: update,

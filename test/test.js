@@ -156,7 +156,7 @@ describe('Getting records', function () {
             .set('x-access-token', config.admin_token)
             .end(function (err, res) {
                 res.status.should.equal(200);
-                res.body.artist.should.equal('CLIFF RICHARD');
+                res.body[0].artist.should.equal('CLIFF RICHARD');
                 done();
             });
 
@@ -216,7 +216,7 @@ describe('GET /users', function () {
             .end(function (err, res) {
                 res.status.should.equal(200);
                 res.headers['content-type'].should.equal('application/json; charset=utf-8');
-                res.body.name.should.equal('number-one');
+                res.body[0].name.should.equal('number-one');
                 done();
             });        
     });
@@ -227,6 +227,7 @@ describe('GET /users', function () {
             .set('x-access-token', config.admin_token)
             .expect(404, done);       
     });
+    it('non-admin users should be able to access their own details');
 });
 
 describe('PUT /users', function () {
@@ -319,9 +320,16 @@ describe('POST /records', function () {
     var valid = {
         artist: 'tester',
         title: 'tester',
-        weeks: 1
+        weeks: 1,
+        date: '2015-12-13'
     };
-    it('should return an error if no date provided', function (done) {
+    var invalid = {
+        artist: 'tester',
+        title: 'tester',
+        weeks: 1,
+        date: '201-12-11'
+    };
+    it('should return an error if no data provided', function (done) {
         request
             .post('/admin/records')
             .auth('admin', config.password)
@@ -330,15 +338,15 @@ describe('POST /records', function () {
     });
     it('should return an error 400 if invalid date provided', function (done) {
         request
-            .post('/admin/records/201-12-11')
+            .post('/admin/records/')
             .auth('admin', config.password)
             .set('x-access-token', config.admin_token)
-            .send(valid)
+            .send(invalid)
             .expect(400, done);
     });
     it('should return an error if some params are missing', function (done) {
         request
-            .post('/admin/records/2015-12-12')
+            .post('/admin/records/')
             .auth('admin', config.password)
             .set('x-access-token', config.admin_token)
             .send(missingParams)
@@ -346,7 +354,7 @@ describe('POST /records', function () {
     });
     it('should return 201 if record created ok', function (done) {
         request
-            .post('/admin/records/2015-12-13')
+            .post('/admin/records/')
             .auth('admin', config.password)
             .set('x-access-token', config.admin_token)
             .send(valid)
@@ -357,7 +365,7 @@ describe('POST /records', function () {
     });
     it('should return an error 409 if the date is already taken', function (done) {
         request
-            .post('/admin/records/2015-12-24')
+            .post('/admin/records/')
             .auth('admin', config.password)
             .set('x-access-token', config.admin_token)
             .send(valid)

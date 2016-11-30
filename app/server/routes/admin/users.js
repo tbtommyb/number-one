@@ -8,13 +8,13 @@ var util = require('../util');
 router.route('/')
     .all(allowMethods(['get'], 'Please use GET method'))
     .get((req, res) => {
-        users.getAll(util.serveRows(req, res));
+        users.get(util.serveRows(req, res));
     });
 
 router.route('/:name')
     .all(allowMethods(['get'], 'Please use GET method'))
     .get((req, res) => {
-        users.get(req.params.name, util.serveRows(req, res));
+        users.getByName(req.params.name, util.serveRows(req, res));
     });
 
 router.route('/:name')

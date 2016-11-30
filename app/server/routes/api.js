@@ -32,18 +32,18 @@ apiRouter.route('/register')
 
 apiRouter.route('/login')
    .all(allowMethods(['post'], 'Please use POST method'))
-    .post(basicAuth, authorise); /* TODO */
+    .post(basicAuth, authorise);
 
 apiRouter.route('/records')
     .all(allowMethods(['get'], 'Please use GET method'))
     .get((req, res) => {
-        records.getAll(util.serveRows(req, res));
+        records.get(util.serveRows(req, res));
     });
 
 apiRouter.route('/records/:date/')
     .all(allowMethods(['get'], 'Please use GET method'))
     .get(validateDate, (req, res) => {
-        records.get(req.params.date, util.serveRows(req, res));
+        records.getByDate(req.params.date, util.serveRows(req, res));
     });
 
 // Authenticated and authorised users only
@@ -54,7 +54,7 @@ apiRouter.use('/admin/records', require('./admin/records'));
 
 apiRouter.use(function(err, req, res, next) {
     res.status(err.status || 500).send({
-        message: err.message
+        err: err
     });
 });
 

@@ -8,14 +8,15 @@ var secret = require('../config.js')();
 // add in user.get method
 
 module.exports = (req, res, next) => {
-    users.get(req.user.name, (err, storedUser) => {
+    users.getByName(req.user.name, (err, rows) => {
         if(err) return next(err);
-        if(!storedUser) {
+        if(!rows.length) {
             return res.status(404).send({
                 success: false,
                 message: 'User not found'
             });
         }
+        var storedUser = rows[0];
         bcrypt.comparePassword(req.user, storedUser.password, function(err, isMatch) {
             if(err) { return next(err); }
             if(!isMatch) {

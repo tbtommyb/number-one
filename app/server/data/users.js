@@ -2,14 +2,14 @@
 
 var db = require('./db');
 
-var get = (name, cb) => {
-    db.get('SELECT rowid, * FROM Users WHERE name = ?', name, function(err, row) {
+var getByName = (name, cb) => {
+    db.all('SELECT rowid, * FROM Users WHERE name = ?', name, function(err, row) {
         if(err) { return cb(err); }
         cb(null, row);
     });
 };
 
-var getAll = cb => {
+var get = cb => {
     db.all('SELECT rowid, * FROM Users', function(err, rows) {
         if(err) { return cb(err); }
         cb(null, rows);
@@ -39,7 +39,7 @@ var remove = (name, cb) => {
 
 module.exports = {
     get: get,
-    getAll: getAll,
+    getByName: getByName,
     add: add,
     update: update,
     delete: remove

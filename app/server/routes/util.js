@@ -2,7 +2,7 @@
 var serveRows = function(req, res) {
     return function(err, rows) {
         if(err) return res.status(err.status || 500).send(err);
-        if(!rows || (Array.isArray(rows) && !rows.length)) {
+        if(!rows.length) {
             return res.status(404).send({
                 success: false,
                 message: 'Resource not found'

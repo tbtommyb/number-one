@@ -6,22 +6,21 @@ var allowMethods = require('allow-methods');
 var records = require(__dirname + '/../../data/records.js');
 var util = require('../util');
 
-router.route('/:date')
+/* TO FIX - router can't tell date and rowid apart
+ * Post shouldn't use date, others can use ID */
+router.route('/')
     .all(allowMethods(['post'], 'Please use POST method'))
     .post(validateDate, validateNewRecord, (req, res) => {
         records.create(req.recordData, util.handleInsert(req, res));
     });
 
 router.route('/:rowid')
-    .all(allowMethods(['put'], 'Please use PUT method'))
+    .all(allowMethods(['put', 'delete'], 'Please use PUT or DELETE method'))
     .put(validateDate, validateUpdateRecord, (req, res) => {
         records.update(req.recordData, util.handleChange(req, res));
-    });
-
-router.route('/:date')
-    .all(allowMethods(['delete'], 'Please use DELETE method'))
+    })
     .delete(validateDate, (req, res) => {
-        records.delete(req.params.date, util.handleChange(req, res));
+        records.delete(req.params.rowid, util.handleChange(req, res));
     });
 
 module.exports = router;
