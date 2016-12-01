@@ -6,7 +6,7 @@ const should = require('should');
 const supertest = require('supertest');
 const request = supertest('http://localhost:9000/api');
 const config = require('./config.js');
-const db = require('../app/server/data/db.js');
+const db = require('./db.js');
 
 // TO DO: adding tests for using wrong HTTP verb
 
@@ -202,7 +202,7 @@ describe('GET /users', function () {
             .end(function (err, res) {
                 res.status.should.equal(200);
                 res.headers['content-type'].should.equal('application/json; charset=utf-8');
-                res.body.length.should.equal(3);
+                res.body.length.should.equal(4);
                 done();
             });
     });
