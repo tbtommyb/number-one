@@ -1,3 +1,0 @@
-module.exports = {
-	number_token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJudW1iZXItb25lLWFwcCIsIm5hbWUiOiJudW1iZXItb25lIiwiYWRtaW4iOiJmYWxzZSJ9.YvBZIdnmFLosFA7gHk33Q7cbCNabJaWHZZ8uuSQoVeQ',
-};
