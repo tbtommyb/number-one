@@ -2,8 +2,10 @@ const fs = require('fs');
 const path = require('path');
 const sqlite3 = require('sqlite3').verbose();
 
-const file = path.join(__dirname, 'data.db');
+const file = path.join(__dirname, process.argv[2]);
 const exists = fs.existsSync(file);
+console.log(file)
+
 
 const inputData = JSON.parse(fs.readFileSync(path.join(__dirname, 'newData.json'), 'utf8'));
 
@@ -26,10 +28,6 @@ db.serialize(function() {
     });
 
     stmt.finalize();
-
-    db.each('SELECT * FROM Data', function(err, row) {
-        console.log(row);
-    });
 });
 
 db.close();
