@@ -1,18 +1,17 @@
-var fs = require('fs');
-var Converter = require("csvtojson").Converter;
-var jsonfile = require('jsonfile');
+const fs = require('fs');
+const path = require('path');
+const Converter = require('csvtojson').Converter;
+const jsonfile = require('jsonfile');
 
-var fileStream = fs.createReadStream("./data.csv");
-var output = './data.json';
+const fileStream = fs.createReadStream(path.join(__dirname, 'data.csv'));
+const output = path.join(__dirname, 'data.json');
 
-var param = {};
+const converter = new Converter({});
 
-var converter = new Converter(param);
-
-converter.on("end_parsed", function (jsonObj) {
-	jsonfile.writeFile(output, jsonObj, function(err) {
-		console.error(err);
-	})
+converter.on('end_parsed', function(jsonObj) {
+    jsonfile.writeFile(output, jsonObj, function(err) {
+        console.error(err);
+    });
 });
 
 fileStream.pipe(converter);

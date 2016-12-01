@@ -210,7 +210,8 @@ module.exports = function (grunt) {
                     cwd: '<%= yeoman.app %>',
                     dest: '<%= yeoman.dist %>',
                     src: [
-                        'server/**/*.{ico,pem,js,html,key}'
+                        'server/**/*.{ico,pem,js,html,key}',
+                        'public/scripts/main.js'
                     ]
                 }, {
                     expand: true,
@@ -297,12 +298,12 @@ module.exports = function (grunt) {
     grunt.registerTask('test', function (isConnected) {
         isConnected = Boolean(isConnected);
         var testTasks = [
-                'clean:server',
-                'createDefaultTemplate',
-                'jst',
-                'connect:test',
-                'mocha',
-            ];
+            'clean:server',
+            'createDefaultTemplate',
+            'jst',
+            'connect:test',
+            'mocha',
+        ];
 
         if(!isConnected) {
             return grunt.task.run(testTasks);

@@ -1,1 +1,100 @@
-$(function(){"use strict";var a=Backbone.Model.extend({defaults:{artist:"",title:"",videoId:""},initialize:function(){c.add(this);var a=this;this.fetch({success:function(b,c,d){a.getVideoId()}})},getVideoId:function(){var a=this,b=this.get("artist")+"+"+this.get("title");$.ajax({url:"https://www.googleapis.com/youtube/v3/search",data:{part:"snippet",type:"video",videoEmbeddable:"true",maxResults:"1",key:"AIzaSyA5UichqO_WSK22RMjGqWhmz-GvRQK9Szg",q:b},type:"GET",success:function(b){a.set("videoId",b.items[0].id.videoId)}})},sync:function(a,b,c){var d="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJudW1iZXItb25lLWFwcCIsIm5hbWUiOiJudW1iZXItb25lIiwiYWRtaW4iOiJmYWxzZSJ9.YvBZIdnmFLosFA7gHk33Q7cbCNabJaWHZZ8uuSQoVeQ";d&&(c.headers={"x-access-token":d}),Backbone.Model.prototype.sync.apply(this,arguments)}}),b=Backbone.Collection.extend({model:a,url:"/api/records"}),c=new b,d=Backbone.View.extend({el:"#main",events:{"submit #dateEntry":"submit"},initialize:function(){this.$record=this.$("#record"),this.listenTo(c,"sync",this.renderNewestModel)},renderNewestModel:function(){this.render(this.collection.last())},render:function(a){var b=new e({model:a});this.$record.html($(b.render().el)).trigger("textLoaded")},submit:function(b){b.preventDefault();var c=$("#dateEntry").serializeArray()[0].value;new a({id:c})},renderVideo:function(a){var a=a;this.player?this.player.cueVideoById(a):this.setupPlayer(a),$("body, html").animate({scrollTop:$("body").height()},1e3)},setupPlayer:function(a){var b=document.createElement("script"),c=this,a=a;b.src="https://www.youtube.com/iframe_api";var d=document.getElementsByTagName("script")[0];d.parentNode.insertBefore(b,d),window.onYouTubeIframeAPIReady=function(){c.player=new YT.Player("playerYT",{height:"366",width:"600",videoId:a})}}}),e=Backbone.View.extend({tagName:"span",className:"recordResult",template:_.template("<%= artist %>: <%= title %>"),initialize:function(){this.model.on("change:videoId",this.callVideo,this)},callVideo:function(){f.renderVideo(this.model.get("videoId"))},render:function(){var a=this.model.toJSON();return this.$el.html(this.template(a)),this}}),f=new d({collection:c})}),$(document).ready(function(){function a(a){$(a).textfill({minFontPixels:4,maxFontPixels:40})}function b(){$topDate=$("#main").width()/12.5,$leftDate=$("#main").width()/2-$(".div-date").width()/2+2,$(".div-date").css({top:$topDate+"px",left:$leftDate+"px"})}a(".textHolder"),b(),$(window).on("resize",function(){a(".textHolder"),a(".recordHolder"),b()}),$("#record").on("textLoaded",function(){$(".recordHolder").textfill({minFontPixels:4,maxFontPixels:40,success:function(){$(".recordResult").css({opacity:0,visibility:"visible"}).animate({opacity:1},"slow")}})}),$("#date").combodate({minYear:1953,format:"YYYY-MM-DD"})});
+$(document).ready(function() {
+    'use strict';
+
+    var $dateEntry = $('#dateEntry');
+    var $textHolder = $('.textHolder');
+    var $recordHolder = $('.recordHolder');
+    var $record = $('#record');
+    var player;
+
+    // creates the drop down selection boxes
+    $('#date').combodate({
+        minYear: 1953,
+        format: 'YYYY-MM-DD'
+    });
+
+    $(window).on('load resize', function() {
+        resizeText($textHolder);
+        resizeText($recordHolder);
+        setDateSpacing();
+    });
+
+    $dateEntry.on('submit', function(e) {
+        e.preventDefault();
+        var date = $(this).serialize().split('=')[1];
+
+        $.ajax('/api/records/'+date, {
+            success: function(data) {
+                var result = data[0];
+                $record.html('<span>'+result.artist+': '+result.title+'</span>');
+                resizeText($recordHolder);
+                $record.css({opacity: 0, visibility: 'visible'})
+                    .animate({opacity: 1}, 'slow');
+                fetchVideo(result, function(videoId) {
+                    renderVideo(videoId);
+                });
+            },
+            error: function() {
+                $record.html('<span>Failed to load data</span>').css({opacity: 0, visibility: 'visible'})
+                    .animate({opacity: 1}, 'slow');
+            }
+        });
+    });
+
+    function fetchVideo(query, cb) {
+        $.ajax({
+            url: 'https://www.googleapis.com/youtube/v3/search',
+            data: {
+                part: 'snippet',
+                type: 'video',
+                videoEmbeddable: 'true',
+                maxResults: '1',
+                key: 'AIzaSyA5UichqO_WSK22RMjGqWhmz-GvRQK9Szg',
+                q: query.artist+'+'+query.title
+            },
+            type: 'GET',
+            success: function(data) {
+                cb(data.items[0].id.videoId);
+            }
+        });
+    }
+
+    function renderVideo(videoId) {
+        if(player) {
+            player.cueVideoById(videoId);
+        } else {
+            setUpPlayer(videoId);
+        }
+        $('body, html').animate({scrollTop: $('body').height()}, 1000);
+    }
+
+    function setUpPlayer(videoId) {
+        var tag = document.createElement('script');
+        tag.src = 'https://www.youtube.com/iframe_api';
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);            
+        
+        window.onYouTubeIframeAPIReady = function() {
+            player = new YT.Player('player', {
+                height: '366',
+                width: '640',
+                videoId: videoId
+            });
+        };
+    }
+
+    function resizeText(input) {
+        var jqObj = (typeof input === 'string' ? $(input) : input);
+        jqObj.textfill({
+            minFontPixels: 4,
+            maxFontPixels: 40
+        });
+        return jqObj;
+    }
+
+    function setDateSpacing() {
+        var $topDate = ($('#main').width() / 12.5);
+        var $leftDate = ($('#main').width() / 2) - ($('.div-date').width() / 2) + 2;
+        $('.div-date').css({'top': $topDate + 'px', 'left': $leftDate + 'px'});
+    }
+});

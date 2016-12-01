@@ -1,78 +1,58 @@
-/* jslint node: true, nomen: true */
 'use strict';
 
-var express = require('express'),
-    path = require('path');
-var users = require('./users.js'),
-    record = require('./records.js'),
-    authorise = require('./auth.js'),
-    tokenChecker = require('../middleware/token.js'),
-    adminChecker = require('../middleware/admin.js'),
-    basicAuth = require('../middleware/basicauth.js'),
-    allowMethods = require('allow-methods'),
-    encryptPassword = require('../middleware/encryptPassword.js'),
-    valiDate = require('../middleware/validateDate.js');
+const express = require('express');
+const path = require('path');
+const allowMethods = require('allow-methods');
+const records = require(path.join(__dirname, '..', 'data', 'records'));
+const users = require(path.join(__dirname, '..', 'data', 'users'));
+const authorise = require(path.join(__dirname, 'auth'));
+const util = require(path.join(__dirname, 'util'));
+
+const admin = require(path.join('..', 'middleware', 'admin'));
+const basicAuth = require(path.join('..', 'middleware', 'basicauth'));
+const token = require(path.join('..', 'middleware', 'token'));
+const encryptPassword = require(path.join('..', 'middleware', 'encryptPassword'));
+const validateDate = require(path.join('..', 'middleware', 'validateDate'));
+
 var apiRouter = express.Router();
 
+// Open access routes
 apiRouter.get('/', function(req, res, next) {
-    res.sendFile(path.join(__dirname, '/../../public/api.html'));
+    res.sendFile(path.join(__dirname, '..', '..', 'public', 'api.html'));
 });
 
 apiRouter.route('/register')
     .all(allowMethods(['post'], 'Please use POST method'))
-    .post(basicAuth, encryptPassword, users.add);
+    .post(basicAuth, encryptPassword, (req, res) => {
+        var details = [req.user.password, req.user.admin, req.user.name];
+        users.create(details, util.handleInsert(req, res));
+    });
 
 apiRouter.route('/login')
    .all(allowMethods(['post'], 'Please use POST method'))
-    .post(basicAuth, authorise.user);
-
-// Authenticated users only
-
-//apiRouter.use('*', tokenChecker); // require auth token
+    .post(basicAuth, authorise);
 
 apiRouter.route('/records')
     .all(allowMethods(['get'], 'Please use GET method'))
-    .get(record.getAll);
+    .get((req, res) => {
+        records.get(util.serveRows(req, res));
+    });
 
 apiRouter.route('/records/:date/')
     .all(allowMethods(['get'], 'Please use GET method'))
-    .get(valiDate, record.get);
+    .get(validateDate, (req, res) => {
+        records.getByDate(req.params.date, util.serveRows(req, res));
+    });
 
 // Authenticated and authorised users only
+apiRouter.use(token, admin);
 
-apiRouter.use('*', adminChecker); // require admin status
+apiRouter.use('/admin/users', require(path.join(__dirname, 'admin', 'users')));
+apiRouter.use('/admin/records', require(path.join(__dirname, 'admin', 'records')));
 
-apiRouter.route('/admin/users')
-    .all(allowMethods(['get'], 'Please use GET method'))
-    .get(users.getAll);
-
-apiRouter.route('/admin/users/:name')
-    .all(allowMethods(['get'], 'Please use GET method'))
-    .get(users.getOne);
-
-apiRouter.route('/admin/users/:name')
-    .all(allowMethods(['put'], 'Please use PUT method'))
-    .put(encryptPassword, users.update);
-
-apiRouter.route('/admin/users/:name')
-    .all(allowMethods(['delete'], 'Please use DELETE method'))
-    .delete(users.delete);
-
-apiRouter.route('/admin/records/:date')
-    .all(allowMethods(['post'], 'Please use POST method'))
-    .post(valiDate, record.create);
-
-apiRouter.route('/admin/records/:rowid')
-    .all(allowMethods(['put'], 'Please use PUT method'))
-    .put(valiDate, record.update);
-
-apiRouter.route('/admin/records/:date')
-    .all(allowMethods(['delete'], 'Please use DELETE method'))
-    .delete(valiDate, record.delete);
-
-apiRouter.use(function (err, req, res, next) {
+apiRouter.use(function(err, req, res, next) {
     res.status(err.status || 500).send({
-        message: err.message
+        err: err
     });
 });
 
