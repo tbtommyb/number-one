@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const favicon = require('serve-favicon');
 const bodyParser = require('body-parser');
@@ -36,8 +37,8 @@ app.use(function(req, res, next) {
 });
 
 // maxAge to enable caching
-app.use(express.static(__dirname + '/../', { maxAge: 31536001 }));
-app.use(favicon(__dirname + '/favicon.ico'));
+app.use(express.static(path.join(__dirname, '..', 'public'), { maxAge: 31536001 }));
+app.use(favicon(path.join(__dirname, 'favicon.ico')));
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -48,6 +49,7 @@ app.use('/api', apiRoute());
 
 /*** Initialise ***/
 const port = process.env.PORT || 9000;
+console.log('initialising server on port ', port);
 const server = app.listen(port);
 
 module.exports = server;
