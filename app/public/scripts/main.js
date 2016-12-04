@@ -3,7 +3,7 @@ $(document).ready(function() {
 
     var $dateEntry = $('#dateEntry');
     var $headerHolder = $('.header-holder');
-    var $recordHolder = $('#record');
+    var $recordHolder = $('.record-holder');
     var $record = $('#record');
     var player;
 

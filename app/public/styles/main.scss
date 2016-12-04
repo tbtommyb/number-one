@@ -1,37 +1,50 @@
+
+// *** Generic variables and helpers ***
+
+// Fonts
+
 @font-face {
-  font-family: 'Pacifico';
-  src: url('fonts/pacifico-webfont.eot?') format('eot'), url('fonts/pacifico-webfont.woff') format('woff'), url('fonts/pacifico-webfont.ttf') format('truetype');
+  font-family: "Pacifico";
+  src: url("fonts/pacifico-webfont.eot?") format("eot"), url("fonts/pacifico-webfont.woff") format("woff"), url("fonts/pacifico-webfont.ttf") format("truetype");
 }
 
+// Variables
+
 $headline: Pacifico, cursive;
-$font-stack: Futura, 'Trebuchet MS', Arial, sans-serif;
-$text-color: #ffffff;
-$input-background-color: #ffffff;
+$font-stack: Futura, "Trebuchet MS", Arial, sans-serif;
+$text-color: #fff;
+$input-background-color: #fff;
 $input-outline-color: #874fed;
 $background-color: #94f4e6;
+
+// Mixins
 
 @mixin phone {
   @media (max-width: 400px) { @content; }
 }
 
-@mixin mini {
+@mixin tablet {
   @media (min-width: 401px) and (max-width: 600px) { @content; }
-}
-
-@function calculateRem($size) {
-  $remSize: $size / 16px;
-  @return $remSize * 1rem;
 }
 
 @mixin font-size($size) {
   font-size: $size;
-  font-size: calculateRem($size);
+  font-size: calculate-rem($size);
 }
 
 @mixin svg-fallback($name) {
-  background-image: url('../images/#{$name}.png');
-  background-image: none, url('../images/#{$name}.svg');
+  background-image: url("../images/#{$name}.png");
+  background-image: none, url("../images/#{$name}.svg");
 }
+
+// Functions
+
+@function calculate-rem($size) {
+  $rem-size: $size / 16px;
+  @return $rem-size * 1rem;
+}
+
+// *** Selectors ***
 
 body {
   background-color: $background-color;
@@ -43,71 +56,29 @@ button {
   @include font-size(16px);
   background-color: $input-background-color;
   border: 2px solid $input-outline-color;
-  outline: 0;
-  padding: 1%; 
-  height: 2em; 
   border-radius: 5px;
+  height: 2em;
   margin: 0;
+  outline: 0;
+  padding: 1%;
 }
 
 .wrapper {
-  @include svg-fallback('vinyl');
+  @include svg-fallback("vinyl");
   background-repeat: no-repeat;
   background-size: contain;
   height: 600px;
   width: 600px;
 
   @include phone {
-    @include svg-fallback('vinyl-mobile');
-    width: 100%;
-    height: 100%;
+    @include svg-fallback("vinyl-mobile");
+    height: 660px;
     overflow-x: hidden;
-  }
-
-  @include mini {
     width: 100%;
   }
-}
 
-.videowrapper {
-  position: relative;
-  padding-bottom: 56.25%;
-  padding-top: 30px;
-  height:  0;
-  margin-top: 10%;
-}
-
-.videowrapper iframe,
-.videowrapper object,
-.videowrapper embed {
-  position: absolute;
-  top: 0;
-  left: 2.5%;
-  width: 95%;
-  height: 95%;
-
-  @include mini {
+  @include tablet {
     width: 100%;
-    height: 100%;
-  }
-}
-
-.date-holder {
-  position: relative;
-  padding-top: 13%;
-}
-
-.date-form--button {
-  width: 3em;
-  margin: auto;
-  margin-top: 5%;
-  display: block;
-
-  @include phone {
-    margin-top: 6px;
-  }
-  @include mini {
-    margin-top: 18px;
   }
 }
 
@@ -115,6 +86,76 @@ button {
   margin: auto;
   text-align: center;
 }
+
+// Video
+
+.videowrapper {
+  max-width: 500px;
+  padding-bottom: 30%;
+  position: relative;
+  width: 60%;
+
+  @include tablet {
+    padding-bottom: 35%;
+    width: 80%;
+  }
+
+  @include phone {
+    padding-bottom: 70%;
+    width: 90%;
+  }
+}
+
+.videowrapper.centered {
+  margin-bottom: 2em;
+  margin-top: 2em;
+}
+
+.videowrapper iframe,
+.videowrapper object,
+.videowrapper embed {
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+
+  @include tablet {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+// Inputs
+
+.date-holder {
+  padding-top: 5em;
+  position: relative;
+
+  @include phone {
+    padding-top: 6em;
+  }
+
+  @include tablet {
+    padding-top: 2em;
+  }
+}
+
+.date-form--button {
+  display: block;
+  margin: 3em auto auto;
+  width: 3em;
+
+  @include phone {
+    margin-top: 3em;
+  }
+
+  @include tablet {
+    margin-top: 3em;
+  }
+}
+
+// Text blocks
 
 .text-block {
   color: $text-color;
@@ -134,33 +175,39 @@ button {
 
 .record-holder {
   font: 100% $font-stack;
-  padding-top: 18%;
+  padding-top: 5em;
   visibility: hidden;
 
   @include phone {
-    padding-top: 22%;
+    padding-top: 6em;
   }
 
-  @include mini {
+  @include tablet {
     padding-top: 10%;
   }
 }
 
+.record-result {
+  height: 6em;
+}
+
+// Github link
 
 .github-image {
-  background-image: url('../images/#{find_me}.png');
-  position: absolute;
-  top: 0;
-  right: 0;
+  background-image: url("../images/#{find_me}.png");
   border: 0;
   display: block;
   height: 149px;
+  position: absolute;
+  right: 0;
+  top: 0;
   width: 149px;
 
   @include phone {
     visibility: hidden;
   }
-  @include mini {
+
+  @include tablet {
     visibility: hidden;
   }
 
