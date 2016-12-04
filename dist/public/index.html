@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie-edge">
+        <title>Find out what was No.1 on your birthday | Number One</title>
+        <meta name="description" content="Find what was No. 1 on your birthday!">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <link rel="stylesheet" href="styles/main.css">
+    </head>
+    <body>
+        <a href="https://github.com/tbtommyb" class="github-image"></a>
+        <div class="wrapper centered">
+            <hgroup class="header-holder text-block centered">
+                <span id="titleText">What was No. 1 on your birthday?</span>
+            </hgroup>
+            <section id="main">
+                <div class="date-holder">
+                    <form id="dateEntry" class="date-form centered">
+                        <input type="text" id="date" name="birthday" data-template="D MMM YYYY">
+                        <button class="date-form--button" type="submit" name="submit" id="date-submit">Go</button>
+                    </form>
+                </div>
+                <div class="record-holder text-block centered">
+                    <div id="record" class="record-result"></div>
+                </div>
+            </section>
+        </div>
+        <div class="videowrapper centered">
+            <div id="player"></div>
+        </div>
+        <script src="scripts/vendor.js"></script>
+        <script src="scripts/main.js"></script>
+
+</body>
+</html>
