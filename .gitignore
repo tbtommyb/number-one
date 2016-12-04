@@ -11,4 +11,3 @@ npm-debug.log
 **/.DS_Store
 app/public/styles/main.css
 app/public/styles/main.css.map
-dist
