@@ -4,7 +4,7 @@ const path = require('path');
 const jwt = require('jwt-simple');
 const bcrypt = require(path.join('..', 'data', 'bcrypt'));
 const users = require(path.join('..', 'data', 'users.js'));
-const secret = require(path.join('..', 'config.js'))();
+const secret = process.env.SECRET || require(path.join('..', 'config.js'))();
 
 module.exports = (req, res, next) => {
     users.getByName(req.user.name, (err, rows) => {
