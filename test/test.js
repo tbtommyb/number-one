@@ -2,9 +2,10 @@
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
+const server = require('../app/server/startServer');
 const should = require('should');
 const supertest = require('supertest');
-const request = supertest('http://localhost:9000/api');
+const request = supertest(`http://localhost:${process.env.PORT}/api`);
 const config = require('./config.js');
 const db = require('./db.js');
 

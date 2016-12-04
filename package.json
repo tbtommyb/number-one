@@ -44,9 +44,9 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "start": "node app/server/server.js",
-    "start:dist": "grunt build && nodemon dist/server/server.js",
+    "start": "node app/server/startServer.js",
+    "start:dist": "grunt build && nodemon dist/server/startServer.js",
     "build": "grunt build",
-    "test": "mocha test/test.js"
+    "test": "PORT=9002 mocha test/test.js"
   }
 }
