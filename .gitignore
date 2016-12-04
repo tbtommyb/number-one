@@ -5,12 +5,10 @@ app/bower_components
 .tmp
 test/bower_components
 test/config.js
-test/test.db
 app/server/private.key
 app/server/config.js
 npm-debug.log
 **/.DS_Store
-app/server/data/data.db
 app/public/styles/main.css
 app/public/styles/main.css.map
 dist
