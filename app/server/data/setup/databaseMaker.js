@@ -4,8 +4,6 @@ const sqlite3 = require('sqlite3').verbose();
 
 const file = path.join(__dirname, process.argv[2]);
 const exists = fs.existsSync(file);
-console.log(file)
-
 
 const inputData = JSON.parse(fs.readFileSync(path.join(__dirname, 'newData.json'), 'utf8'));
 
@@ -18,13 +16,14 @@ const db = new sqlite3.Database(file);
 
 db.serialize(function() {
     if (!exists) {
-        db.run('CREATE TABLE Data (id INT, date TEXT, title TEXT, artist TEXT, weeks INT)');
+        db.run('CREATE TABLE Data (date TEXT NOT NULL, title TEXT NOT NULL, artist TEXT NOT NULL, weeks INT NOT NULL);');
+        db.run('CREATE TABLE Users (password TEXT NOT NULL, admin BOOLEAN, name TEXT PRIMARY KEY UNIQUE NOT NULL);');
     }
 
-    const stmt = db.prepare('INSERT INTO Data (id, date, title, artist, weeks) VALUES (?, ?, ?, ?, ?)');
+    const stmt = db.prepare('INSERT INTO Data (date, title, artist, weeks) VALUES (?, ?, ?, ?);');
 
-    inputData.forEach((line, i) => {
-        stmt.run(i, line.Date, line.Title, line.Artist, line.Weeks);
+    inputData.forEach(line => {
+        stmt.run(line.Date, line.Title, line.Artist, line.Weeks);
     });
 
     stmt.finalize();

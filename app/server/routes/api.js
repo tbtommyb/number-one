@@ -51,9 +51,7 @@ apiRouter.use('/admin/users', require(path.join(__dirname, 'admin', 'users')));
 apiRouter.use('/admin/records', require(path.join(__dirname, 'admin', 'records')));
 
 apiRouter.use(function(err, req, res, next) {
-    res.status(err.status || 500).send({
-        err: err
-    });
+    res.status(err.status || 500).send(err);
 });
 
 module.exports = function() { return apiRouter; };

@@ -195,6 +195,10 @@ describe('Admin', function () {
 });
 
 describe('GET /users', function () {
+    before(function(done) {
+        db.run("INSERT INTO Users VALUES ('tester', 'false', 'number-one')");
+        done();
+    });
     it('should return 200 and a list of users', function (done) {
         request
             .get('/admin/users')
@@ -203,7 +207,7 @@ describe('GET /users', function () {
             .end(function (err, res) {
                 res.status.should.equal(200);
                 res.headers['content-type'].should.equal('application/json; charset=utf-8');
-                res.body.length.should.equal(4);
+                res.body.length.should.equal(2);
                 done();
             });
     });
@@ -226,12 +230,15 @@ describe('GET /users', function () {
             .set('x-access-token', config.admin_token)
             .expect(404, done);       
     });
-    it('non-admin users should be able to access their own details');
+    after(function(done) {
+        db.run("DELETE FROM Users WHERE name = 'number-one'");
+        done();
+    });
 });
 
 describe('PUT /users', function () {
     before(function(done) {
-        db.run("INSERT INTO Users VALUES ('tester9', 'tester', 'false')");
+        db.run("INSERT INTO Users VALUES ('tester', 'false', 'tester9')");
         done();
     });
     var invalidUser = {
@@ -272,12 +279,15 @@ describe('PUT /users', function () {
             .send(nonExistentUser)
             .expect(404, done);       
     });
-    it('should return an error if details provided are invalid');
+    after(function(done) {
+        db.run("DELETE FROM Users WHERE name LIKE 'tester%'");
+        done();
+    });
 });
 
 describe('DEL /users', function () {
     before(function(done) {
-        db.run("INSERT INTO Users VALUES ('tester10', 'tester', 'false')");
+        db.run("INSERT INTO Users VALUES ('tester', 'false', 'tester10')");
         done();
     });
     it('should return an error code if no username param provided', function (done) {
@@ -412,10 +422,18 @@ describe('PUT /records', function () {
     };
     var valid = {
         date: '2020-02-02',
-        artist: 'new artist',
+        artist: 'tester-new',
         title: 'new title',
         weeks: 10
     };
+    var test_rowID;
+    before(function (done) {
+        db.run("INSERT INTO Data VALUES ('2020-12-12', 'tester', 'tester', '1');", function(err) {
+            if(err) return console.log(err);
+            test_rowID = this.lastID;
+            done();
+        });
+    });
     it('should require a rowid url param', function (done) {
         request
             .put('/admin/records/')
@@ -442,11 +460,13 @@ describe('PUT /records', function () {
     });
     it('should return 200 if the update is successful', function (done) {
         request
-            .put('/admin/records/1351')
+            .put('/admin/records/'+test_rowID)
             .auth('admin', config.password)
             .set('x-access-token', config.admin_token)
             .send(valid)
             .expect(200, done);
     });
-    it('should return an error if details provided are invalid');   
+    after(function() {
+        db.run("DELETE FROM Data WHERE artist LIKE 'tester%'");
+    });
 });

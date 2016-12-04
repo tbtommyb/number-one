@@ -3,4 +3,4 @@
 const sqlite3 = require('sqlite3');
 const path = require('path');
 
-module.exports = new sqlite3.Database(path.join(__dirname, 'data.db'));
+module.exports = new sqlite3.Database(path.join(__dirname, process.env.DB || 'data.db'));
