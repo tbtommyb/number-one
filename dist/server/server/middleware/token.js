@@ -2,7 +2,7 @@
 
 const path = require('path');
 const jwt = require('jwt-simple');
-const secret = require(path.join('..', 'config'))();
+const secret = process.env.SECRET || require(path.join('..', 'config'))();
 
 module.exports = function(req, res, next) {
     const token = req.query.token || req.headers['x-access-token'];
