@@ -44,7 +44,8 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "start": "nodemon app/server/startServer.js",
+    "start": "nodemon dist/server/startServer.js",
+    "start:app": "nodemon app/server/startServer.js",
     "start:dist": "grunt build && nodemon dist/server/startServer.js",
     "build": "grunt build",
     "test": "DB='../../../test/test.db' PORT=9002 mocha test/test.js"
