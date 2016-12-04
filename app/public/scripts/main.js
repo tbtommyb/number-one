@@ -2,19 +2,20 @@ $(document).ready(function() {
     'use strict';
 
     var $dateEntry = $('#dateEntry');
-    var $textHolder = $('.textHolder');
-    var $recordHolder = $('.recordHolder');
+    var $headerHolder = $('.header-holder');
+    var $recordHolder = $('#record');
     var $record = $('#record');
     var player;
 
     // creates the drop down selection boxes
     $('#date').combodate({
         minYear: 1953,
-        format: 'YYYY-MM-DD'
+        format: 'YYYY-MM-DD',
+        customClass: 'date-form--input'
     });
 
     $(window).on('load resize', function() {
-        resizeText($textHolder);
+        resizeText($headerHolder);
         resizeText($recordHolder);
         setDateSpacing();
     });
