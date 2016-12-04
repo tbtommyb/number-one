@@ -45,7 +45,7 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "start": "nodemon dist/server/startServer.js",
+    "start": "node dist/server/startServer.js",
     "start:app": "nodemon app/server/startServer.js",
     "start:dist": "grunt build && nodemon dist/server/startServer.js",
     "build": "grunt build",
