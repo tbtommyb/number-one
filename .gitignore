@@ -5,6 +5,7 @@ app/bower_components
 .tmp
 test/bower_components
 test/config.js
+test/test.db
 app/server/private.key
 app/server/config.js
 npm-debug.log
