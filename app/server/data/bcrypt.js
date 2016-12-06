@@ -3,7 +3,7 @@
 const bcrypt = require('bcrypt');
 
 const encrypt = function(value, callback) {
-    bcrypt.genSalt(10, function(err, salt) {
+    bcrypt.genSalt(function(err, salt) {
         if (err) { return callback(err); }
         bcrypt.hash(value, salt, function(err, hash) {
             if (err) { return callback(err); }
