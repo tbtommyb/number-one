@@ -11,7 +11,8 @@ $(document).ready(function() {
     $('#date').combodate({
         minYear: 1953,
         format: 'YYYY-MM-DD',
-        customClass: 'date-form--input'
+        customClass: 'date-form--input',
+        errorClass: 'is-error'
     });
 
     $(window).on('load resize', function() {
@@ -22,6 +23,9 @@ $(document).ready(function() {
 
     $dateEntry.on('submit', function(e) {
         e.preventDefault();
+        if($('.combodate').hasClass('is-error')) {
+            return;
+        }
         var date = $(this).serialize().split('=')[1];
 
         $.ajax('/api/records/'+date, {
